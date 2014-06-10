@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy
+END
+snappy.cc
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/snappy.cc
+END
+snappy.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/snappy.h
+END
+snappy-sinksource.cc
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/snappy-sinksource.cc
+END
+snappy-sinksource.h
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/snappy-sinksource.h
+END
+snappy-stubs-internal.cc
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/snappy-stubs-internal.cc
+END
+snappy-stubs-internal.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/snappy-stubs-internal.h
+END
+snappy-internal.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/snappy-internal.h
+END
+snappy-stubs-public.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/snappy-stubs-public.h
+END
+config.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/ps/se/!svn/ver/360980/trunk/fatman/nearline/common/compression/snappy/config.h
+END
