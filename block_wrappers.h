@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 // This file is modified from `protobuf-zerocopy-compression':
 //   https://github.com/JohannesEbke/protobuf-zerocopy-compression
@@ -11,8 +11,8 @@
 // Author: peter.waller@gmail.com (Peter Waller)
 // Author: johannes@ebke.org (Johannes Ebke)
 
-#ifndef _SOFA_PBRPC_BLOCK_WRAPPER_H_
-#define _SOFA_PBRPC_BLOCK_WRAPPER_H_
+#ifndef _TRIDENT_BLOCK_WRAPPER_H_
+#define _TRIDENT_BLOCK_WRAPPER_H_
 
 #include <google/protobuf/io/zero_copy_stream.h>
 using google::protobuf::io::ZeroCopyInputStream;
@@ -133,6 +133,6 @@ class LZ4OutputStream : public BlockCompressionOutputStream {
 
 } // namepsace trident
 
-#endif // _SOFA_PBRPC_BLOCK_WRAPPER_H_
+#endif // _TRIDENT_BLOCK_WRAPPER_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

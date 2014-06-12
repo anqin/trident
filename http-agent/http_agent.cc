@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 #include <google/protobuf/dynamic_message.h>
 #include <google/protobuf/text_format.h>

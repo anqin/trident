@@ -2,7 +2,7 @@
  *
  * Copyright (c) 2013 Baidu.com, Inc. All Rights Reserved
  *
- * Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+ * 
  * CreateTime: 2013-02-22
  *
  * Description:
@@ -14,7 +14,7 @@
 
 int main()
 {
-    SOFA_PBRPC_SET_LOG_LEVEL(NOTICE);
+    TRIDENT_SET_LOG_LEVEL(NOTICE);
 
     // Define an rpc client.
     trident::RpcClientOptions client_options;

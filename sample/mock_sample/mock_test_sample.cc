@@ -2,7 +2,7 @@
  * 
  * Copyright (c) 2013 Baidu.com, Inc. All Rights Reserved
  *
- * Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+ * 
  * CreateTime: 2013-04-03
  * 
  * Description: 
@@ -44,10 +44,10 @@ protected:
     MockTest() {}
     virtual ~MockTest() {}
     virtual void SetUp() {
-        SOFA_PBRPC_SET_LOG_LEVEL(NOTICE);
+        TRIDENT_SET_LOG_LEVEL(NOTICE);
 
         // enable mock and register mock method
-        SOFA_PBRPC_ENABLE_MOCK();
+        TRIDENT_ENABLE_MOCK();
 
         _rpc_client = new RpcClient();
     }
@@ -60,11 +60,11 @@ protected:
  
 TEST_F(MockTest, test_registered_mock_sync_success)
 {
-    SOFA_PBRPC_CLEAR_MOCK_METHOD();
-    SOFA_PBRPC_REGISTER_MOCK_METHOD("trident.pbrpc.test.EchoServer.Echo",
+    TRIDENT_CLEAR_MOCK_METHOD();
+    TRIDENT_REGISTER_MOCK_METHOD("trident.pbrpc.test.EchoServer.Echo",
             NewPermanentExtClosure(&MockEchoSuccess));
 
-    RpcChannel mock_channel(_rpc_client, SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
+    RpcChannel mock_channel(_rpc_client, TRIDENT_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
     EchoServer_Stub* stub = new EchoServer_Stub(&mock_channel);
     RpcController* cntl = new trident::RpcController();
     EchoRequest* request = new EchoRequest();
@@ -87,11 +87,11 @@ TEST_F(MockTest, test_registered_mock_sync_success)
 
 TEST_F(MockTest, test_registered_mock_sync_fail)
 {
-    SOFA_PBRPC_CLEAR_MOCK_METHOD();
-    SOFA_PBRPC_REGISTER_MOCK_METHOD("trident.pbrpc.test.EchoServer.Echo",
+    TRIDENT_CLEAR_MOCK_METHOD();
+    TRIDENT_REGISTER_MOCK_METHOD("trident.pbrpc.test.EchoServer.Echo",
             NewPermanentExtClosure(&MockEchoFail));
 
-    RpcChannel mock_channel(_rpc_client, SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
+    RpcChannel mock_channel(_rpc_client, TRIDENT_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
     EchoServer_Stub* stub = new EchoServer_Stub(&mock_channel);
     RpcController* cntl = new trident::RpcController();
     EchoRequest* request = new EchoRequest();
@@ -120,11 +120,11 @@ void EchoCallback(trident::RpcController* cntl, bool* callbacked)
 }
 TEST_F(MockTest, test_registered_mock_async_fail)
 {
-    SOFA_PBRPC_CLEAR_MOCK_METHOD();
-    SOFA_PBRPC_REGISTER_MOCK_METHOD("trident.pbrpc.test.EchoServer.Echo",
+    TRIDENT_CLEAR_MOCK_METHOD();
+    TRIDENT_REGISTER_MOCK_METHOD("trident.pbrpc.test.EchoServer.Echo",
             NewPermanentExtClosure(&MockEchoFail));
 
-    RpcChannel mock_channel(_rpc_client, SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
+    RpcChannel mock_channel(_rpc_client, TRIDENT_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
     EchoServer_Stub* stub = new EchoServer_Stub(&mock_channel);
     RpcController* cntl = new trident::RpcController();
     EchoRequest* request = new EchoRequest();
@@ -149,9 +149,9 @@ TEST_F(MockTest, test_registered_mock_async_fail)
 
 TEST_F(MockTest, test_unregistered_method)
 {
-    SOFA_PBRPC_CLEAR_MOCK_METHOD();
+    TRIDENT_CLEAR_MOCK_METHOD();
 
-    RpcChannel mock_channel(_rpc_client, SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
+    RpcChannel mock_channel(_rpc_client, TRIDENT_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
     EchoServer_Stub* stub = new EchoServer_Stub(&mock_channel);
     RpcController* cntl = new trident::RpcController();
     EchoRequest* request = new EchoRequest();

@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_RPC_TIMEOUT_MANAGER_H_
-#define _SOFA_PBRPC_RPC_TIMEOUT_MANAGER_H_
+#ifndef _TRIDENT_RPC_TIMEOUT_MANAGER_H_
+#define _TRIDENT_RPC_TIMEOUT_MANAGER_H_
 
 #include <queue>
 #include <set>
@@ -34,7 +34,7 @@ public:
 
     ~RpcTimeoutManager()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
         stop();
     }
 
@@ -271,12 +271,12 @@ private:
 
     TimerWorkerPtr _timer_worker;
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcTimeoutManager);
+    TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(RpcTimeoutManager);
 }; // class RpcTimeoutManager
 
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_RPC_TIMEOUT_MANAGER_H_
+#endif // _TRIDENT_RPC_TIMEOUT_MANAGER_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

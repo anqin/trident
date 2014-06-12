@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_COMMON_H_
-#define _SOFA_PBRPC_COMMON_H_
+#ifndef _TRIDENT_COMMON_H_
+#define _TRIDENT_COMMON_H_
 
 #include <google/protobuf/stubs/common.h>
 #include <trident/smart_ptr/smart_ptr.hpp>
@@ -36,10 +36,10 @@ static const uint32 kuint32max = ::google::protobuf::kuint32max;
 static const uint64 kuint64max = ::google::protobuf::kuint64max;
 
 /////////////// util macros /////////////
-#define SOFA_PBRPC_PP_CAT(a, b) SOFA_PBRPC_PP_CAT_I(a, b)
-#define SOFA_PBRPC_PP_CAT_I(a, b) a ## b
+#define TRIDENT_PP_CAT(a, b) TRIDENT_PP_CAT_I(a, b)
+#define TRIDENT_PP_CAT_I(a, b) a ## b
 
-#define SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(TypeName)    \
+#define TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(TypeName)    \
     TypeName(const TypeName&);                       \
     void operator=(const TypeName&)
 
@@ -61,7 +61,7 @@ void set_log_level(LogLevel level);
 void log_handler(LogLevel level, const char* filename, int line, const char *fmt, ...);
 } // namespace internal
 
-#define SOFA_PBRPC_SET_LOG_LEVEL(level) \
+#define TRIDENT_SET_LOG_LEVEL(level) \
     ::trident::internal::set_log_level(::trident::LOG_LEVEL_##level)
 
 #define SLOG(level, fmt, arg...) \
@@ -95,6 +95,6 @@ void log_handler(LogLevel level, const char* filename, int line, const char *fmt
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_COMMON_H_
+#endif // _TRIDENT_COMMON_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

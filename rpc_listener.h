@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_RPC_LISTENER_H_
-#define _SOFA_PBRPC_RPC_LISTENER_H_
+#ifndef _TRIDENT_RPC_LISTENER_H_
+#define _TRIDENT_RPC_LISTENER_H_
 
 #include <trident/common_internal.h>
 #include <trident/rpc_endpoint.h>
@@ -35,14 +35,14 @@ public:
         , _acceptor(io_service)
         , _is_closed(false)
     {
-        SOFA_PBRPC_INC_RESOURCE_COUNTER(RpcListener);
+        TRIDENT_INC_RESOURCE_COUNTER(RpcListener);
     }
 
     virtual ~RpcListener()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
         close();
-        SOFA_PBRPC_DEC_RESOURCE_COUNTER(RpcListener);
+        TRIDENT_DEC_RESOURCE_COUNTER(RpcListener);
     }
 
     void close()
@@ -225,12 +225,12 @@ private:
     volatile bool _is_closed;
     MutexLock _close_lock;
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcListener);
+    TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(RpcListener);
 }; // class RpcListener
 
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_RPC_LISTENER_H_
+#endif // _TRIDENT_RPC_LISTENER_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

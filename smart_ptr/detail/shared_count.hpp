@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 // This file is modified from boost.
 //
@@ -12,8 +12,8 @@
 //
 // See library home page at http://www.boost.org/libs/system
 
-#ifndef _SOFA_PBRPC_SMART_PTR_DETAIL_SHARED_COUNT_
-#define _SOFA_PBRPC_SMART_PTR_DETAIL_SHARED_COUNT_
+#ifndef _TRIDENT_SMART_PTR_DETAIL_SHARED_COUNT_
+#define _TRIDENT_SMART_PTR_DETAIL_SHARED_COUNT_
 
 #include <trident/smart_ptr/checked_delete.hpp>
 #include <trident/smart_ptr/bad_weak_ptr.hpp>
@@ -319,6 +319,6 @@ inline shared_count::shared_count( weak_count const & r, sp_nothrow_tag ): pi_( 
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_SMART_PTR_DETAIL_SHARED_COUNT_
+#endif // _TRIDENT_SMART_PTR_DETAIL_SHARED_COUNT_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_RPC_BYTE_STREAM_H_
-#define _SOFA_PBRPC_RPC_BYTE_STREAM_H_
+#ifndef _TRIDENT_RPC_BYTE_STREAM_H_
+#define _TRIDENT_RPC_BYTE_STREAM_H_
 
 #include <cstdio> // for snprintf()
 #include <cstring> // for memset()
@@ -29,17 +29,17 @@ public:
         , _socket(io_service)
         , _status(STATUS_INIT)
     {
-        SOFA_PBRPC_INC_RESOURCE_COUNTER(RpcByteStream);
+        TRIDENT_INC_RESOURCE_COUNTER(RpcByteStream);
         memset(_error_message, 0, sizeof(_error_message));
     }
 
     virtual ~RpcByteStream()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
         close("stream destructed");
         boost::system::error_code ec;
         _socket.close(ec);
-        SOFA_PBRPC_DEC_RESOURCE_COUNTER(RpcByteStream);
+        TRIDENT_DEC_RESOURCE_COUNTER(RpcByteStream);
     }
 
     // Close the channel.
@@ -69,7 +69,7 @@ public:
     // Connect the channel.  Used by client.
     void async_connect()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         _last_rw_ticks = _ticks;
 
@@ -84,7 +84,7 @@ public:
     // * the "socket" is opened.
     void set_socket_connected()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         _last_rw_ticks = _ticks;
 
@@ -192,7 +192,7 @@ protected:
     // Async read some data from the stream.
     void async_read_some(char* data, size_t size)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         _socket.async_read_some(boost::asio::buffer(data, size),
                 boost::bind(&RpcByteStream::on_read_some, 
@@ -202,7 +202,7 @@ protected:
     // Async write some data to the stream.
     void async_write_some(const char* data, size_t size)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
         
         _socket.async_write_some(boost::asio::buffer(data, size),
                 boost::bind(&RpcByteStream::on_write_some, 
@@ -230,7 +230,7 @@ private:
     // Callback of "async_connect()".
     void on_connect(const boost::system::error_code& error)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (error)
         {
@@ -310,6 +310,6 @@ private:
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_RPC_BYTE_STREAM_H_
+#endif // _TRIDENT_RPC_BYTE_STREAM_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

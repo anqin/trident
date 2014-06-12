@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_FUNC_TRACER_H_
-#define _SOFA_PBRPC_FUNC_TRACER_H_
+#ifndef _TRIDENT_FUNC_TRACER_H_
+#define _TRIDENT_FUNC_TRACER_H_
 
 #include <boost/current_function.hpp>
 
@@ -49,14 +49,14 @@ private:
 
 } // namespace trident
 
-#if defined( SOFA_PBRPC_ENABLE_FUNCTION_TRACE )
-# define SOFA_PBRPC_FUNCTION_TRACE \
+#if defined( TRIDENT_ENABLE_FUNCTION_TRACE )
+# define TRIDENT_FUNCTION_TRACE \
     ::trident::internal::FuncTracer __trident_function_tracer__( \
             __FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
 #else
-# define SOFA_PBRPC_FUNCTION_TRACE
-#endif // defined( SOFA_PBRPC_ENABLE_FUNCTION_TRACE )
+# define TRIDENT_FUNCTION_TRACE
+#endif // defined( TRIDENT_ENABLE_FUNCTION_TRACE )
 
-#endif // _SOFA_PBRPC_FUNC_TRACER_H_
+#endif // _TRIDENT_FUNC_TRACER_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

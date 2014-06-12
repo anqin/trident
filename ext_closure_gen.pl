@@ -10,8 +10,8 @@ my $kMaxArgs = 10;
 
 sub PrintHead()
 {
-    print "#ifndef _SOFA_PBRPC_EXT_CLOSURE_H_\n";
-    print "#define _SOFA_PBRPC_EXT_CLOSURE_H_\n\n";
+    print "#ifndef _TRIDENT_EXT_CLOSURE_H_\n";
+    print "#define _TRIDENT_EXT_CLOSURE_H_\n\n";
 
     print "/////////////////////////////////////////////////////\n";
     print "// DO NOT EDIT!!!\n";
@@ -121,7 +121,7 @@ sub PrintEnd
     print "\n\n";
     print "} // namespace trident\n\n";
 
-    print "#endif // _SOFA_PBRPC_EXT_CLOSURE_H_\n";
+    print "#endif // _TRIDENT_EXT_CLOSURE_H_\n";
 }
 
 sub PrintExtClosureBase()

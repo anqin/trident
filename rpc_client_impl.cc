@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 #include <algorithm>
 #include <deque>
@@ -58,7 +58,7 @@ RpcClientImpl::RpcClientImpl(const RpcClientOptions& options)
 
 RpcClientImpl::~RpcClientImpl()
 {
-    SOFA_PBRPC_FUNCTION_TRACE;
+    TRIDENT_FUNCTION_TRACE;
     Stop();
 }
 
@@ -447,7 +447,7 @@ void RpcClientImpl::DoneCallback(google::protobuf::Message* response,
 
 void RpcClientImpl::TimerMaintain(const PTime& now)
 {
-    SOFA_PBRPC_FUNCTION_TRACE;
+    TRIDENT_FUNCTION_TRACE;
 
     int64 now_ticks = (now - _epoch_time).ticks();
 
@@ -545,14 +545,14 @@ void RpcClientImpl::TimerMaintain(const PTime& now)
         _last_print_connection_ticks = now_ticks;
 #if defined( LOG )
         LOG(INFO) << "TimerMaintain(): countof(RpcListener)="
-                   << SOFA_PBRPC_GET_RESOURCE_COUNTER(RpcListener)
-                   << ", countof(RpcByteStream)=" << SOFA_PBRPC_GET_RESOURCE_COUNTER(RpcByteStream)
+                   << TRIDENT_GET_RESOURCE_COUNTER(RpcListener)
+                   << ", countof(RpcByteStream)=" << TRIDENT_GET_RESOURCE_COUNTER(RpcByteStream)
                    << ", live_stream_count=" << _live_stream_count;
 #else
         SLOG(INFO, "TimerMaintain(): countof(RpcListener)=%d"
                 ", countof(RpcByteStream)=%d, live_stream_count=%d",
-                SOFA_PBRPC_GET_RESOURCE_COUNTER(RpcListener),
-                SOFA_PBRPC_GET_RESOURCE_COUNTER(RpcByteStream),
+                TRIDENT_GET_RESOURCE_COUNTER(RpcListener),
+                TRIDENT_GET_RESOURCE_COUNTER(RpcByteStream),
                 _live_stream_count);
 #endif
     }

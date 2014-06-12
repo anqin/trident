@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_BUF_HANDLE_H_
-#define _SOFA_PBRPC_BUF_HANDLE_H_
+#ifndef _TRIDENT_BUF_HANDLE_H_
+#define _TRIDENT_BUF_HANDLE_H_
 
 namespace trident {
 
@@ -33,6 +33,6 @@ struct BufHandle
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_BUF_HANDLE_H_
+#endif // _TRIDENT_BUF_HANDLE_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

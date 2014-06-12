@@ -2,15 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 #include <trident/common_internal.h>
 
 namespace trident {
 
 
-SOFA_PBRPC_DEFINE_RESOURCE_COUNTER(RpcByteStream);
-SOFA_PBRPC_DEFINE_RESOURCE_COUNTER(RpcListener);
+TRIDENT_DEFINE_RESOURCE_COUNTER(RpcByteStream);
+TRIDENT_DEFINE_RESOURCE_COUNTER(RpcListener);
 
 
 } // namespace trident

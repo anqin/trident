@@ -2,7 +2,7 @@
  *
  * Copyright (c) 2013 Baidu.com, Inc. All Rights Reserved
  *
- * Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+ * 
  * CreateTime: 2013-02-22
  *
  * Description:
@@ -41,7 +41,7 @@ static void SignalIntHandler(int /* sig */)
 
 int main(int /*argc*/, char** /*argv*/)
 {
-    SOFA_PBRPC_SET_LOG_LEVEL(NOTICE);
+    TRIDENT_SET_LOG_LEVEL(NOTICE);
 
     // Define an rpc server.
     trident::RpcServerOptions options;

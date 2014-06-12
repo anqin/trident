@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_RPC_MESSAGE_STREAM_H_
-#define _SOFA_PBRPC_RPC_MESSAGE_STREAM_H_
+#ifndef _TRIDENT_RPC_MESSAGE_STREAM_H_
+#define _TRIDENT_RPC_MESSAGE_STREAM_H_
 
 #include <deque>
 
@@ -86,7 +86,7 @@ public:
             const ReadBufferPtr& message,
             const SendCookie& cookie)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (is_closed())
         {
@@ -201,7 +201,7 @@ protected:
 private:
     virtual bool on_connected()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         // prepare receiving
         reset_receiving_env();
@@ -218,7 +218,7 @@ private:
             const boost::system::error_code& error,
             std::size_t bytes_transferred)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (error)
         {
@@ -280,7 +280,7 @@ private:
             const boost::system::error_code& error,
             std::size_t bytes_transferred)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (error)
         {
@@ -355,7 +355,7 @@ private:
             const ReadBufferPtr& message,
             const SendCookie& cookie)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         ScopedLocker<FastLock> _(_pending_lock);
         _pending_calls.push_back(PendingItem(message, cookie));
@@ -371,7 +371,7 @@ private:
             const ReadBufferPtr& message,
             const SendCookie& cookie)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         _swapped_calls.push_back(PendingItem(message, cookie));
         ++_swapped_message_count;
@@ -386,7 +386,7 @@ private:
             ReadBufferPtr* message,
             SendCookie* cookie)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (_swapped_calls.empty() && _pending_message_count > 0)
         {
@@ -428,7 +428,7 @@ private:
     // If succeed, the token must be acquired.
     bool try_start_receive()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (_receive_token == TOKEN_LOCK)
         {
@@ -477,7 +477,7 @@ private:
     // If succeed, the token must be acquired.
     bool try_start_send()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (_send_token == TOKEN_LOCK)
         {
@@ -546,7 +546,7 @@ private:
     bool split_and_process_message(char* data, int size,
             std::deque<ReceivedItem>* received_messages)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         while (size > 0)
         {
@@ -782,6 +782,6 @@ private:
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_RPC_MESSAGE_STREAM_H_
+#endif // _TRIDENT_RPC_MESSAGE_STREAM_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_COMMON_INTERNAL_H_
-#define _SOFA_PBRPC_COMMON_INTERNAL_H_
+#ifndef _TRIDENT_COMMON_INTERNAL_H_
+#define _TRIDENT_COMMON_INTERNAL_H_
 
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
@@ -65,23 +65,23 @@ typedef trident::shared_ptr<FlowController> FlowControllerPtr;
 class WaitEvent;
 typedef trident::shared_ptr<WaitEvent> WaitEventPtr;
 
-#define SOFA_PBRPC_DECLARE_RESOURCE_COUNTER(name_) \
+#define TRIDENT_DECLARE_RESOURCE_COUNTER(name_) \
     extern trident::AtomicCounter g_trident_counter_##name_
-#define SOFA_PBRPC_DEFINE_RESOURCE_COUNTER(name_) \
+#define TRIDENT_DEFINE_RESOURCE_COUNTER(name_) \
     trident::AtomicCounter g_trident_counter_##name_(0)
-#define SOFA_PBRPC_INC_RESOURCE_COUNTER(name_) \
+#define TRIDENT_INC_RESOURCE_COUNTER(name_) \
     ++g_trident_counter_##name_
-#define SOFA_PBRPC_DEC_RESOURCE_COUNTER(name_) \
+#define TRIDENT_DEC_RESOURCE_COUNTER(name_) \
     --g_trident_counter_##name_
-#define SOFA_PBRPC_GET_RESOURCE_COUNTER(name_) \
+#define TRIDENT_GET_RESOURCE_COUNTER(name_) \
     static_cast<int>(g_trident_counter_##name_)
 
-SOFA_PBRPC_DECLARE_RESOURCE_COUNTER(RpcByteStream);
-SOFA_PBRPC_DECLARE_RESOURCE_COUNTER(RpcListener);
+TRIDENT_DECLARE_RESOURCE_COUNTER(RpcByteStream);
+TRIDENT_DECLARE_RESOURCE_COUNTER(RpcListener);
 
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_COMMON_INTERNAL_H_
+#endif // _TRIDENT_COMMON_INTERNAL_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

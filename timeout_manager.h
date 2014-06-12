@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_TIMEOUT_MANAGER_H_
-#define _SOFA_PBRPC_TIMEOUT_MANAGER_H_
+#ifndef _TRIDENT_TIMEOUT_MANAGER_H_
+#define _TRIDENT_TIMEOUT_MANAGER_H_
 
 #include <trident/common.h>
 #include <trident/ext_closure.h>
@@ -92,12 +92,12 @@ public:
 private:
     trident::shared_ptr<TimeoutManagerImpl> _imp;
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(TimeoutManager);
+    TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(TimeoutManager);
 };
 
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_TIMEOUT_MANAGER_H_
+#endif // _TRIDENT_TIMEOUT_MANAGER_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

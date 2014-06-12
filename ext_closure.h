@@ -1,5 +1,5 @@
-#ifndef _SOFA_PBRPC_EXT_CLOSURE_H_
-#define _SOFA_PBRPC_EXT_CLOSURE_H_
+#ifndef _TRIDENT_EXT_CLOSURE_H_
+#define _TRIDENT_EXT_CLOSURE_H_
 
 /////////////////////////////////////////////////////
 // DO NOT EDIT!!!
@@ -13626,4 +13626,4 @@ ExtClosure<R (Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9, Arg10)>* New
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_EXT_CLOSURE_H_
+#endif // _TRIDENT_EXT_CLOSURE_H_

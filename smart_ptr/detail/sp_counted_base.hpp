@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 // This file is modified from boost.
 //
@@ -12,11 +12,11 @@
 //
 // See library home page at http://www.boost.org/libs/system
 
-#ifndef _SOFA_PBRPC_SMART_PTR_DETAIL_SP_COUNTED_BASE_
-#define _SOFA_PBRPC_SMART_PTR_DETAIL_SP_COUNTED_BASE_
+#ifndef _TRIDENT_SMART_PTR_DETAIL_SP_COUNTED_BASE_
+#define _TRIDENT_SMART_PTR_DETAIL_SP_COUNTED_BASE_
 
 #include <trident/smart_ptr/detail/sp_counted_base_gcc_x86.hpp>
 
-#endif // _SOFA_PBRPC_SMART_PTR_DETAIL_SP_COUNTED_BASE_
+#endif // _TRIDENT_SMART_PTR_DETAIL_SP_COUNTED_BASE_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

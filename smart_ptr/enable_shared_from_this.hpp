@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 // This file is modified from boost.
 //
@@ -12,8 +12,8 @@
 //
 // See library home page at http://www.boost.org/libs/system
 
-#ifndef _SOFA_PBRPC_SMART_PTR_ENABLE_SHARED_FROM_THIS_
-#define _SOFA_PBRPC_SMART_PTR_ENABLE_SHARED_FROM_THIS_
+#ifndef _TRIDENT_SMART_PTR_ENABLE_SHARED_FROM_THIS_
+#define _TRIDENT_SMART_PTR_ENABLE_SHARED_FROM_THIS_
 
 #include <trident/smart_ptr/weak_ptr.hpp>
 #include <trident/smart_ptr/shared_ptr.hpp>
@@ -77,6 +77,6 @@ private:
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_SMART_PTR_ENABLE_SHARED_FROM_THIS_
+#endif // _TRIDENT_SMART_PTR_ENABLE_SHARED_FROM_THIS_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

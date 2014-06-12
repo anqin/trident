@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_RPC_CLIENT_STREAM_H_
-#define _SOFA_PBRPC_RPC_CLIENT_STREAM_H_
+#ifndef _TRIDENT_RPC_CLIENT_STREAM_H_
+#define _TRIDENT_RPC_CLIENT_STREAM_H_
 
 #include <trident/rpc_message_stream.h>
 #include <trident/rpc_controller_impl.h>
@@ -23,7 +23,7 @@ public:
 
     virtual ~RpcClientStream() 
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
         close("stream destructed");
         for (ControllerMap::iterator it = _controller_map.begin();
                 it != _controller_map.end(); ++it)
@@ -34,7 +34,7 @@ public:
 
     void call_method(const RpcControllerImplPtr& cntl) 
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (is_closed())
         {
@@ -63,7 +63,7 @@ public:
 private:
     virtual void on_closed()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         ControllerMap tmp_map;
         {
@@ -82,7 +82,7 @@ private:
             const ReadBufferPtr& /* request_message */,
             const RpcControllerImplPtr& cntl)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         // if already done (may be done by timeout manager),
         // should cancel sending.
@@ -93,7 +93,7 @@ private:
             const ReadBufferPtr& request_message,
             const RpcControllerImplPtr& cntl)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         // the request has been sent.
         cntl->NotifyRequestSent(_local_endpoint, request_message->TotalCount());
@@ -104,7 +104,7 @@ private:
             const ReadBufferPtr& /* request_message */,
             const RpcControllerImplPtr& cntl)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         // TODO more efficient sync map
         // remove the call handle from map
@@ -122,7 +122,7 @@ private:
             int meta_size,
             int64 data_size)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         RpcMeta meta;
         if (!meta.ParseFromBoundedZeroCopyStream(message.get(), meta_size))
@@ -243,12 +243,12 @@ private:
     ControllerMap _controller_map;
     FastLock _controller_map_lock;
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcClientStream);
+    TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(RpcClientStream);
 }; // class RpcClientStream
 
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_RPC_CLIENT_STREAM_H_
+#endif // _TRIDENT_RPC_CLIENT_STREAM_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

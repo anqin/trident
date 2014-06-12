@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#define SOFA_PBRPC_TRAN_BUF_BLOCK_SIZE 32
+#define TRIDENT_TRAN_BUF_BLOCK_SIZE 32
 
 #include <cstdlib>
 #include <cstring>

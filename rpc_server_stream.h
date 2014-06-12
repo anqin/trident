@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_RPC_SERVER_STREAM_H_
-#define _SOFA_PBRPC_RPC_SERVER_STREAM_H_
+#ifndef _TRIDENT_RPC_SERVER_STREAM_H_
+#define _TRIDENT_RPC_SERVER_STREAM_H_
 
 #include <trident/rpc_message_stream.h>
 #include <trident/rpc_error_code.h>
@@ -37,7 +37,7 @@ public:
 
     virtual ~RpcServerStream() 
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
         close("stream destructed");
     }
 
@@ -61,7 +61,7 @@ public:
     void send_response(const ReadBufferPtr& message, 
             const SendResponseCallback& callback)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         async_send_message(message, callback);
     }
@@ -69,7 +69,7 @@ public:
 private:
     virtual void on_closed()
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         // do nothing
     }
@@ -78,7 +78,7 @@ private:
             const ReadBufferPtr& /* response_message */,
             const SendResponseCallback& /* callback */)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         return true;
     }
@@ -87,7 +87,7 @@ private:
             const ReadBufferPtr& /* response_message */,
             const SendResponseCallback& callback)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (callback) callback(RPC_SUCCESS);
     }
@@ -97,7 +97,7 @@ private:
             const ReadBufferPtr& /* response_message */,
             const SendResponseCallback& callback)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         if (callback) callback(error_code);
     }
@@ -107,7 +107,7 @@ private:
             int meta_size,
             int64 data_size)
     {
-        SOFA_PBRPC_FUNCTION_TRACE;
+        TRIDENT_FUNCTION_TRACE;
 
         RpcMeta meta;
         if (!meta.ParseFromBoundedZeroCopyStream(message.get(), meta_size))
@@ -161,6 +161,6 @@ private:
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_RPC_SERVER_STREAM_H_
+#endif // _TRIDENT_RPC_SERVER_STREAM_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

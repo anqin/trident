@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_THREAD_GROUP_IMPL_H_
-#define _SOFA_PBRPC_THREAD_GROUP_IMPL_H_
+#ifndef _TRIDENT_THREAD_GROUP_IMPL_H_
+#define _TRIDENT_THREAD_GROUP_IMPL_H_
 
 #include <unistd.h>
 #include <pthread.h>
@@ -291,12 +291,12 @@ private:
     pthread_t* _threads;
     ThreadParam* _thread_params;
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(ThreadGroupImpl);
+    TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(ThreadGroupImpl);
 };
 
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_THREAD_GROUP_IMPL_H_
+#endif // _TRIDENT_THREAD_GROUP_IMPL_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+//
 
-#ifndef _SOFA_PBPRC_MURMUR_HASH_H_
-#define _SOFA_PBPRC_MURMUR_HASH_H_
+#ifndef _TRIDENT_MURMUR_HASH_H_
+#define _TRIDENT_MURMUR_HASH_H_
 
 #include <stdint.h>
 
@@ -15,7 +15,7 @@ namespace trident {
 inline uint64_t murmurhash(const void * key, int len)
 {
     const uint64_t m = 0xc6a4a7935bd1e995;
-    const int r = 47; 
+    const int r = 47;
     uint64_t h = 0x5bd1e995;
 
     const uint64_t * data = (const uint64_t *)key;
@@ -24,13 +24,13 @@ inline uint64_t murmurhash(const void * key, int len)
     while(data != end) {
         uint64_t k = *data++;
 
-        k *= m;  
-        k ^= k >> r;  
-        k *= m;  
+        k *= m;
+        k ^= k >> r;
+        k *= m;
 
         h ^= k;
-        h *= m;  
-    }   
+        h *= m;
+    }
 
     const unsigned char * data2 = (const unsigned char*)data;
 
@@ -38,13 +38,13 @@ inline uint64_t murmurhash(const void * key, int len)
         case 7:
             h ^= uint64_t(data2[6]) << 48;
         case 6:
-            h ^= uint64_t(data2[5]) << 40; 
+            h ^= uint64_t(data2[5]) << 40;
         case 5:
-            h ^= uint64_t(data2[4]) << 32; 
+            h ^= uint64_t(data2[4]) << 32;
         case 4:
-            h ^= uint64_t(data2[3]) << 24; 
+            h ^= uint64_t(data2[3]) << 24;
         case 3:
-            h ^= uint64_t(data2[2]) << 16; 
+            h ^= uint64_t(data2[2]) << 16;
         case 2:
             h ^= uint64_t(data2[1]) << 8;
         case 1:
@@ -53,7 +53,7 @@ inline uint64_t murmurhash(const void * key, int len)
             break;
         default:
             break;
-    };  
+    };
 
     h ^= h >> r;
     h *= m;
@@ -70,6 +70,6 @@ inline uint64_t murmurhash(const char* str)
 
 } // namespace trident
 
-#endif // _SOFA_PBPRC_MURMUR_HASH_H_
+#endif // _TRIDENT_MURMUR_HASH_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

@@ -1,5 +1,5 @@
-#ifndef _SOFA_PBRPC_CLOSURE_H_
-#define _SOFA_PBRPC_CLOSURE_H_
+#ifndef _TRIDENT_CLOSURE_H_
+#define _TRIDENT_CLOSURE_H_
 
 /////////////////////////////////////////////////////
 // DO NOT EDIT!!!
@@ -998,4 +998,4 @@ ClosureBase* NewPermanentClosure(void(*function)(PreArg1, PreArg2, PreArg3, PreA
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_CLOSURE_H_
+#endif // _TRIDENT_CLOSURE_H_

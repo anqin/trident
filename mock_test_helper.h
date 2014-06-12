@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_MOCK_TEST_HELPER_H_
-#define _SOFA_PBRPC_MOCK_TEST_HELPER_H_
+#ifndef _TRIDENT_MOCK_TEST_HELPER_H_
+#define _TRIDENT_MOCK_TEST_HELPER_H_
 
 #include <google/protobuf/message.h>
 #include <google/protobuf/service.h>
@@ -51,7 +51,7 @@ protected:
     MockTestHelper();
 
 private:
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(MockTestHelper);
+    TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(MockTestHelper);
 };
 
 extern bool g_enable_mock;
@@ -63,13 +63,13 @@ extern void disable_mock();
 
 // Enable or disable the mock feature.  Default disabled.
 // The mock channel and mock methods will take effect iff mock enabled.
-#define SOFA_PBRPC_ENABLE_MOCK() ::trident::enable_mock()
-#define SOFA_PBRPC_DISABLE_MOCK() ::trident::disable_mock()
+#define TRIDENT_ENABLE_MOCK() ::trident::enable_mock()
+#define TRIDENT_DISABLE_MOCK() ::trident::disable_mock()
 
-// If you create a channel with address prefix of SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX, then the
+// If you create a channel with address prefix of TRIDENT_MOCK_CHANNEL_ADDRESS_PREFIX, then the
 // channel is a mock channel.  The mock channel will not create real socket connection, but
 // just uses mock methods.
-#define SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX "/mock/"
+#define TRIDENT_MOCK_CHANNEL_ADDRESS_PREFIX "/mock/"
 
 // Register a mock method implement.  If mock enabled, all channels will prefer to call mock
 // method first. If the corresponding mock method is not registered, then call the real method.
@@ -79,15 +79,15 @@ extern void disable_mock();
 //
 // For example:
 //     MockMethodHookFunction* mock_method = trident::NewPermanentExtClosure(&MockEcho);
-//     SOFA_PBRPC_REGISTER_MOCK_METHOD("trident.pbrpc.test.EchoServer.Echo", mock_method);
-#define SOFA_PBRPC_REGISTER_MOCK_METHOD(method_name, mock_method) \
+//     TRIDENT_REGISTER_MOCK_METHOD("trident.pbrpc.test.EchoServer.Echo", mock_method);
+#define TRIDENT_REGISTER_MOCK_METHOD(method_name, mock_method) \
     ::trident::MockTestHelper::GlobalInstance()->RegisterMockMethod(method_name, (mock_method))
 
 // Clear all registered mock methods.  This will not delete the cleared hook functions, which
 // are take ownership by user.
-#define SOFA_PBRPC_CLEAR_MOCK_METHOD() \
+#define TRIDENT_CLEAR_MOCK_METHOD() \
     ::trident::MockTestHelper::GlobalInstance()->ClearMockMethod()
 
-#endif // _SOFA_PBRPC_MOCK_TEST_HELPER_H_
+#endif // _TRIDENT_MOCK_TEST_HELPER_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 #include <trident/rpc_channel_impl.h>
 #include <trident/mock_test_helper.h>
@@ -20,7 +20,7 @@ RpcChannelImpl::RpcChannelImpl(const RpcClientImplPtr& rpc_client_impl,
     , _is_mock(false)
     , _resolve_address_succeed(false)
 {
-    if (g_enable_mock && _server_address.find(SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX) == 0)
+    if (g_enable_mock && _server_address.find(TRIDENT_MOCK_CHANNEL_ADDRESS_PREFIX) == 0)
     {
 #if defined( LOG )
         LOG(INFO) << "RpcChannelImpl(): use mock channel";

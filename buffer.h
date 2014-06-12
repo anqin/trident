@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
-#ifndef _SOFA_PBRPC_BUFFER_H_
-#define _SOFA_PBRPC_BUFFER_H_
+#ifndef _TRIDENT_BUFFER_H_
+#define _TRIDENT_BUFFER_H_
 
 #include <deque>
 
@@ -60,7 +60,7 @@ private:
     int _last_bytes; // last read bytes
     int64 _read_bytes; // total read bytes
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(ReadBuffer);
+    TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(ReadBuffer);
 }; // class ReadBuffer
 
 class WriteBuffer : public google::protobuf::io::ZeroCopyOutputStream
@@ -113,12 +113,12 @@ private:
     int _last_bytes; // last write bytes
     int64 _write_bytes; // total write bytes
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(WriteBuffer);
+    TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(WriteBuffer);
 }; // class WriteBuffer
 
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_BUFFER_H_
+#endif // _TRIDENT_BUFFER_H_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

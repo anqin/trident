@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 // This file is modified from boost.
 //
@@ -12,8 +12,8 @@
 //
 // See library home page at http://www.boost.org/libs/system
 
-#ifndef _SOFA_PBRPC_BAD_WEAK_PTR_
-#define _SOFA_PBRPC_BAD_WEAK_PTR_
+#ifndef _TRIDENT_BAD_WEAK_PTR_
+#define _TRIDENT_BAD_WEAK_PTR_
 
 #include <exception>
 
@@ -32,6 +32,6 @@ public:
 
 } // namespace trident
 
-#endif // _SOFA_PBRPC_BAD_WEAK_PTR_
+#endif // _TRIDENT_BAD_WEAK_PTR_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

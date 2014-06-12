@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01@baidu.com (Qin Zuoyan)
+// 
 
 // This file is modified from boost.
 //
@@ -12,8 +12,8 @@
 //
 // See library home page at http://www.boost.org/libs/system
 
-#ifndef _SOFA_PBRPC_SMART_PTR_DETAIL_SPINLOCK_PT_
-#define _SOFA_PBRPC_SMART_PTR_DETAIL_SPINLOCK_PT_
+#ifndef _TRIDENT_SMART_PTR_DETAIL_SPINLOCK_PT_
+#define _TRIDENT_SMART_PTR_DETAIL_SPINLOCK_PT_
 
 #include <pthread.h>
 
@@ -73,8 +73,8 @@ public:
 
 } // namespace trident
 
-#define SOFA_PBRPC_SMART_PTR_DETAIL_SPINLOCK_INIT { PTHREAD_MUTEX_INITIALIZER }
+#define TRIDENT_SMART_PTR_DETAIL_SPINLOCK_INIT { PTHREAD_MUTEX_INITIALIZER }
 
-#endif // _SOFA_PBRPC_SMART_PTR_DETAIL_SPINLOCK_PT_
+#endif // _TRIDENT_SMART_PTR_DETAIL_SPINLOCK_PT_
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */
