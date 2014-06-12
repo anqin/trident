@@ -1,4 +1,4 @@
-package trident.pbrpc.test;
+package trident.test;
 
 option cc_generic_services = true;
 option java_generic_services = true;

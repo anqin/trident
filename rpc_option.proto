@@ -6,7 +6,7 @@
 
 import "google/protobuf/descriptor.proto";
 
-package trident.pbrpc;
+package trident;
 
 extend google.protobuf.ServiceOptions {
     // Timeout in milliseconds, at service level.

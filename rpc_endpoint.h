@@ -10,7 +10,7 @@
 #include <trident/common_internal.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 typedef boost::asio::ip::tcp::endpoint RpcEndpoint;
 
@@ -24,7 +24,7 @@ bool ResolveAddress(IOService& io_service,
         const std::string& address,
         RpcEndpoint* endpoint);
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_ENDPOINT_H_

@@ -10,7 +10,7 @@
 #include <pthread.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class WaitEvent
 {
@@ -51,7 +51,7 @@ private:
     bool _signaled;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_WAIT_EVENT_H_

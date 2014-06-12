@@ -10,7 +10,7 @@
 #include <stdint.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 inline uint64_t murmurhash(const void * key, int len)
 {
@@ -67,7 +67,7 @@ inline uint64_t murmurhash(const char* str)
     return murmurhash((const void*)str, strlen(str));
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBPRC_MURMUR_HASH_H_

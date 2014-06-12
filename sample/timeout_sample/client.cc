@@ -17,21 +17,21 @@ int main(int /*argc*/, char** /*argv*/)
     SOFA_PBRPC_SET_LOG_LEVEL(NOTICE);
 
     // Define an rpc client.
-    trident::pbrpc::RpcClientOptions client_options;
-    trident::pbrpc::RpcClient rpc_client(client_options);
+    trident::RpcClientOptions client_options;
+    trident::RpcClient rpc_client(client_options);
 
     // Define an rpc channel.
-    trident::pbrpc::RpcChannelOptions channel_options;
-    trident::pbrpc::RpcChannel rpc_channel(&rpc_client, "127.0.0.1:12321", channel_options);
+    trident::RpcChannelOptions channel_options;
+    trident::RpcChannel rpc_channel(&rpc_client, "127.0.0.1:12321", channel_options);
 
     // Prepare objects.
-    trident::pbrpc::RpcController* cntl = new trident::pbrpc::RpcController();
-    trident::pbrpc::test::SleepRequest* request =
-        new trident::pbrpc::test::SleepRequest();
-    trident::pbrpc::test::SleepResponse* response =
-        new trident::pbrpc::test::SleepResponse();
-    trident::pbrpc::test::SleepServer_Stub* stub =
-        new trident::pbrpc::test::SleepServer_Stub(&rpc_channel);
+    trident::RpcController* cntl = new trident::RpcController();
+    trident::test::SleepRequest* request =
+        new trident::test::SleepRequest();
+    trident::test::SleepResponse* response =
+        new trident::test::SleepResponse();
+    trident::test::SleepServer_Stub* stub =
+        new trident::test::SleepServer_Stub(&rpc_channel);
 
     // Call 1
     SLOG(NOTICE, "----------- Call 1 ---------------------------------------");

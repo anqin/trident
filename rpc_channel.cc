@@ -11,7 +11,7 @@
 #include <trident/rpc_client.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 RpcChannel::RpcChannel(RpcClient* rpc_client,
         const std::string& server_address,
@@ -48,7 +48,7 @@ void RpcChannel::CallMethod(const ::google::protobuf::MethodDescriptor* method,
     _impl->CallMethod(method, controller, request, response, done);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

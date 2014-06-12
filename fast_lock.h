@@ -11,7 +11,7 @@
 #include <trident/spin_lock.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 #if defined( SOFA_PBRPC_USE_SPINLOCK )
     typedef SpinLock FastLock;
@@ -19,7 +19,7 @@ namespace pbrpc {
     typedef MutexLock FastLock;
 #endif // defined( SOFA_PBRPC_USE_SPINLOCK )
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_FAST_LOCK_H_

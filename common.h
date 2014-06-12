@@ -13,7 +13,7 @@
 namespace std {}
 
 namespace trident {
-namespace pbrpc {
+
 
 /////////////// types /////////////
 typedef ::google::protobuf::uint uint;
@@ -62,16 +62,16 @@ void log_handler(LogLevel level, const char* filename, int line, const char *fmt
 } // namespace internal
 
 #define SOFA_PBRPC_SET_LOG_LEVEL(level) \
-    ::trident::pbrpc::internal::set_log_level(::trident::pbrpc::LOG_LEVEL_##level)
+    ::trident::internal::set_log_level(::trident::LOG_LEVEL_##level)
 
 #define SLOG(level, fmt, arg...) \
-    (::trident::pbrpc::LOG_LEVEL_##level > ::trident::pbrpc::internal::get_log_level()) ? \
-            (void)0 : ::trident::pbrpc::internal::log_handler( \
-                    ::trident::pbrpc::LOG_LEVEL_##level, __FILE__, __LINE__, fmt, ##arg) \
+    (::trident::LOG_LEVEL_##level > ::trident::internal::get_log_level()) ? \
+            (void)0 : ::trident::internal::log_handler( \
+                    ::trident::LOG_LEVEL_##level, __FILE__, __LINE__, fmt, ##arg) \
 
 #define SLOG_IF(condition, level, fmt, arg...) \
-    !(condition) ? (void)0 : ::trident::pbrpc::internal::log_handler( \
-            ::trident::pbrpc::LOG_LEVEL_##level, __FILE__, __LINE__, fmt, ##arg)
+    !(condition) ? (void)0 : ::trident::internal::log_handler( \
+            ::trident::LOG_LEVEL_##level, __FILE__, __LINE__, fmt, ##arg)
 
 #if defined( LOG )
 #define SCHECK(expression) CHECK(expression)
@@ -92,7 +92,7 @@ void log_handler(LogLevel level, const char* filename, int line, const char *fmt
 #define SCHECK_GE(a, b) SCHECK((a) >= (b))
 #endif
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_COMMON_H_

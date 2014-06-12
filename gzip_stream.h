@@ -60,7 +60,7 @@
 #include <trident/compressed_stream.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 using google::protobuf::io::ZeroCopyOutputStream;
 using google::protobuf::io::ZeroCopyInputStream;
@@ -220,7 +220,7 @@ class GzipOutputStream : public AbstractCompressedOutputStream {
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(GzipOutputStream);
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_GZIP_STREAM_H_

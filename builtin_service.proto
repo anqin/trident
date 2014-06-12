@@ -7,7 +7,7 @@
 import "google/protobuf/descriptor.proto";
 import "trident/rpc_option.proto";
 
-package trident.pbrpc.builtin;
+package trident.builtin;
 
 option cc_generic_services = true;
 
@@ -111,7 +111,7 @@ message StatResponse {
 }
 
 service BuiltinService {
-    option (trident.pbrpc.service_timeout) = 3000;
+    option (trident.service_timeout) = 3000;
 
     rpc Health(HealthRequest) returns (HealthResponse);
 
@@ -122,7 +122,7 @@ service BuiltinService {
     rpc ServerStatus(ServerStatusRequest) returns (ServerStatusResponse);
 
     rpc ListService(ListServiceRequest) returns (ListServiceResponse) {
-        option (trident.pbrpc.response_compress_type) = CompressTypeGzip;
+        option (trident.response_compress_type) = CompressTypeGzip;
     }
 
     rpc Stat(StatRequest) returns (StatResponse);

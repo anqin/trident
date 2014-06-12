@@ -8,7 +8,7 @@
 #include <trident/rpc_controller_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 RpcController::RpcController()
     : _impl(new RpcControllerImpl())
@@ -99,7 +99,7 @@ void RpcController::NotifyOnCancel(google::protobuf::Closure* callback)
     _impl->NotifyOnCancel(callback);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

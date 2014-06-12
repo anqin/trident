@@ -14,7 +14,7 @@
 #include <stdint.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 template <typename T>
 inline void atomic_inc(volatile T* n)
@@ -95,7 +95,7 @@ inline T atomic_comp_swap(volatile T* lockword, E exchange, C comperand)
     return atomic_cmpxchg(lockword, comperand, exchange);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_ATOMIC_H_

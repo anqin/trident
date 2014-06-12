@@ -20,11 +20,11 @@
 #include <trident/wait_event.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 #define CompressTypeAuto ((CompressType)-1)
 
-class RpcControllerImpl : public trident::pbrpc::enable_shared_from_this<RpcControllerImpl>
+class RpcControllerImpl : public trident::enable_shared_from_this<RpcControllerImpl>
 {
 public:
     typedef boost::function<void(const RpcControllerImplPtr&)> InternalDoneCallback;
@@ -400,7 +400,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcControllerImpl);
 }; // class RpcControllerImpl
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_CONTROLLER_IMPL_H_

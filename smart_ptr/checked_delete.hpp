@@ -16,7 +16,7 @@
 #define _SOFA_PBRPC_SMART_PTR_CHECKED_DELETE_
 
 namespace trident {
-namespace pbrpc {
+
 
 template <typename T>
 inline void checked_delete(T* px)
@@ -40,7 +40,7 @@ template<class T> struct checked_deleter
 
     void operator()(T * x) const
     {
-        ::trident::pbrpc::checked_delete(x);
+        ::trident::checked_delete(x);
     }
 };
 
@@ -51,11 +51,11 @@ template<class T> struct checked_array_deleter
 
     void operator()(T * x) const
     {
-        ::trident::pbrpc::checked_array_delete(x);
+        ::trident::checked_array_delete(x);
     }
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_CHECKED_DELETE_

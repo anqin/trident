@@ -16,11 +16,11 @@
 #include <boost/bind.hpp>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Defined in this file.
 class ThreadGroupImpl;
-typedef trident::pbrpc::shared_ptr<ThreadGroupImpl> ThreadGroupImplPtr;
+typedef trident::shared_ptr<ThreadGroupImpl> ThreadGroupImplPtr;
 
 // Thread init and destroy function.  Should be permanent closure.
 typedef ExtClosure<bool()>* ThreadInitFunc;
@@ -294,7 +294,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(ThreadGroupImpl);
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_THREAD_GROUP_IMPL_H_

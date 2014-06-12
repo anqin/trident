@@ -18,7 +18,7 @@
 #include <typeinfo>
 
 namespace trident {
-namespace pbrpc {
+
 namespace detail {
 
 inline int atomic_exchange_and_add( int * pw, int dv )
@@ -156,7 +156,7 @@ public:
 };
 
 } // namespace detail
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_DETAIL_SP_COUNTED_BASE_GCC_X86_

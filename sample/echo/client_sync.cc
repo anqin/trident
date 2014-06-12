@@ -17,25 +17,25 @@ int main()
     SOFA_PBRPC_SET_LOG_LEVEL(NOTICE);
 
     // Define an rpc client.
-    trident::pbrpc::RpcClientOptions client_options;
-    trident::pbrpc::RpcClient rpc_client(client_options);
+    trident::RpcClientOptions client_options;
+    trident::RpcClient rpc_client(client_options);
 
     // Define an rpc channel.
-    trident::pbrpc::RpcChannelOptions channel_options;
-    trident::pbrpc::RpcChannel rpc_channel(&rpc_client, "127.0.0.1:12321", channel_options);
+    trident::RpcChannelOptions channel_options;
+    trident::RpcChannel rpc_channel(&rpc_client, "127.0.0.1:12321", channel_options);
 
     // Prepare parameters.
-    trident::pbrpc::RpcController* cntl = new trident::pbrpc::RpcController();
+    trident::RpcController* cntl = new trident::RpcController();
     cntl->SetTimeout(3000);
-    trident::pbrpc::test::EchoRequest* request =
-        new trident::pbrpc::test::EchoRequest();
+    trident::test::EchoRequest* request =
+        new trident::test::EchoRequest();
     request->set_message("Hello from qinzuoyan01");
-    trident::pbrpc::test::EchoResponse* response =
-        new trident::pbrpc::test::EchoResponse();
+    trident::test::EchoResponse* response =
+        new trident::test::EchoResponse();
 
     // Sync call.
-    trident::pbrpc::test::EchoServer_Stub* stub =
-        new trident::pbrpc::test::EchoServer_Stub(&rpc_channel);
+    trident::test::EchoServer_Stub* stub =
+        new trident::test::EchoServer_Stub(&rpc_channel);
     stub->Echo(cntl, request, response, NULL);
 
     // Check if the request has been sent.

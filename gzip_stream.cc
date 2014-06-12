@@ -48,7 +48,7 @@
 #include <trident/gzip_stream.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 static const int kDefaultBufferSize = 65536;
 
@@ -374,7 +374,7 @@ bool GzipOutputStream::Close() {
   return ok;
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

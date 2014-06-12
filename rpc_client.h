@@ -10,7 +10,7 @@
 #include <trident/common.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Defined in other files.
 class RpcClientImpl;
@@ -77,18 +77,18 @@ public:
     void Shutdown();
 
 public:
-    const trident::pbrpc::shared_ptr<RpcClientImpl>& impl() const
+    const trident::shared_ptr<RpcClientImpl>& impl() const
     {
         return _impl;
     }
 
 private:
-    trident::pbrpc::shared_ptr<RpcClientImpl> _impl;
+    trident::shared_ptr<RpcClientImpl> _impl;
 
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcClient);
 }; // class RpcClient
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_CLIENT_H_

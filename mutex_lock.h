@@ -10,7 +10,7 @@
 #include <pthread.h>
 
 namespace trident {
-namespace pbrpc {
+
 class ConditionVariable;
 
 class MutexLock
@@ -37,7 +37,7 @@ private:
     pthread_mutex_t _lock;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_MUTEX_LOCK_H_

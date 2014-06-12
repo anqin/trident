@@ -20,7 +20,7 @@
 // 3, Support pass argument by reference, though bind
 //    always by value.
 // 4, When bind class method, support use
-//    "trident::pbrpc::shared_ptr" as this pointer of class.
+//    "trident::shared_ptr" as this pointer of class.
 // 5, Support create temporary and permanent closure:
 //    Temporary closure (self destoryed after call):
 //        NewClosure();
@@ -47,7 +47,7 @@
 //    Closure* c3 = NewClosure(&obj, &ClassA::m1, 1, 2.0);
 //    c3->Run();
 //    
-//    class ClassB : public trident::pbrpc::enable_shared_from_this<ClassB>
+//    class ClassB : public trident::enable_shared_from_this<ClassB>
 //    {
 //        public:
 //            int m1(int pre_arg, double post_arg);
@@ -58,7 +58,7 @@
 //                c4->Run(2.0);
 //            }
 //    };
-//    trident::pbrpc::shared_ptr<ClassB> ptr(new ClassB);
+//    trident::shared_ptr<ClassB> ptr(new ClassB);
 //    Closure* c5 = NewClosure(ptr, &ClassB::m1, 1, 2.0);
 //    c5->Run();
 //    
@@ -68,7 +68,7 @@
 #include <trident/closure_helper.h>
 
 namespace trident {
-namespace pbrpc{
+
 
 /// base class for all Closures
 class ClosureBase : public google::protobuf::Closure
@@ -995,7 +995,7 @@ ClosureBase* NewPermanentClosure(void(*function)(PreArg1, PreArg2, PreArg3, PreA
     return new FunctionClosure_Bind10<false, PreArg1, PreArg2, PreArg3, PreArg4, PreArg5, PreArg6, PreArg7, PreArg8, PreArg9, PreArg10>(function, pa1, pa2, pa3, pa4, pa5, pa6, pa7, pa8, pa9, pa10);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_CLOSURE_H_

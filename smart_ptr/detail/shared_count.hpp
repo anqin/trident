@@ -24,7 +24,7 @@
 #include <new>              // std::bad_alloc
 
 namespace trident {
-namespace pbrpc {
+
 namespace detail {
 
 int const shared_count_id = 0x2C35F101;
@@ -60,7 +60,7 @@ public:
         }
         catch(...)
         {
-            trident::pbrpc::checked_delete( p );
+            trident::checked_delete( p );
             throw;
         }
 
@@ -303,7 +303,7 @@ inline shared_count::shared_count( weak_count const & r ): pi_( r.pi_ )
 {
     if( pi_ == 0 || !pi_->add_ref_lock() )
     {
-        throw trident::pbrpc::bad_weak_ptr();
+        throw trident::bad_weak_ptr();
     }
 }
 
@@ -316,7 +316,7 @@ inline shared_count::shared_count( weak_count const & r, sp_nothrow_tag ): pi_( 
 }
 
 } // namespace detail
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_DETAIL_SHARED_COUNT_

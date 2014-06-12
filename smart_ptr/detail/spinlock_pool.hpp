@@ -26,7 +26,7 @@
 #include <cstddef>
 
 namespace trident {
-namespace pbrpc {
+
 namespace detail {
 
 template< int I > class spinlock_pool
@@ -80,7 +80,7 @@ template< int I > spinlock spinlock_pool< I >::pool_[ 41 ] =
 };
 
 } // namespace detail
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_DETAIL_SPINLOCK_POOL_

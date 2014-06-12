@@ -14,7 +14,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace trident {
-namespace pbrpc {
+
 namespace builtin {
 
 namespace {
@@ -406,7 +406,7 @@ void protobuf_AddDesc_trident_2fpbrpc_2fbuiltin_5fservice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fdescriptor_2eproto();
-  ::trident::pbrpc::protobuf_AddDesc_trident_2fpbrpc_2frpc_5foption_2eproto();
+  ::trident::protobuf_AddDesc_trident_2fpbrpc_2frpc_5foption_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n trident/builtin_service.proto\022\022trident"
     ".pbrpc.builtin\032 google/protobuf/descript"
@@ -1492,7 +1492,7 @@ ServerOptionsResponse::ServerOptionsResponse()
 }
 
 void ServerOptionsResponse::InitAsDefaultInstance() {
-  options_ = const_cast< ::trident::pbrpc::builtin::ServerOptions*>(&::trident::pbrpc::builtin::ServerOptions::default_instance());
+  options_ = const_cast< ::trident::builtin::ServerOptions*>(&::trident::builtin::ServerOptions::default_instance());
 }
 
 ServerOptionsResponse::ServerOptionsResponse(const ServerOptionsResponse& from)
@@ -1540,7 +1540,7 @@ ServerOptionsResponse* ServerOptionsResponse::New() const {
 void ServerOptionsResponse::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_options()) {
-      if (options_ != NULL) options_->::trident::pbrpc::builtin::ServerOptions::Clear();
+      if (options_ != NULL) options_->::trident::builtin::ServerOptions::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1651,7 +1651,7 @@ void ServerOptionsResponse::MergeFrom(const ServerOptionsResponse& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_options()) {
-      mutable_options()->::trident::pbrpc::builtin::ServerOptions::MergeFrom(from.options());
+      mutable_options()->::trident::builtin::ServerOptions::MergeFrom(from.options());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -1704,7 +1704,7 @@ UpdateOptionsRequest::UpdateOptionsRequest()
 }
 
 void UpdateOptionsRequest::InitAsDefaultInstance() {
-  options_ = const_cast< ::trident::pbrpc::builtin::ServerOptions*>(&::trident::pbrpc::builtin::ServerOptions::default_instance());
+  options_ = const_cast< ::trident::builtin::ServerOptions*>(&::trident::builtin::ServerOptions::default_instance());
 }
 
 UpdateOptionsRequest::UpdateOptionsRequest(const UpdateOptionsRequest& from)
@@ -1752,7 +1752,7 @@ UpdateOptionsRequest* UpdateOptionsRequest::New() const {
 void UpdateOptionsRequest::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_options()) {
-      if (options_ != NULL) options_->::trident::pbrpc::builtin::ServerOptions::Clear();
+      if (options_ != NULL) options_->::trident::builtin::ServerOptions::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1863,7 +1863,7 @@ void UpdateOptionsRequest::MergeFrom(const UpdateOptionsRequest& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_options()) {
-      mutable_options()->::trident::pbrpc::builtin::ServerOptions::MergeFrom(from.options());
+      mutable_options()->::trident::builtin::ServerOptions::MergeFrom(from.options());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -1916,7 +1916,7 @@ UpdateOptionsResponse::UpdateOptionsResponse()
 }
 
 void UpdateOptionsResponse::InitAsDefaultInstance() {
-  options_ = const_cast< ::trident::pbrpc::builtin::ServerOptions*>(&::trident::pbrpc::builtin::ServerOptions::default_instance());
+  options_ = const_cast< ::trident::builtin::ServerOptions*>(&::trident::builtin::ServerOptions::default_instance());
 }
 
 UpdateOptionsResponse::UpdateOptionsResponse(const UpdateOptionsResponse& from)
@@ -1964,7 +1964,7 @@ UpdateOptionsResponse* UpdateOptionsResponse::New() const {
 void UpdateOptionsResponse::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_options()) {
-      if (options_ != NULL) options_->::trident::pbrpc::builtin::ServerOptions::Clear();
+      if (options_ != NULL) options_->::trident::builtin::ServerOptions::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -2075,7 +2075,7 @@ void UpdateOptionsResponse::MergeFrom(const UpdateOptionsResponse& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_options()) {
-      mutable_options()->::trident::pbrpc::builtin::ServerOptions::MergeFrom(from.options());
+      mutable_options()->::trident::builtin::ServerOptions::MergeFrom(from.options());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -4409,48 +4409,48 @@ const ::google::protobuf::ServiceDescriptor* BuiltinService::GetDescriptor() {
 }
 
 void BuiltinService::Health(::google::protobuf::RpcController* controller,
-                         const ::trident::pbrpc::builtin::HealthRequest*,
-                         ::trident::pbrpc::builtin::HealthResponse*,
+                         const ::trident::builtin::HealthRequest*,
+                         ::trident::builtin::HealthResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Health() not implemented.");
   done->Run();
 }
 
 void BuiltinService::ServerOptions(::google::protobuf::RpcController* controller,
-                         const ::trident::pbrpc::builtin::ServerOptionsRequest*,
-                         ::trident::pbrpc::builtin::ServerOptionsResponse*,
+                         const ::trident::builtin::ServerOptionsRequest*,
+                         ::trident::builtin::ServerOptionsResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method ServerOptions() not implemented.");
   done->Run();
 }
 
 void BuiltinService::UpdateOptions(::google::protobuf::RpcController* controller,
-                         const ::trident::pbrpc::builtin::UpdateOptionsRequest*,
-                         ::trident::pbrpc::builtin::UpdateOptionsResponse*,
+                         const ::trident::builtin::UpdateOptionsRequest*,
+                         ::trident::builtin::UpdateOptionsResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method UpdateOptions() not implemented.");
   done->Run();
 }
 
 void BuiltinService::ServerStatus(::google::protobuf::RpcController* controller,
-                         const ::trident::pbrpc::builtin::ServerStatusRequest*,
-                         ::trident::pbrpc::builtin::ServerStatusResponse*,
+                         const ::trident::builtin::ServerStatusRequest*,
+                         ::trident::builtin::ServerStatusResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method ServerStatus() not implemented.");
   done->Run();
 }
 
 void BuiltinService::ListService(::google::protobuf::RpcController* controller,
-                         const ::trident::pbrpc::builtin::ListServiceRequest*,
-                         ::trident::pbrpc::builtin::ListServiceResponse*,
+                         const ::trident::builtin::ListServiceRequest*,
+                         ::trident::builtin::ListServiceResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method ListService() not implemented.");
   done->Run();
 }
 
 void BuiltinService::Stat(::google::protobuf::RpcController* controller,
-                         const ::trident::pbrpc::builtin::StatRequest*,
-                         ::trident::pbrpc::builtin::StatResponse*,
+                         const ::trident::builtin::StatRequest*,
+                         ::trident::builtin::StatResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Stat() not implemented.");
   done->Run();
@@ -4465,38 +4465,38 @@ void BuiltinService::CallMethod(const ::google::protobuf::MethodDescriptor* meth
   switch(method->index()) {
     case 0:
       Health(controller,
-             ::google::protobuf::down_cast<const ::trident::pbrpc::builtin::HealthRequest*>(request),
-             ::google::protobuf::down_cast< ::trident::pbrpc::builtin::HealthResponse*>(response),
+             ::google::protobuf::down_cast<const ::trident::builtin::HealthRequest*>(request),
+             ::google::protobuf::down_cast< ::trident::builtin::HealthResponse*>(response),
              done);
       break;
     case 1:
       ServerOptions(controller,
-             ::google::protobuf::down_cast<const ::trident::pbrpc::builtin::ServerOptionsRequest*>(request),
-             ::google::protobuf::down_cast< ::trident::pbrpc::builtin::ServerOptionsResponse*>(response),
+             ::google::protobuf::down_cast<const ::trident::builtin::ServerOptionsRequest*>(request),
+             ::google::protobuf::down_cast< ::trident::builtin::ServerOptionsResponse*>(response),
              done);
       break;
     case 2:
       UpdateOptions(controller,
-             ::google::protobuf::down_cast<const ::trident::pbrpc::builtin::UpdateOptionsRequest*>(request),
-             ::google::protobuf::down_cast< ::trident::pbrpc::builtin::UpdateOptionsResponse*>(response),
+             ::google::protobuf::down_cast<const ::trident::builtin::UpdateOptionsRequest*>(request),
+             ::google::protobuf::down_cast< ::trident::builtin::UpdateOptionsResponse*>(response),
              done);
       break;
     case 3:
       ServerStatus(controller,
-             ::google::protobuf::down_cast<const ::trident::pbrpc::builtin::ServerStatusRequest*>(request),
-             ::google::protobuf::down_cast< ::trident::pbrpc::builtin::ServerStatusResponse*>(response),
+             ::google::protobuf::down_cast<const ::trident::builtin::ServerStatusRequest*>(request),
+             ::google::protobuf::down_cast< ::trident::builtin::ServerStatusResponse*>(response),
              done);
       break;
     case 4:
       ListService(controller,
-             ::google::protobuf::down_cast<const ::trident::pbrpc::builtin::ListServiceRequest*>(request),
-             ::google::protobuf::down_cast< ::trident::pbrpc::builtin::ListServiceResponse*>(response),
+             ::google::protobuf::down_cast<const ::trident::builtin::ListServiceRequest*>(request),
+             ::google::protobuf::down_cast< ::trident::builtin::ListServiceResponse*>(response),
              done);
       break;
     case 5:
       Stat(controller,
-             ::google::protobuf::down_cast<const ::trident::pbrpc::builtin::StatRequest*>(request),
-             ::google::protobuf::down_cast< ::trident::pbrpc::builtin::StatResponse*>(response),
+             ::google::protobuf::down_cast<const ::trident::builtin::StatRequest*>(request),
+             ::google::protobuf::down_cast< ::trident::builtin::StatResponse*>(response),
              done);
       break;
     default:
@@ -4510,17 +4510,17 @@ const ::google::protobuf::Message& BuiltinService::GetRequestPrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::trident::pbrpc::builtin::HealthRequest::default_instance();
+      return ::trident::builtin::HealthRequest::default_instance();
     case 1:
-      return ::trident::pbrpc::builtin::ServerOptionsRequest::default_instance();
+      return ::trident::builtin::ServerOptionsRequest::default_instance();
     case 2:
-      return ::trident::pbrpc::builtin::UpdateOptionsRequest::default_instance();
+      return ::trident::builtin::UpdateOptionsRequest::default_instance();
     case 3:
-      return ::trident::pbrpc::builtin::ServerStatusRequest::default_instance();
+      return ::trident::builtin::ServerStatusRequest::default_instance();
     case 4:
-      return ::trident::pbrpc::builtin::ListServiceRequest::default_instance();
+      return ::trident::builtin::ListServiceRequest::default_instance();
     case 5:
-      return ::trident::pbrpc::builtin::StatRequest::default_instance();
+      return ::trident::builtin::StatRequest::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
@@ -4532,17 +4532,17 @@ const ::google::protobuf::Message& BuiltinService::GetResponsePrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::trident::pbrpc::builtin::HealthResponse::default_instance();
+      return ::trident::builtin::HealthResponse::default_instance();
     case 1:
-      return ::trident::pbrpc::builtin::ServerOptionsResponse::default_instance();
+      return ::trident::builtin::ServerOptionsResponse::default_instance();
     case 2:
-      return ::trident::pbrpc::builtin::UpdateOptionsResponse::default_instance();
+      return ::trident::builtin::UpdateOptionsResponse::default_instance();
     case 3:
-      return ::trident::pbrpc::builtin::ServerStatusResponse::default_instance();
+      return ::trident::builtin::ServerStatusResponse::default_instance();
     case 4:
-      return ::trident::pbrpc::builtin::ListServiceResponse::default_instance();
+      return ::trident::builtin::ListServiceResponse::default_instance();
     case 5:
-      return ::trident::pbrpc::builtin::StatResponse::default_instance();
+      return ::trident::builtin::StatResponse::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
@@ -4561,43 +4561,43 @@ BuiltinService_Stub::~BuiltinService_Stub() {
 }
 
 void BuiltinService_Stub::Health(::google::protobuf::RpcController* controller,
-                              const ::trident::pbrpc::builtin::HealthRequest* request,
-                              ::trident::pbrpc::builtin::HealthResponse* response,
+                              const ::trident::builtin::HealthRequest* request,
+                              ::trident::builtin::HealthResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(0),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::ServerOptions(::google::protobuf::RpcController* controller,
-                              const ::trident::pbrpc::builtin::ServerOptionsRequest* request,
-                              ::trident::pbrpc::builtin::ServerOptionsResponse* response,
+                              const ::trident::builtin::ServerOptionsRequest* request,
+                              ::trident::builtin::ServerOptionsResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::UpdateOptions(::google::protobuf::RpcController* controller,
-                              const ::trident::pbrpc::builtin::UpdateOptionsRequest* request,
-                              ::trident::pbrpc::builtin::UpdateOptionsResponse* response,
+                              const ::trident::builtin::UpdateOptionsRequest* request,
+                              ::trident::builtin::UpdateOptionsResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(2),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::ServerStatus(::google::protobuf::RpcController* controller,
-                              const ::trident::pbrpc::builtin::ServerStatusRequest* request,
-                              ::trident::pbrpc::builtin::ServerStatusResponse* response,
+                              const ::trident::builtin::ServerStatusRequest* request,
+                              ::trident::builtin::ServerStatusResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(3),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::ListService(::google::protobuf::RpcController* controller,
-                              const ::trident::pbrpc::builtin::ListServiceRequest* request,
-                              ::trident::pbrpc::builtin::ListServiceResponse* response,
+                              const ::trident::builtin::ListServiceRequest* request,
+                              ::trident::builtin::ListServiceResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(4),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::Stat(::google::protobuf::RpcController* controller,
-                              const ::trident::pbrpc::builtin::StatRequest* request,
-                              ::trident::pbrpc::builtin::StatResponse* response,
+                              const ::trident::builtin::StatRequest* request,
+                              ::trident::builtin::StatResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(5),
                        controller, request, response, done);
@@ -4606,7 +4606,7 @@ void BuiltinService_Stub::Stat(::google::protobuf::RpcController* controller,
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace builtin
-}  // namespace pbrpc
+
 }  // namespace trident
 
 // @@protoc_insertion_point(global_scope)

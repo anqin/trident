@@ -19,13 +19,13 @@
 #include <boost/multi_index/member.hpp>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Defined in this file.
 class TimeoutManagerImpl;
-typedef trident::pbrpc::shared_ptr<TimeoutManagerImpl> TimeoutManagerImplPtr;
+typedef trident::shared_ptr<TimeoutManagerImpl> TimeoutManagerImplPtr;
 
-class TimeoutManagerImpl : public trident::pbrpc::enable_shared_from_this<TimeoutManagerImpl>
+class TimeoutManagerImpl : public trident::enable_shared_from_this<TimeoutManagerImpl>
 {
 public:
     // Thread number for timer and callbacks.
@@ -108,7 +108,7 @@ private:
     MutexLock _timeouts_lock;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_TIMEOUT_MANAGER_IMPL_H_

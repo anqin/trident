@@ -6,7 +6,7 @@
 
 import "trident/rpc_option.proto";
 
-package trident.pbrpc;
+package trident;
 
 message RpcMeta {
   enum Type {

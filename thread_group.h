@@ -11,11 +11,11 @@
 #include <trident/ext_closure.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Defined in this file.
 class ThreadGroup;
-typedef trident::pbrpc::shared_ptr<ThreadGroup> ThreadGroupPtr;
+typedef trident::shared_ptr<ThreadGroup> ThreadGroupPtr;
 
 // Defined in other files.
 class ThreadGroupImpl;
@@ -59,12 +59,12 @@ public:
     void post(ExtClosure<void()>* handler);
 
 private:
-    trident::pbrpc::shared_ptr<ThreadGroupImpl> _imp;
+    trident::shared_ptr<ThreadGroupImpl> _imp;
 
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(ThreadGroup);
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_THREAD_GROUP_H_

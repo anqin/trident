@@ -14,7 +14,7 @@
 #include <trident/pbrpc.h>
 #include "trident/sample/compress_sample/echo_service.pb.h"
 
-class EchoServerImpl : public trident::pbrpc::test::EchoServer
+class EchoServerImpl : public trident::test::EchoServer
 {
 public:
     EchoServerImpl() {}
@@ -22,8 +22,8 @@ public:
 
 private:
     virtual void Echo(google::protobuf::RpcController* /*controller*/,
-                      const trident::pbrpc::test::EchoRequest* request,
-                      trident::pbrpc::test::EchoResponse* response,
+                      const trident::test::EchoRequest* request,
+                      trident::test::EchoResponse* response,
                       google::protobuf::Closure* done)
     {
         SLOG(NOTICE, "Echo(): request message: %s", request->message().c_str());
@@ -44,8 +44,8 @@ int main(int /*argc*/, char** /*argv*/)
     SOFA_PBRPC_SET_LOG_LEVEL(NOTICE);
 
     // Define an rpc server.
-    trident::pbrpc::RpcServerOptions options;
-    trident::pbrpc::RpcServer rpc_server(options);
+    trident::RpcServerOptions options;
+    trident::RpcServer rpc_server(options);
 
     // Start rpc server.
     if (!rpc_server.Start("0.0.0.0:12321")) {
@@ -53,7 +53,7 @@ int main(int /*argc*/, char** /*argv*/)
         return EXIT_FAILURE;
     }
 
-    trident::pbrpc::test::EchoServer* echo_service = new EchoServerImpl();
+    trident::test::EchoServer* echo_service = new EchoServerImpl();
     if (!rpc_server.RegisterService(echo_service)) {
         SLOG(ERROR, "export service failed");
         return EXIT_FAILURE;

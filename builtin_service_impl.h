@@ -11,7 +11,7 @@
 #include <trident/builtin_service.pb.h>
 
 namespace trident {
-namespace pbrpc {
+
 namespace builtin {
 
 class BuiltinServiceImpl : public BuiltinService {
@@ -22,33 +22,33 @@ public:
     virtual ~BuiltinServiceImpl();
 
     virtual void Health(::google::protobuf::RpcController* controller,
-            const ::trident::pbrpc::builtin::HealthRequest* request,
-            ::trident::pbrpc::builtin::HealthResponse* response,
+            const ::trident::builtin::HealthRequest* request,
+            ::trident::builtin::HealthResponse* response,
             ::google::protobuf::Closure* done);
 
     virtual void ServerOptions(::google::protobuf::RpcController* controller,
-            const ::trident::pbrpc::builtin::ServerOptionsRequest* request,
-            ::trident::pbrpc::builtin::ServerOptionsResponse* response,
+            const ::trident::builtin::ServerOptionsRequest* request,
+            ::trident::builtin::ServerOptionsResponse* response,
             ::google::protobuf::Closure* done);
 
     virtual void UpdateOptions(::google::protobuf::RpcController* controller,
-            const ::trident::pbrpc::builtin::UpdateOptionsRequest* request,
-            ::trident::pbrpc::builtin::UpdateOptionsResponse* response,
+            const ::trident::builtin::UpdateOptionsRequest* request,
+            ::trident::builtin::UpdateOptionsResponse* response,
             ::google::protobuf::Closure* done);
 
     virtual void ServerStatus(::google::protobuf::RpcController* controller,
-            const ::trident::pbrpc::builtin::ServerStatusRequest* request,
-            ::trident::pbrpc::builtin::ServerStatusResponse* response,
+            const ::trident::builtin::ServerStatusRequest* request,
+            ::trident::builtin::ServerStatusResponse* response,
             ::google::protobuf::Closure* done);
 
     virtual void ListService(::google::protobuf::RpcController* controller,
-            const ::trident::pbrpc::builtin::ListServiceRequest* request,
-            ::trident::pbrpc::builtin::ListServiceResponse* response,
+            const ::trident::builtin::ListServiceRequest* request,
+            ::trident::builtin::ListServiceResponse* response,
             ::google::protobuf::Closure* done);
 
     virtual void Stat(::google::protobuf::RpcController* controller,
-            const ::trident::pbrpc::builtin::StatRequest* request,
-            ::trident::pbrpc::builtin::StatResponse* response,
+            const ::trident::builtin::StatRequest* request,
+            ::trident::builtin::StatResponse* response,
             ::google::protobuf::Closure* done);
 
 private:
@@ -62,7 +62,7 @@ private:
 };
 
 } // namespace builtin
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_BUILTIN_SERVICE_IMPL_H_

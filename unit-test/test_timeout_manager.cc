@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <trident/timeout_manager.h>
 
-using namespace ::trident::pbrpc;
+using namespace ::trident;
 
 class TimeoutManagerTest: public ::testing::Test
 {

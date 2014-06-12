@@ -12,7 +12,7 @@
 #include <trident/rpc_meta.pb.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Callback function when received request message.
 typedef boost::function<void(
@@ -131,7 +131,7 @@ private:
                         _remote_endpoint,
                         meta,
                         RpcServerStreamWPtr(
-                            trident::pbrpc::dynamic_pointer_cast<RpcServerStream>(shared_from_this())),
+                            trident::dynamic_pointer_cast<RpcServerStream>(shared_from_this())),
                         message,
                         data_size);
             }
@@ -158,7 +158,7 @@ private:
     ReceivedRequestCallback _received_request_callback;
 }; // class RpcServerStream
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_SERVER_STREAM_H_

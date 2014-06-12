@@ -29,7 +29,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace trident {
-namespace pbrpc {
+
 namespace builtin {
 
 // Internal implementation detail -- do not call these.
@@ -485,9 +485,9 @@ class ServerOptionsResponse : public ::google::protobuf::Message {
   inline bool has_options() const;
   inline void clear_options();
   static const int kOptionsFieldNumber = 1;
-  inline const ::trident::pbrpc::builtin::ServerOptions& options() const;
-  inline ::trident::pbrpc::builtin::ServerOptions* mutable_options();
-  inline ::trident::pbrpc::builtin::ServerOptions* release_options();
+  inline const ::trident::builtin::ServerOptions& options() const;
+  inline ::trident::builtin::ServerOptions* mutable_options();
+  inline ::trident::builtin::ServerOptions* release_options();
   
   // @@protoc_insertion_point(class_scope:trident.pbrpc.builtin.ServerOptionsResponse)
  private:
@@ -496,7 +496,7 @@ class ServerOptionsResponse : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::trident::pbrpc::builtin::ServerOptions* options_;
+  ::trident::builtin::ServerOptions* options_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -568,9 +568,9 @@ class UpdateOptionsRequest : public ::google::protobuf::Message {
   inline bool has_options() const;
   inline void clear_options();
   static const int kOptionsFieldNumber = 1;
-  inline const ::trident::pbrpc::builtin::ServerOptions& options() const;
-  inline ::trident::pbrpc::builtin::ServerOptions* mutable_options();
-  inline ::trident::pbrpc::builtin::ServerOptions* release_options();
+  inline const ::trident::builtin::ServerOptions& options() const;
+  inline ::trident::builtin::ServerOptions* mutable_options();
+  inline ::trident::builtin::ServerOptions* release_options();
   
   // @@protoc_insertion_point(class_scope:trident.pbrpc.builtin.UpdateOptionsRequest)
  private:
@@ -579,7 +579,7 @@ class UpdateOptionsRequest : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::trident::pbrpc::builtin::ServerOptions* options_;
+  ::trident::builtin::ServerOptions* options_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -651,9 +651,9 @@ class UpdateOptionsResponse : public ::google::protobuf::Message {
   inline bool has_options() const;
   inline void clear_options();
   static const int kOptionsFieldNumber = 1;
-  inline const ::trident::pbrpc::builtin::ServerOptions& options() const;
-  inline ::trident::pbrpc::builtin::ServerOptions* mutable_options();
-  inline ::trident::pbrpc::builtin::ServerOptions* release_options();
+  inline const ::trident::builtin::ServerOptions& options() const;
+  inline ::trident::builtin::ServerOptions* mutable_options();
+  inline ::trident::builtin::ServerOptions* release_options();
   
   // @@protoc_insertion_point(class_scope:trident.pbrpc.builtin.UpdateOptionsResponse)
  private:
@@ -662,7 +662,7 @@ class UpdateOptionsResponse : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::trident::pbrpc::builtin::ServerOptions* options_;
+  ::trident::builtin::ServerOptions* options_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -1290,12 +1290,12 @@ class ServiceStat : public ::google::protobuf::Message {
   inline int method_stats_size() const;
   inline void clear_method_stats();
   static const int kMethodStatsFieldNumber = 5;
-  inline const ::trident::pbrpc::builtin::MethodStat& method_stats(int index) const;
-  inline ::trident::pbrpc::builtin::MethodStat* mutable_method_stats(int index);
-  inline ::trident::pbrpc::builtin::MethodStat* add_method_stats();
-  inline const ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::MethodStat >&
+  inline const ::trident::builtin::MethodStat& method_stats(int index) const;
+  inline ::trident::builtin::MethodStat* mutable_method_stats(int index);
+  inline ::trident::builtin::MethodStat* add_method_stats();
+  inline const ::google::protobuf::RepeatedPtrField< ::trident::builtin::MethodStat >&
       method_stats() const;
-  inline ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::MethodStat >*
+  inline ::google::protobuf::RepeatedPtrField< ::trident::builtin::MethodStat >*
       mutable_method_stats();
   
   // @@protoc_insertion_point(class_scope:trident.pbrpc.builtin.ServiceStat)
@@ -1315,7 +1315,7 @@ class ServiceStat : public ::google::protobuf::Message {
   ::google::protobuf::int64 period_seconds_;
   ::google::protobuf::int64 succeed_count_;
   ::google::protobuf::int64 failed_count_;
-  ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::MethodStat > method_stats_;
+  ::google::protobuf::RepeatedPtrField< ::trident::builtin::MethodStat > method_stats_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
@@ -1484,12 +1484,12 @@ class StatResponse : public ::google::protobuf::Message {
   inline int service_stats_size() const;
   inline void clear_service_stats();
   static const int kServiceStatsFieldNumber = 1;
-  inline const ::trident::pbrpc::builtin::ServiceStat& service_stats(int index) const;
-  inline ::trident::pbrpc::builtin::ServiceStat* mutable_service_stats(int index);
-  inline ::trident::pbrpc::builtin::ServiceStat* add_service_stats();
-  inline const ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::ServiceStat >&
+  inline const ::trident::builtin::ServiceStat& service_stats(int index) const;
+  inline ::trident::builtin::ServiceStat* mutable_service_stats(int index);
+  inline ::trident::builtin::ServiceStat* add_service_stats();
+  inline const ::google::protobuf::RepeatedPtrField< ::trident::builtin::ServiceStat >&
       service_stats() const;
-  inline ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::ServiceStat >*
+  inline ::google::protobuf::RepeatedPtrField< ::trident::builtin::ServiceStat >*
       mutable_service_stats();
   
   // @@protoc_insertion_point(class_scope:trident.pbrpc.builtin.StatResponse)
@@ -1497,7 +1497,7 @@ class StatResponse : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::ServiceStat > service_stats_;
+  ::google::protobuf::RepeatedPtrField< ::trident::builtin::ServiceStat > service_stats_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -1525,28 +1525,28 @@ class BuiltinService : public ::google::protobuf::Service {
   static const ::google::protobuf::ServiceDescriptor* descriptor();
   
   virtual void Health(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::HealthRequest* request,
-                       ::trident::pbrpc::builtin::HealthResponse* response,
+                       const ::trident::builtin::HealthRequest* request,
+                       ::trident::builtin::HealthResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void ServerOptions(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::ServerOptionsRequest* request,
-                       ::trident::pbrpc::builtin::ServerOptionsResponse* response,
+                       const ::trident::builtin::ServerOptionsRequest* request,
+                       ::trident::builtin::ServerOptionsResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void UpdateOptions(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::UpdateOptionsRequest* request,
-                       ::trident::pbrpc::builtin::UpdateOptionsResponse* response,
+                       const ::trident::builtin::UpdateOptionsRequest* request,
+                       ::trident::builtin::UpdateOptionsResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void ServerStatus(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::ServerStatusRequest* request,
-                       ::trident::pbrpc::builtin::ServerStatusResponse* response,
+                       const ::trident::builtin::ServerStatusRequest* request,
+                       ::trident::builtin::ServerStatusResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void ListService(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::ListServiceRequest* request,
-                       ::trident::pbrpc::builtin::ListServiceResponse* response,
+                       const ::trident::builtin::ListServiceRequest* request,
+                       ::trident::builtin::ListServiceResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void Stat(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::StatRequest* request,
-                       ::trident::pbrpc::builtin::StatResponse* response,
+                       const ::trident::builtin::StatRequest* request,
+                       ::trident::builtin::StatResponse* response,
                        ::google::protobuf::Closure* done);
   
   // implements Service ----------------------------------------------
@@ -1578,28 +1578,28 @@ class BuiltinService_Stub : public BuiltinService {
   // implements BuiltinService ------------------------------------------
   
   void Health(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::HealthRequest* request,
-                       ::trident::pbrpc::builtin::HealthResponse* response,
+                       const ::trident::builtin::HealthRequest* request,
+                       ::trident::builtin::HealthResponse* response,
                        ::google::protobuf::Closure* done);
   void ServerOptions(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::ServerOptionsRequest* request,
-                       ::trident::pbrpc::builtin::ServerOptionsResponse* response,
+                       const ::trident::builtin::ServerOptionsRequest* request,
+                       ::trident::builtin::ServerOptionsResponse* response,
                        ::google::protobuf::Closure* done);
   void UpdateOptions(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::UpdateOptionsRequest* request,
-                       ::trident::pbrpc::builtin::UpdateOptionsResponse* response,
+                       const ::trident::builtin::UpdateOptionsRequest* request,
+                       ::trident::builtin::UpdateOptionsResponse* response,
                        ::google::protobuf::Closure* done);
   void ServerStatus(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::ServerStatusRequest* request,
-                       ::trident::pbrpc::builtin::ServerStatusResponse* response,
+                       const ::trident::builtin::ServerStatusRequest* request,
+                       ::trident::builtin::ServerStatusResponse* response,
                        ::google::protobuf::Closure* done);
   void ListService(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::ListServiceRequest* request,
-                       ::trident::pbrpc::builtin::ListServiceResponse* response,
+                       const ::trident::builtin::ListServiceRequest* request,
+                       ::trident::builtin::ListServiceResponse* response,
                        ::google::protobuf::Closure* done);
   void Stat(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::builtin::StatRequest* request,
-                       ::trident::pbrpc::builtin::StatResponse* response,
+                       const ::trident::builtin::StatRequest* request,
+                       ::trident::builtin::StatResponse* response,
                        ::google::protobuf::Closure* done);
  private:
   ::google::protobuf::RpcChannel* channel_;
@@ -1854,20 +1854,20 @@ inline void ServerOptionsResponse::clear_has_options() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ServerOptionsResponse::clear_options() {
-  if (options_ != NULL) options_->::trident::pbrpc::builtin::ServerOptions::Clear();
+  if (options_ != NULL) options_->::trident::builtin::ServerOptions::Clear();
   clear_has_options();
 }
-inline const ::trident::pbrpc::builtin::ServerOptions& ServerOptionsResponse::options() const {
+inline const ::trident::builtin::ServerOptions& ServerOptionsResponse::options() const {
   return options_ != NULL ? *options_ : *default_instance_->options_;
 }
-inline ::trident::pbrpc::builtin::ServerOptions* ServerOptionsResponse::mutable_options() {
+inline ::trident::builtin::ServerOptions* ServerOptionsResponse::mutable_options() {
   set_has_options();
-  if (options_ == NULL) options_ = new ::trident::pbrpc::builtin::ServerOptions;
+  if (options_ == NULL) options_ = new ::trident::builtin::ServerOptions;
   return options_;
 }
-inline ::trident::pbrpc::builtin::ServerOptions* ServerOptionsResponse::release_options() {
+inline ::trident::builtin::ServerOptions* ServerOptionsResponse::release_options() {
   clear_has_options();
-  ::trident::pbrpc::builtin::ServerOptions* temp = options_;
+  ::trident::builtin::ServerOptions* temp = options_;
   options_ = NULL;
   return temp;
 }
@@ -1887,20 +1887,20 @@ inline void UpdateOptionsRequest::clear_has_options() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void UpdateOptionsRequest::clear_options() {
-  if (options_ != NULL) options_->::trident::pbrpc::builtin::ServerOptions::Clear();
+  if (options_ != NULL) options_->::trident::builtin::ServerOptions::Clear();
   clear_has_options();
 }
-inline const ::trident::pbrpc::builtin::ServerOptions& UpdateOptionsRequest::options() const {
+inline const ::trident::builtin::ServerOptions& UpdateOptionsRequest::options() const {
   return options_ != NULL ? *options_ : *default_instance_->options_;
 }
-inline ::trident::pbrpc::builtin::ServerOptions* UpdateOptionsRequest::mutable_options() {
+inline ::trident::builtin::ServerOptions* UpdateOptionsRequest::mutable_options() {
   set_has_options();
-  if (options_ == NULL) options_ = new ::trident::pbrpc::builtin::ServerOptions;
+  if (options_ == NULL) options_ = new ::trident::builtin::ServerOptions;
   return options_;
 }
-inline ::trident::pbrpc::builtin::ServerOptions* UpdateOptionsRequest::release_options() {
+inline ::trident::builtin::ServerOptions* UpdateOptionsRequest::release_options() {
   clear_has_options();
-  ::trident::pbrpc::builtin::ServerOptions* temp = options_;
+  ::trident::builtin::ServerOptions* temp = options_;
   options_ = NULL;
   return temp;
 }
@@ -1920,20 +1920,20 @@ inline void UpdateOptionsResponse::clear_has_options() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void UpdateOptionsResponse::clear_options() {
-  if (options_ != NULL) options_->::trident::pbrpc::builtin::ServerOptions::Clear();
+  if (options_ != NULL) options_->::trident::builtin::ServerOptions::Clear();
   clear_has_options();
 }
-inline const ::trident::pbrpc::builtin::ServerOptions& UpdateOptionsResponse::options() const {
+inline const ::trident::builtin::ServerOptions& UpdateOptionsResponse::options() const {
   return options_ != NULL ? *options_ : *default_instance_->options_;
 }
-inline ::trident::pbrpc::builtin::ServerOptions* UpdateOptionsResponse::mutable_options() {
+inline ::trident::builtin::ServerOptions* UpdateOptionsResponse::mutable_options() {
   set_has_options();
-  if (options_ == NULL) options_ = new ::trident::pbrpc::builtin::ServerOptions;
+  if (options_ == NULL) options_ = new ::trident::builtin::ServerOptions;
   return options_;
 }
-inline ::trident::pbrpc::builtin::ServerOptions* UpdateOptionsResponse::release_options() {
+inline ::trident::builtin::ServerOptions* UpdateOptionsResponse::release_options() {
   clear_has_options();
-  ::trident::pbrpc::builtin::ServerOptions* temp = options_;
+  ::trident::builtin::ServerOptions* temp = options_;
   options_ = NULL;
   return temp;
 }
@@ -2484,20 +2484,20 @@ inline int ServiceStat::method_stats_size() const {
 inline void ServiceStat::clear_method_stats() {
   method_stats_.Clear();
 }
-inline const ::trident::pbrpc::builtin::MethodStat& ServiceStat::method_stats(int index) const {
+inline const ::trident::builtin::MethodStat& ServiceStat::method_stats(int index) const {
   return method_stats_.Get(index);
 }
-inline ::trident::pbrpc::builtin::MethodStat* ServiceStat::mutable_method_stats(int index) {
+inline ::trident::builtin::MethodStat* ServiceStat::mutable_method_stats(int index) {
   return method_stats_.Mutable(index);
 }
-inline ::trident::pbrpc::builtin::MethodStat* ServiceStat::add_method_stats() {
+inline ::trident::builtin::MethodStat* ServiceStat::add_method_stats() {
   return method_stats_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::MethodStat >&
+inline const ::google::protobuf::RepeatedPtrField< ::trident::builtin::MethodStat >&
 ServiceStat::method_stats() const {
   return method_stats_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::MethodStat >*
+inline ::google::protobuf::RepeatedPtrField< ::trident::builtin::MethodStat >*
 ServiceStat::mutable_method_stats() {
   return &method_stats_;
 }
@@ -2597,20 +2597,20 @@ inline int StatResponse::service_stats_size() const {
 inline void StatResponse::clear_service_stats() {
   service_stats_.Clear();
 }
-inline const ::trident::pbrpc::builtin::ServiceStat& StatResponse::service_stats(int index) const {
+inline const ::trident::builtin::ServiceStat& StatResponse::service_stats(int index) const {
   return service_stats_.Get(index);
 }
-inline ::trident::pbrpc::builtin::ServiceStat* StatResponse::mutable_service_stats(int index) {
+inline ::trident::builtin::ServiceStat* StatResponse::mutable_service_stats(int index) {
   return service_stats_.Mutable(index);
 }
-inline ::trident::pbrpc::builtin::ServiceStat* StatResponse::add_service_stats() {
+inline ::trident::builtin::ServiceStat* StatResponse::add_service_stats() {
   return service_stats_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::ServiceStat >&
+inline const ::google::protobuf::RepeatedPtrField< ::trident::builtin::ServiceStat >&
 StatResponse::service_stats() const {
   return service_stats_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::trident::pbrpc::builtin::ServiceStat >*
+inline ::google::protobuf::RepeatedPtrField< ::trident::builtin::ServiceStat >*
 StatResponse::mutable_service_stats() {
   return &service_stats_;
 }
@@ -2619,7 +2619,7 @@ StatResponse::mutable_service_stats() {
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace builtin
-}  // namespace pbrpc
+
 }  // namespace trident
 
 #ifndef SWIG

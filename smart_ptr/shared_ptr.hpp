@@ -30,7 +30,7 @@
 #include <cassert>
 
 namespace trident {
-namespace pbrpc {
+
 
 template<class T> class shared_ptr;
 template<class T> class weak_ptr;
@@ -74,7 +74,7 @@ template<> struct shared_ptr_traits<void const volatile>
 // enable_shared_from_this support
 
 template< class X, class Y, class T > 
-inline void sp_enable_shared_from_this( trident::pbrpc::shared_ptr<X> const * ppx, Y const * py, trident::pbrpc::enable_shared_from_this< T > const * pe )
+inline void sp_enable_shared_from_this( trident::shared_ptr<X> const * ppx, Y const * py, trident::enable_shared_from_this< T > const * pe )
 {
     if( pe != 0 )
     {
@@ -83,7 +83,7 @@ inline void sp_enable_shared_from_this( trident::pbrpc::shared_ptr<X> const * pp
 }
 
 template< class X, class Y, class T > 
-inline void sp_enable_shared_from_this( trident::pbrpc::shared_ptr<X> * ppx, Y const * py, trident::pbrpc::enable_shared_from_this2< T > const * pe )
+inline void sp_enable_shared_from_this( trident::shared_ptr<X> * ppx, Y const * py, trident::enable_shared_from_this2< T > const * pe )
 {
     if( pe != 0 )
     {
@@ -124,7 +124,7 @@ public:
     typedef T element_type;
     typedef T value_type;
     typedef T * pointer;
-    typedef typename trident::pbrpc::detail::shared_ptr_traits<T>::reference reference;
+    typedef typename trident::detail::shared_ptr_traits<T>::reference reference;
 
     shared_ptr(): px(0), pn() // never throws in 1.30+
     {
@@ -133,7 +133,7 @@ public:
     template<class Y>
     explicit shared_ptr( Y * p ): px( p ), pn( p ) // Y must be complete
     {
-        trident::pbrpc::detail::sp_enable_shared_from_this( this, p, p );
+        trident::detail::sp_enable_shared_from_this( this, p, p );
     }
 
     //
@@ -144,14 +144,14 @@ public:
 
     template<class Y, class D> shared_ptr(Y * p, D d): px(p), pn(p, d)
     {
-        trident::pbrpc::detail::sp_enable_shared_from_this( this, p, p );
+        trident::detail::sp_enable_shared_from_this( this, p, p );
     }
 
     // As above, but with allocator. A's copy constructor shall not throw.
 
     template<class Y, class D, class A> shared_ptr( Y * p, D d, A a ): px( p ), pn( p, d, a )
     {
-        trident::pbrpc::detail::sp_enable_shared_from_this( this, p, p );
+        trident::detail::sp_enable_shared_from_this( this, p, p );
     }
 
 //  generated copy constructor, destructor are fine...
@@ -164,7 +164,7 @@ public:
     }
 
     template<class Y>
-    shared_ptr( weak_ptr<Y> const & r, trident::pbrpc::detail::sp_nothrow_tag ): px( 0 ), pn( r.pn, trident::pbrpc::detail::sp_nothrow_tag() ) // never throws
+    shared_ptr( weak_ptr<Y> const & r, trident::detail::sp_nothrow_tag ): px( 0 ), pn( r.pn, trident::detail::sp_nothrow_tag() ) // never throws
     {
         if( !pn.empty() )
         {
@@ -173,7 +173,7 @@ public:
     }
 
     template<class Y>
-    shared_ptr( shared_ptr<Y> const & r, typename trident::pbrpc::detail::sp_enable_if_convertible<Y,T>::type = trident::pbrpc::detail::sp_empty() )
+    shared_ptr( shared_ptr<Y> const & r, typename trident::detail::sp_enable_if_convertible<Y,T>::type = trident::detail::sp_empty() )
     : px( r.px ), pn( r.pn ) // never throws
     {
     }
@@ -185,26 +185,26 @@ public:
     }
 
     template<class Y>
-    shared_ptr(shared_ptr<Y> const & r, trident::pbrpc::detail::static_cast_tag): px(static_cast<element_type *>(r.px)), pn(r.pn)
+    shared_ptr(shared_ptr<Y> const & r, trident::detail::static_cast_tag): px(static_cast<element_type *>(r.px)), pn(r.pn)
     {
     }
 
     template<class Y>
-    shared_ptr(shared_ptr<Y> const & r, trident::pbrpc::detail::const_cast_tag): px(const_cast<element_type *>(r.px)), pn(r.pn)
+    shared_ptr(shared_ptr<Y> const & r, trident::detail::const_cast_tag): px(const_cast<element_type *>(r.px)), pn(r.pn)
     {
     }
 
     template<class Y>
-    shared_ptr(shared_ptr<Y> const & r, trident::pbrpc::detail::dynamic_cast_tag): px(dynamic_cast<element_type *>(r.px)), pn(r.pn)
+    shared_ptr(shared_ptr<Y> const & r, trident::detail::dynamic_cast_tag): px(dynamic_cast<element_type *>(r.px)), pn(r.pn)
     {
         if(px == 0) // need to allocate new counter -- the cast failed
         {
-            pn = trident::pbrpc::detail::shared_count();
+            pn = trident::detail::shared_count();
         }
     }
 
     template<class Y>
-    shared_ptr(shared_ptr<Y> const & r, trident::pbrpc::detail::polymorphic_cast_tag): px(dynamic_cast<element_type *>(r.px)), pn(r.pn)
+    shared_ptr(shared_ptr<Y> const & r, trident::detail::polymorphic_cast_tag): px(dynamic_cast<element_type *>(r.px)), pn(r.pn)
     {
         if(px == 0)
         {
@@ -318,7 +318,7 @@ private:
     template<class Y> friend class weak_ptr;
 
     T * px;                     // contained pointer
-    trident::pbrpc::detail::shared_count pn;    // reference counter
+    trident::detail::shared_count pn;    // reference counter
 
 };  // shared_ptr
 
@@ -344,17 +344,17 @@ template<class T> inline void swap(shared_ptr<T> & a, shared_ptr<T> & b)
 
 template<class T, class U> shared_ptr<T> static_pointer_cast(shared_ptr<U> const & r)
 {
-    return shared_ptr<T>(r, trident::pbrpc::detail::static_cast_tag());
+    return shared_ptr<T>(r, trident::detail::static_cast_tag());
 }
 
 template<class T, class U> shared_ptr<T> const_pointer_cast(shared_ptr<U> const & r)
 {
-    return shared_ptr<T>(r, trident::pbrpc::detail::const_cast_tag());
+    return shared_ptr<T>(r, trident::detail::const_cast_tag());
 }
 
 template<class T, class U> shared_ptr<T> dynamic_pointer_cast(shared_ptr<U> const & r)
 {
-    return shared_ptr<T>(r, trident::pbrpc::detail::dynamic_cast_tag());
+    return shared_ptr<T>(r, trident::detail::dynamic_cast_tag());
 }
 
 // get_pointer() enables boost::mem_fn to recognize shared_ptr
@@ -395,29 +395,29 @@ template<class T> inline bool atomic_is_lock_free( shared_ptr<T> const * /*p*/ )
 
 template<class T> shared_ptr<T> atomic_load( shared_ptr<T> const * p )
 {
-    trident::pbrpc::detail::spinlock_pool<2>::scoped_lock lock( p );
+    trident::detail::spinlock_pool<2>::scoped_lock lock( p );
     return *p;
 }
 
-template<class T> inline shared_ptr<T> atomic_load_explicit( shared_ptr<T> const * p, ::trident::pbrpc::memory_order /*mo*/ )
+template<class T> inline shared_ptr<T> atomic_load_explicit( shared_ptr<T> const * p, ::trident::memory_order /*mo*/ )
 {
     return atomic_load( p );
 }
 
 template<class T> void atomic_store( shared_ptr<T> * p, shared_ptr<T> r )
 {
-    trident::pbrpc::detail::spinlock_pool<2>::scoped_lock lock( p );
+    trident::detail::spinlock_pool<2>::scoped_lock lock( p );
     p->swap( r );
 }
 
-template<class T> inline void atomic_store_explicit( shared_ptr<T> * p, shared_ptr<T> r, ::trident::pbrpc::memory_order /*mo*/ )
+template<class T> inline void atomic_store_explicit( shared_ptr<T> * p, shared_ptr<T> r, ::trident::memory_order /*mo*/ )
 {
     atomic_store( p, r ); // std::move( r )
 }
 
 template<class T> shared_ptr<T> atomic_exchange( shared_ptr<T> * p, shared_ptr<T> r )
 {
-    trident::pbrpc::detail::spinlock & sp = trident::pbrpc::detail::spinlock_pool<2>::spinlock_for( p );
+    trident::detail::spinlock & sp = trident::detail::spinlock_pool<2>::spinlock_for( p );
 
     sp.lock();
     p->swap( r );
@@ -426,14 +426,14 @@ template<class T> shared_ptr<T> atomic_exchange( shared_ptr<T> * p, shared_ptr<T
     return r; // return std::move( r )
 }
 
-template<class T> shared_ptr<T> atomic_exchange_explicit( shared_ptr<T> * p, shared_ptr<T> r, ::trident::pbrpc::memory_order /*mo*/ )
+template<class T> shared_ptr<T> atomic_exchange_explicit( shared_ptr<T> * p, shared_ptr<T> r, ::trident::memory_order /*mo*/ )
 {
     return atomic_exchange( p, r ); // std::move( r )
 }
 
 template<class T> bool atomic_compare_exchange( shared_ptr<T> * p, shared_ptr<T> * v, shared_ptr<T> w )
 {
-    trident::pbrpc::detail::spinlock & sp = trident::pbrpc::detail::spinlock_pool<2>::spinlock_for( p );
+    trident::detail::spinlock & sp = trident::detail::spinlock_pool<2>::spinlock_for( p );
 
     sp.lock();
 
@@ -456,19 +456,19 @@ template<class T> bool atomic_compare_exchange( shared_ptr<T> * p, shared_ptr<T>
     }
 }
 
-template<class T> inline bool atomic_compare_exchange_explicit( shared_ptr<T> * p, shared_ptr<T> * v, shared_ptr<T> w, ::trident::pbrpc::memory_order /*success*/, ::trident::pbrpc::memory_order /*failure*/ )
+template<class T> inline bool atomic_compare_exchange_explicit( shared_ptr<T> * p, shared_ptr<T> * v, shared_ptr<T> w, ::trident::memory_order /*success*/, ::trident::memory_order /*failure*/ )
 {
     return atomic_compare_exchange( p, v, w ); // std::move( w )
 }
 
 // hash_value
 
-template< class T > std::size_t hash_value( trident::pbrpc::shared_ptr<T> const & p )
+template< class T > std::size_t hash_value( trident::shared_ptr<T> const & p )
 {
     return reinterpret_cast<std::size_t>(p.get());
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_SHARED_PTR_

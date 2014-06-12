@@ -12,7 +12,7 @@
 #include <trident/common_internal.h>
 
 namespace trident {
-namespace pbrpc {
+
 namespace internal {
 
 class FuncTracer
@@ -46,12 +46,12 @@ private:
 }; // class Tracer
 
 } // namespace internal
-} // namespace pbrpc
+
 } // namespace trident
 
 #if defined( SOFA_PBRPC_ENABLE_FUNCTION_TRACE )
 # define SOFA_PBRPC_FUNCTION_TRACE \
-    ::trident::pbrpc::internal::FuncTracer __trident_function_tracer__( \
+    ::trident::internal::FuncTracer __trident_function_tracer__( \
             __FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
 #else
 # define SOFA_PBRPC_FUNCTION_TRACE

@@ -1,6 +1,6 @@
 import "trident/rpc_option.proto";
 
-package trident.pbrpc.test;
+package trident.test;
 
 option cc_generic_services = true;
 
@@ -14,12 +14,12 @@ message SleepResponse {
 
 service SleepServer {
     // The service timeout is 2 seconds.
-    option (trident.pbrpc.service_timeout) = 2000;
+    option (trident.service_timeout) = 2000;
 
     rpc SleepWithServiceTimeout(SleepRequest) returns(SleepResponse);
 
     // The method timeout is 4 seconds.
     rpc SleepWithMethodTimeout(SleepRequest) returns(SleepResponse) {
-        option (trident.pbrpc.method_timeout) = 4000;
+        option (trident.method_timeout) = 4000;
     }
 }

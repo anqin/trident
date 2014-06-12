@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 
 using namespace std;
-using namespace trident::pbrpc;
+using namespace trident;
 	
 class ClosureTest : public testing::Test {
 public:

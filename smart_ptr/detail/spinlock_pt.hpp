@@ -18,7 +18,7 @@
 #include <pthread.h>
 
 namespace trident {
-namespace pbrpc {
+
 namespace detail {
 
 class spinlock
@@ -70,7 +70,7 @@ public:
 };
 
 } // namespace detail
-} // namespace pbrpc
+
 } // namespace trident
 
 #define SOFA_PBRPC_SMART_PTR_DETAIL_SPINLOCK_INIT { PTHREAD_MUTEX_INITIALIZER }

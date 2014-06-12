@@ -18,7 +18,7 @@
 #include <functional>
 
 namespace trident {
-namespace pbrpc {
+
 
   template<typename T> class shared_ptr;
   template<typename T> class weak_ptr;
@@ -55,7 +55,7 @@ namespace pbrpc {
     public detail::generic_owner_less<weak_ptr<T>, shared_ptr<T> >
   {};
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_OWNER_LESS_

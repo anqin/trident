@@ -27,7 +27,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace trident {
-namespace pbrpc {
+
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_trident_2fpbrpc_2frpc_5foption_2eproto();
@@ -72,11 +72,11 @@ extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::Me
   method_timeout;
 static const int kRequestCompressTypeFieldNumber = 20001;
 extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
-    ::google::protobuf::internal::EnumTypeTraits< trident::pbrpc::CompressType, trident::pbrpc::CompressType_IsValid>, 14, false >
+    ::google::protobuf::internal::EnumTypeTraits< trident::CompressType, trident::CompressType_IsValid>, 14, false >
   request_compress_type;
 static const int kResponseCompressTypeFieldNumber = 20002;
 extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
-    ::google::protobuf::internal::EnumTypeTraits< trident::pbrpc::CompressType, trident::pbrpc::CompressType_IsValid>, 14, false >
+    ::google::protobuf::internal::EnumTypeTraits< trident::CompressType, trident::CompressType_IsValid>, 14, false >
   response_compress_type;
 
 // ===================================================================
@@ -84,7 +84,7 @@ extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::Me
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace pbrpc
+
 }  // namespace trident
 
 #ifndef SWIG
@@ -92,8 +92,8 @@ namespace google {
 namespace protobuf {
 
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< trident::pbrpc::CompressType>() {
-  return trident::pbrpc::CompressType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< trident::CompressType>() {
+  return trident::CompressType_descriptor();
 }
 
 }  // namespace google

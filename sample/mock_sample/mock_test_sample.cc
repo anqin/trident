@@ -15,8 +15,8 @@
 #include <unistd.h>
 #include "echo_service.pb.h"
 
-using namespace ::trident::pbrpc;
-using namespace ::trident::pbrpc::test;
+using namespace ::trident;
+using namespace ::trident::test;
 	
 void MockEchoSuccess(::google::protobuf::RpcController* /*controller*/,
               const ::google::protobuf::Message* request,
@@ -66,7 +66,7 @@ TEST_F(MockTest, test_registered_mock_sync_success)
 
     RpcChannel mock_channel(_rpc_client, SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
     EchoServer_Stub* stub = new EchoServer_Stub(&mock_channel);
-    RpcController* cntl = new trident::pbrpc::RpcController();
+    RpcController* cntl = new trident::RpcController();
     EchoRequest* request = new EchoRequest();
     request->set_message("Hello from qinzuoyan01");
     EchoResponse* response = new EchoResponse();
@@ -93,7 +93,7 @@ TEST_F(MockTest, test_registered_mock_sync_fail)
 
     RpcChannel mock_channel(_rpc_client, SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
     EchoServer_Stub* stub = new EchoServer_Stub(&mock_channel);
-    RpcController* cntl = new trident::pbrpc::RpcController();
+    RpcController* cntl = new trident::RpcController();
     EchoRequest* request = new EchoRequest();
     request->set_message("Hello from qinzuoyan01");
     EchoResponse* response = new EchoResponse();
@@ -110,7 +110,7 @@ TEST_F(MockTest, test_registered_mock_sync_fail)
     delete stub;
 }
 
-void EchoCallback(trident::pbrpc::RpcController* cntl, bool* callbacked)
+void EchoCallback(trident::RpcController* cntl, bool* callbacked)
 {
     SLOG(NOTICE, "EchoCallback(): %s", cntl->ErrorText().c_str());
     ASSERT_TRUE(cntl->Failed());
@@ -126,7 +126,7 @@ TEST_F(MockTest, test_registered_mock_async_fail)
 
     RpcChannel mock_channel(_rpc_client, SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
     EchoServer_Stub* stub = new EchoServer_Stub(&mock_channel);
-    RpcController* cntl = new trident::pbrpc::RpcController();
+    RpcController* cntl = new trident::RpcController();
     EchoRequest* request = new EchoRequest();
     request->set_message("Hello from qinzuoyan01");
     EchoResponse* response = new EchoResponse();
@@ -153,7 +153,7 @@ TEST_F(MockTest, test_unregistered_method)
 
     RpcChannel mock_channel(_rpc_client, SOFA_PBRPC_MOCK_CHANNEL_ADDRESS_PREFIX + std::string("a:0"));
     EchoServer_Stub* stub = new EchoServer_Stub(&mock_channel);
-    RpcController* cntl = new trident::pbrpc::RpcController();
+    RpcController* cntl = new trident::RpcController();
     EchoRequest* request = new EchoRequest();
     request->set_message("Hello from qinzuoyan01");
     EchoResponse* response = new EchoResponse();

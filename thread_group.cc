@@ -8,7 +8,7 @@
 #include <trident/thread_group_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 ThreadGroup::ThreadGroup(int thread_num)
 {
@@ -47,7 +47,7 @@ void ThreadGroup::post(ExtClosure<void()>* handle)
     _imp->post(handle);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

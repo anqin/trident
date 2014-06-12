@@ -8,7 +8,7 @@
 #include <trident/timeout_manager_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 TimeoutManager::TimeoutManager()
 {
@@ -42,7 +42,7 @@ bool TimeoutManager::erase(Id id)
     return _imp->erase(id);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

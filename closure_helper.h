@@ -8,7 +8,7 @@
 #define _SOFA_PBRPC_CLOSURE_HELPER_H_
 
 namespace trident {
-namespace pbrpc {
+
 
 template <typename T>
 inline T * get_pointer(T * p)
@@ -55,7 +55,7 @@ struct ParamTraits<T&>
     typedef T StorageType;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_CLOSURE_HELPER_H_

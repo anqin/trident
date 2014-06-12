@@ -27,7 +27,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace trident {
-namespace pbrpc {
+
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_trident_2fpbrpc_2frpc_5fmeta_2eproto();
@@ -139,8 +139,8 @@ class RpcMeta : public ::google::protobuf::Message {
   inline bool has_type() const;
   inline void clear_type();
   static const int kTypeFieldNumber = 1;
-  inline ::trident::pbrpc::RpcMeta_Type type() const;
-  inline void set_type(::trident::pbrpc::RpcMeta_Type value);
+  inline ::trident::RpcMeta_Type type() const;
+  inline void set_type(::trident::RpcMeta_Type value);
   
   // required uint64 sequence_id = 2;
   inline bool has_sequence_id() const;
@@ -189,15 +189,15 @@ class RpcMeta : public ::google::protobuf::Message {
   inline bool has_compress_type() const;
   inline void clear_compress_type();
   static const int kCompressTypeFieldNumber = 300;
-  inline trident::pbrpc::CompressType compress_type() const;
-  inline void set_compress_type(trident::pbrpc::CompressType value);
+  inline trident::CompressType compress_type() const;
+  inline void set_compress_type(trident::CompressType value);
   
   // optional .trident.pbrpc.CompressType expected_response_compress_type = 301;
   inline bool has_expected_response_compress_type() const;
   inline void clear_expected_response_compress_type();
   static const int kExpectedResponseCompressTypeFieldNumber = 301;
-  inline trident::pbrpc::CompressType expected_response_compress_type() const;
-  inline void set_expected_response_compress_type(trident::pbrpc::CompressType value);
+  inline trident::CompressType expected_response_compress_type() const;
+  inline void set_expected_response_compress_type(trident::CompressType value);
   
   // @@protoc_insertion_point(class_scope:trident.pbrpc.RpcMeta)
  private:
@@ -260,11 +260,11 @@ inline void RpcMeta::clear_type() {
   type_ = 0;
   clear_has_type();
 }
-inline ::trident::pbrpc::RpcMeta_Type RpcMeta::type() const {
-  return static_cast< ::trident::pbrpc::RpcMeta_Type >(type_);
+inline ::trident::RpcMeta_Type RpcMeta::type() const {
+  return static_cast< ::trident::RpcMeta_Type >(type_);
 }
-inline void RpcMeta::set_type(::trident::pbrpc::RpcMeta_Type value) {
-  GOOGLE_DCHECK(::trident::pbrpc::RpcMeta_Type_IsValid(value));
+inline void RpcMeta::set_type(::trident::RpcMeta_Type value) {
+  GOOGLE_DCHECK(::trident::RpcMeta_Type_IsValid(value));
   set_has_type();
   type_ = value;
 }
@@ -465,11 +465,11 @@ inline void RpcMeta::clear_compress_type() {
   compress_type_ = 0;
   clear_has_compress_type();
 }
-inline trident::pbrpc::CompressType RpcMeta::compress_type() const {
-  return static_cast< trident::pbrpc::CompressType >(compress_type_);
+inline trident::CompressType RpcMeta::compress_type() const {
+  return static_cast< trident::CompressType >(compress_type_);
 }
-inline void RpcMeta::set_compress_type(trident::pbrpc::CompressType value) {
-  GOOGLE_DCHECK(trident::pbrpc::CompressType_IsValid(value));
+inline void RpcMeta::set_compress_type(trident::CompressType value) {
+  GOOGLE_DCHECK(trident::CompressType_IsValid(value));
   set_has_compress_type();
   compress_type_ = value;
 }
@@ -488,11 +488,11 @@ inline void RpcMeta::clear_expected_response_compress_type() {
   expected_response_compress_type_ = 0;
   clear_has_expected_response_compress_type();
 }
-inline trident::pbrpc::CompressType RpcMeta::expected_response_compress_type() const {
-  return static_cast< trident::pbrpc::CompressType >(expected_response_compress_type_);
+inline trident::CompressType RpcMeta::expected_response_compress_type() const {
+  return static_cast< trident::CompressType >(expected_response_compress_type_);
 }
-inline void RpcMeta::set_expected_response_compress_type(trident::pbrpc::CompressType value) {
-  GOOGLE_DCHECK(trident::pbrpc::CompressType_IsValid(value));
+inline void RpcMeta::set_expected_response_compress_type(trident::CompressType value) {
+  GOOGLE_DCHECK(trident::CompressType_IsValid(value));
   set_has_expected_response_compress_type();
   expected_response_compress_type_ = value;
 }
@@ -500,7 +500,7 @@ inline void RpcMeta::set_expected_response_compress_type(trident::pbrpc::Compres
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace pbrpc
+
 }  // namespace trident
 
 #ifndef SWIG
@@ -508,8 +508,8 @@ namespace google {
 namespace protobuf {
 
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::trident::pbrpc::RpcMeta_Type>() {
-  return ::trident::pbrpc::RpcMeta_Type_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::trident::RpcMeta_Type>() {
+  return ::trident::RpcMeta_Type_descriptor();
 }
 
 }  // namespace google

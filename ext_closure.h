@@ -14,7 +14,7 @@
 // 2, Support pass argument by reference, though bind
 //    always by value.
 // 3, When bind class method, support use
-//    "trident::pbrpc::shared_ptr" as this pointer of class.
+//    "trident::shared_ptr" as this pointer of class.
 // 4, Support create temporary and permanent closure:
 //    Temporary closure (self destoryed after call):
 //        NewExtClosure();
@@ -50,7 +50,7 @@
 //    ExtClosure<int(double)>* c4 = NewPermanentExtClosure(&obj, &C1::m1, 1);
 //    c4->Run(2.0);
 //    
-//    class C2 : public trident::pbrpc::enable_shared_from_this<C2>
+//    class C2 : public trident::enable_shared_from_this<C2>
 //    {
 //        public:
 //            int m1(int pre_arg, double post_arg);
@@ -102,7 +102,7 @@
 #include <trident/closure_helper.h>
 
 namespace trident {
-namespace pbrpc{
+
 
 /// base class for all ExtClosures
 class ExtClosureBase
@@ -13622,7 +13622,7 @@ ExtClosure<R (Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9, Arg10)>* New
     return new FunctionExtClosure_Arg10_Bind10<false, R, PreArg1, PreArg2, PreArg3, PreArg4, PreArg5, PreArg6, PreArg7, PreArg8, PreArg9, PreArg10, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9, Arg10>(function, pa1, pa2, pa3, pa4, pa5, pa6, pa7, pa8, pa9, pa10);
 }
 
-} // namespace pbrpc
+
 
 } // namespace trident
 

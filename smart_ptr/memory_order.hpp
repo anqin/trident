@@ -16,7 +16,7 @@
 #define _SOFA_PBRPC_SMART_PTR_MEMORY_ORDER_
 
 namespace trident {
-namespace pbrpc {
+
 
 //
 // Enum values are chosen so that code that needs to insert
@@ -45,7 +45,7 @@ enum memory_order
     memory_order_consume = 8
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_MEMORY_ORDER_

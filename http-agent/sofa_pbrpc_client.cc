@@ -72,13 +72,13 @@ void error(const std::string& message, bool print_usage)
 
 int run_health(int /*argc*/, const char** /*argv*/)
 {
-    trident::pbrpc::RpcClient rpc_client;
-    trident::pbrpc::RpcChannel rpc_channel(&rpc_client, g_server_address);
-    trident::pbrpc::builtin::BuiltinService_Stub stub(&rpc_channel);
+    trident::RpcClient rpc_client;
+    trident::RpcChannel rpc_channel(&rpc_client, g_server_address);
+    trident::builtin::BuiltinService_Stub stub(&rpc_channel);
 
-    trident::pbrpc::RpcController cntl;
-    trident::pbrpc::builtin::HealthRequest request;
-    trident::pbrpc::builtin::HealthResponse response;
+    trident::RpcController cntl;
+    trident::builtin::HealthRequest request;
+    trident::builtin::HealthResponse response;
     stub.Health(&cntl, &request, &response, NULL);
     if (cntl.Failed()) {
         error("call method failed: " + cntl.ErrorText(), false);
@@ -97,13 +97,13 @@ int run_health(int /*argc*/, const char** /*argv*/)
 
 int run_status(int /*argc*/, const char** /*argv*/)
 {
-    trident::pbrpc::RpcClient rpc_client;
-    trident::pbrpc::RpcChannel rpc_channel(&rpc_client, g_server_address);
-    trident::pbrpc::builtin::BuiltinService_Stub stub(&rpc_channel);
+    trident::RpcClient rpc_client;
+    trident::RpcChannel rpc_channel(&rpc_client, g_server_address);
+    trident::builtin::BuiltinService_Stub stub(&rpc_channel);
 
-    trident::pbrpc::RpcController cntl;
-    trident::pbrpc::builtin::ServerStatusRequest request;
-    trident::pbrpc::builtin::ServerStatusResponse response;
+    trident::RpcController cntl;
+    trident::builtin::ServerStatusRequest request;
+    trident::builtin::ServerStatusResponse response;
     stub.ServerStatus(&cntl, &request, &response, NULL);
     if (cntl.Failed()) {
         error("call method failed: " + cntl.ErrorText(), false);
@@ -122,13 +122,13 @@ int run_status(int /*argc*/, const char** /*argv*/)
 
 int run_option(int /*argc*/, const char** /*argv*/)
 {
-    trident::pbrpc::RpcClient rpc_client;
-    trident::pbrpc::RpcChannel rpc_channel(&rpc_client, g_server_address);
-    trident::pbrpc::builtin::BuiltinService_Stub stub(&rpc_channel);
+    trident::RpcClient rpc_client;
+    trident::RpcChannel rpc_channel(&rpc_client, g_server_address);
+    trident::builtin::BuiltinService_Stub stub(&rpc_channel);
 
-    trident::pbrpc::RpcController cntl;
-    trident::pbrpc::builtin::ServerOptionsRequest request;
-    trident::pbrpc::builtin::ServerOptionsResponse response;
+    trident::RpcController cntl;
+    trident::builtin::ServerOptionsRequest request;
+    trident::builtin::ServerOptionsResponse response;
     stub.ServerOptions(&cntl, &request, &response, NULL);
     if (cntl.Failed()) {
         error("call method failed: " + cntl.ErrorText(), false);
@@ -147,12 +147,12 @@ int run_option(int /*argc*/, const char** /*argv*/)
 
 int run_stat(int argc, const char** argv)
 {
-    trident::pbrpc::RpcClient rpc_client;
-    trident::pbrpc::RpcChannel rpc_channel(&rpc_client, g_server_address);
-    trident::pbrpc::builtin::BuiltinService_Stub stub(&rpc_channel);
+    trident::RpcClient rpc_client;
+    trident::RpcChannel rpc_channel(&rpc_client, g_server_address);
+    trident::builtin::BuiltinService_Stub stub(&rpc_channel);
 
-    trident::pbrpc::RpcController cntl;
-    trident::pbrpc::builtin::StatRequest request;
+    trident::RpcController cntl;
+    trident::builtin::StatRequest request;
     if (argc >= 1) {
         request.set_service_name(argv[0]);
     }
@@ -165,7 +165,7 @@ int run_stat(int argc, const char** argv)
     else {
         request.set_period_seconds(60);
     }
-    trident::pbrpc::builtin::StatResponse response;
+    trident::builtin::StatResponse response;
     stub.Stat(&cntl, &request, &response, NULL);
     if (cntl.Failed()) {
         error("call method failed: " + cntl.ErrorText(), false);
@@ -185,8 +185,8 @@ int run_stat(int argc, const char** argv)
 
 int run_list(int /*argc*/, const char** /*argv*/)
 {
-    trident::pbrpc::RpcClient rpc_client;
-    trident::pbrpc::http_agent::HttpAgent agent(&rpc_client);
+    trident::RpcClient rpc_client;
+    trident::http_agent::HttpAgent agent(&rpc_client);
     if (!agent.Init(g_server_address)) {
         error("init failed", false);
         return EXIT_FAILURE;
@@ -220,26 +220,26 @@ int run_desc(int argc, const char** argv)
         // remove leading '.'
         name = name.substr(1);
     }
-    trident::pbrpc::RpcClient rpc_client;
-    trident::pbrpc::http_agent::HttpAgent agent(&rpc_client);
+    trident::RpcClient rpc_client;
+    trident::http_agent::HttpAgent agent(&rpc_client);
     if (!agent.Init(g_server_address)) {
         error("init failed", false);
         return EXIT_FAILURE;
     }
-    trident::pbrpc::http_agent::HttpAgent::ProtobufType type;
+    trident::http_agent::HttpAgent::ProtobufType type;
     std::string desc;
     if (!agent.GetDescriptor(name, &type, &desc)) {
         error("type not found", false);
         return EXIT_FAILURE;
     }
     std::string type_str;
-    if (type == trident::pbrpc::http_agent::HttpAgent::PT_SERVICE) {
+    if (type == trident::http_agent::HttpAgent::PT_SERVICE) {
         type_str = "Service";
     }
-    else if (type == trident::pbrpc::http_agent::HttpAgent::PT_MESSAGE) {
+    else if (type == trident::http_agent::HttpAgent::PT_MESSAGE) {
         type_str = "Message";
     }
-    else if (type == trident::pbrpc::http_agent::HttpAgent::PT_ENUM) {
+    else if (type == trident::http_agent::HttpAgent::PT_ENUM) {
         type_str = "Enum";
     }
     else {
@@ -269,14 +269,14 @@ int run_call(int argc, const char** argv)
 
 int call_method(std::string method, std::string request, int timeout)
 {
-    trident::pbrpc::RpcClient rpc_client;
-    trident::pbrpc::http_agent::HttpAgent agent(&rpc_client);
+    trident::RpcClient rpc_client;
+    trident::http_agent::HttpAgent agent(&rpc_client);
     if (!agent.Init(g_server_address)) {
         error("init failed", false);
         return EXIT_FAILURE;
     }
 
-    trident::pbrpc::RpcController cntl;
+    trident::RpcController cntl;
     cntl.SetTimeout(timeout);
     std::string response;
     agent.CallMethod(method, &cntl, &request, &response, NULL);

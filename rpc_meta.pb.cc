@@ -14,7 +14,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace trident {
-namespace pbrpc {
+
 
 namespace {
 
@@ -84,7 +84,7 @@ void protobuf_AddDesc_trident_2fpbrpc_2frpc_5fmeta_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::trident::pbrpc::protobuf_AddDesc_trident_2fpbrpc_2frpc_5foption_2eproto();
+  ::trident::protobuf_AddDesc_trident_2fpbrpc_2frpc_5foption_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\031trident/rpc_meta.proto\022\ntrident.pbrpc\032"
     "\033trident/rpc_option.proto\"\246\002\n\007RpcMeta"
@@ -244,8 +244,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::trident::pbrpc::RpcMeta_Type_IsValid(value)) {
-            set_type(static_cast< ::trident::pbrpc::RpcMeta_Type >(value));
+          if (::trident::RpcMeta_Type_IsValid(value)) {
+            set_type(static_cast< ::trident::RpcMeta_Type >(value));
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
@@ -347,8 +347,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (trident::pbrpc::CompressType_IsValid(value)) {
-            set_compress_type(static_cast< trident::pbrpc::CompressType >(value));
+          if (trident::CompressType_IsValid(value)) {
+            set_compress_type(static_cast< trident::CompressType >(value));
           } else {
             mutable_unknown_fields()->AddVarint(300, value);
           }
@@ -368,8 +368,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (trident::pbrpc::CompressType_IsValid(value)) {
-            set_expected_response_compress_type(static_cast< trident::pbrpc::CompressType >(value));
+          if (trident::CompressType_IsValid(value)) {
+            set_expected_response_compress_type(static_cast< trident::CompressType >(value));
           } else {
             mutable_unknown_fields()->AddVarint(301, value);
           }
@@ -672,7 +672,7 @@ void RpcMeta::Swap(RpcMeta* other) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace pbrpc
+
 }  // namespace trident
 
 // @@protoc_insertion_point(global_scope)

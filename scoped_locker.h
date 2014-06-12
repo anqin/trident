@@ -8,7 +8,7 @@
 #define _SOFA_PBRPC_SCOPED_LOCKER_H_
 
 namespace trident {
-namespace pbrpc {
+
 
 template <typename LockType>
 class ScopedLocker
@@ -35,7 +35,7 @@ private:
     LockType* _lock;
 }; // class ScopedLocker
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SCOPED_LOCKER_H_

@@ -14,7 +14,7 @@
 #include <trident/rpc_error_code.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Defined in other files.
 class RpcServerImpl;
@@ -107,7 +107,7 @@ public:
     //     int main()
     //     {
     //         ... ...
-    //         ::trident::pbrpc::RpcServer rpc_server;
+    //         ::trident::RpcServer rpc_server;
     //         if (!rpc_server.RegisterService(service)) {
     //             fprintf(stderr, "Register service failed.\n");
     //             return EXIT_FAILURE;
@@ -163,18 +163,18 @@ public:
     bool IsListening();
 
 public:
-    const trident::pbrpc::shared_ptr<RpcServerImpl>& impl() const
+    const trident::shared_ptr<RpcServerImpl>& impl() const
     {
         return _impl;
     }
 
 private:
-    trident::pbrpc::shared_ptr<RpcServerImpl> _impl;
+    trident::shared_ptr<RpcServerImpl> _impl;
 
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcServer);
 }; // class RpcServer
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_SERVER_H_

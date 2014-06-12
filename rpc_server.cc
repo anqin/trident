@@ -11,7 +11,7 @@
 #include <trident/rpc_server_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 RpcServer::RpcServer(const RpcServerOptions& options, EventHandler* handler)
     : _impl(new RpcServerImpl(options, handler))
@@ -78,7 +78,7 @@ bool RpcServer::IsListening()
     return _impl->IsListening();
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

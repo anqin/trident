@@ -10,7 +10,7 @@
 #include <pthread.h>
 
 namespace trident {
-namespace pbrpc {
+
 class SpinLock
 {
 public:
@@ -24,7 +24,7 @@ private:
     pthread_spinlock_t _lock;
 }; // class SpinLock
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SPIN_LOCK_H_

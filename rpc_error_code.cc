@@ -7,7 +7,7 @@
 #include <trident/rpc_error_code.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 #define MAKE_CASE(name) case name: return (#name)
 
@@ -42,7 +42,7 @@ const char* RpcErrorCodeToString(int error_code)
     return "RPC_ERROR_UNDEFINED";
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

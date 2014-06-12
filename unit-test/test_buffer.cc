@@ -19,7 +19,7 @@
 #include <trident/rpc_meta.pb.h>
 #include "test_data.pb.h"
 
-using namespace trident::pbrpc;
+using namespace trident;
 
 static char* rand_str(char* str, size_t len)
 {
@@ -456,7 +456,7 @@ public:
     }
 
     int _block_size;
-    ::trident::pbrpc::test::TestData _test_data;
+    ::trident::test::TestData _test_data;
 };
 
 TEST_F(PBSerDeserTest, SerDeser)
@@ -499,7 +499,7 @@ TEST_F(PBSerDeserTest, SerDeser)
     ASSERT_EQ("TestService.Echo", new_meta.method());
     ASSERT_EQ(meta.method().size(), new_meta.method().size());
 
-    ::trident::pbrpc::test::TestData new_data;
+    ::trident::test::TestData new_data;
     ASSERT_TRUE(new_data.ParseFromBoundedZeroCopyStream(is.get(), data_size));
     ASSERT_EQ(total_size, is->ByteCount());
     ASSERT_EQ(12, new_data.v1());

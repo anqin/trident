@@ -12,10 +12,10 @@
 #include <trident/ptime.h>
 
 namespace trident {
-namespace pbrpc {
+
 namespace internal {
 
-static LogLevel s_log_level = ::trident::pbrpc::LOG_LEVEL_ERROR;
+static LogLevel s_log_level = ::trident::LOG_LEVEL_ERROR;
 
 LogLevel get_log_level()
 {
@@ -48,14 +48,14 @@ void log_handler(LogLevel level, const char* filename, int line, const char *fmt
             filename, line, buf);
     fflush(stderr);
 
-    if (level == ::trident::pbrpc::LOG_LEVEL_FATAL)
+    if (level == ::trident::LOG_LEVEL_FATAL)
     {
         abort();
     }
 }
 
 } // namespace internal
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

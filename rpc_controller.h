@@ -13,7 +13,7 @@
 #include <trident/rpc_option.pb.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class RpcControllerImpl;
 
@@ -150,18 +150,18 @@ public:
     virtual void NotifyOnCancel(google::protobuf::Closure* callback);
 
 public:
-    const trident::pbrpc::shared_ptr<RpcControllerImpl>& impl() const
+    const trident::shared_ptr<RpcControllerImpl>& impl() const
     {
         return _impl;
     }
 
 private:
-    trident::pbrpc::shared_ptr<RpcControllerImpl> _impl;
+    trident::shared_ptr<RpcControllerImpl> _impl;
 
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcController);
 }; // class RpcController
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_CONTROLLER_H_

@@ -1,4 +1,4 @@
-package trident.pbrpc.test;
+package trident.test;
 
 message TestData {
     required int32  v1 = 1;

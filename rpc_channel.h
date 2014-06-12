@@ -12,7 +12,7 @@
 #include <trident/common.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Defined in other files.
 class RpcClient;
@@ -58,18 +58,18 @@ public:
                             ::google::protobuf::Closure* done);
 
 public:
-    const trident::pbrpc::shared_ptr<RpcChannelImpl>& impl() const
+    const trident::shared_ptr<RpcChannelImpl>& impl() const
     {
         return _impl;
     }
 
 private:
-    trident::pbrpc::shared_ptr<RpcChannelImpl> _impl;
+    trident::shared_ptr<RpcChannelImpl> _impl;
 
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcChannel);
 }; // class RpcChannel
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_CHANNEL_H_

@@ -14,7 +14,7 @@
 #include <trident/compressed_stream.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 RpcServerImpl::RpcServerImpl(const RpcServerOptions& options,
         RpcServer::EventHandler* handler)
@@ -160,7 +160,7 @@ bool RpcServerImpl::Start(const std::string& server_address)
     _timer_worker->start();
 
     if (!_options.disable_builtin_services) {
-        _service_pool->RegisterService(new trident::pbrpc::builtin::BuiltinServiceImpl(
+        _service_pool->RegisterService(new trident::builtin::BuiltinServiceImpl(
                     shared_from_this(), _service_pool, _options.disable_list_service));
     }
 
@@ -500,7 +500,7 @@ void RpcServerImpl::OnReceived(
     }
     else
     {
-        ::trident::pbrpc::scoped_ptr<AbstractCompressedInputStream> is(
+        ::trident::scoped_ptr<AbstractCompressedInputStream> is(
                 get_compressed_input_stream(buffer.get(), compress_type));
         parse_request_return = request->ParseFromZeroCopyStream(is.get());
     }
@@ -704,7 +704,7 @@ void RpcServerImpl::SendSucceedResponse(
     }
     else
     {
-        ::trident::pbrpc::scoped_ptr<AbstractCompressedOutputStream> os(
+        ::trident::scoped_ptr<AbstractCompressedOutputStream> os(
                 get_compressed_output_stream(&write_buffer, compress_type));
         serialize_response_return = response->SerializeToZeroCopyStream(os.get());
         os->Flush();
@@ -917,7 +917,7 @@ bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
     return true;
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

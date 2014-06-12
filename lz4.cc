@@ -241,7 +241,7 @@ typedef struct _U64_S { U64 v; } U64_S;
 
 
 namespace trident {
-namespace pbrpc {
+
 
 
 //**************************************
@@ -827,7 +827,7 @@ _output_error:
 	return (int) (-(((char*)ip)-source));
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

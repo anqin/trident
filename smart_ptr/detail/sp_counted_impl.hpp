@@ -23,7 +23,7 @@
 #include <typeinfo>         // std::type_info
 
 namespace trident {
-namespace pbrpc {
+
 namespace detail {
 
 template<class X> class sp_counted_impl_p: public sp_counted_base
@@ -45,7 +45,7 @@ public:
 
     virtual void dispose() // nothrow
     {
-        trident::pbrpc::checked_delete( px_ );
+        trident::checked_delete( px_ );
     }
 
     virtual void * get_deleter( std::type_info const & )
@@ -162,7 +162,7 @@ public:
 };
 
 } // namespace detail
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_DETAIL_SP_COUNTED_IMPL_

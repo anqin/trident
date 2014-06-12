@@ -12,7 +12,7 @@
 #include <trident/rpc_meta.pb.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class RpcClientStream : public RpcMessageStream<RpcControllerImplPtr>
 {
@@ -246,7 +246,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcClientStream);
 }; // class RpcClientStream
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_CLIENT_STREAM_H_

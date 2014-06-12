@@ -10,9 +10,9 @@
 #include <trident/common_internal.h>
 
 namespace trident {
-namespace pbrpc {
 
-class TimerWorker : public trident::pbrpc::enable_shared_from_this<TimerWorker>
+
+class TimerWorker : public trident::enable_shared_from_this<TimerWorker>
 {
 public:
     typedef boost::function<void(const PTime& /* now */)> WorkRoutine;
@@ -101,7 +101,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(TimerWorker);
 }; // class TimerWorker
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_TIMER_WORKER_H_

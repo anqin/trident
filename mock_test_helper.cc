@@ -8,7 +8,7 @@
 #include <trident/mock_test_helper_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 MockTestHelper::MockTestHelper() {}
 MockTestHelper::~MockTestHelper() {}
@@ -32,7 +32,7 @@ void disable_mock()
     g_enable_mock = false;
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

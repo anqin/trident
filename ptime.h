@@ -12,7 +12,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 namespace trident {
-namespace pbrpc {
+
 
 typedef boost::posix_time::ptime PTime;
 typedef boost::posix_time::time_duration TimeDuration;
@@ -68,7 +68,7 @@ inline TimeDuration time_duration_microseconds(int64_t n)
     return boost::posix_time::microseconds(static_cast<long>(n));
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_PTIME_H_

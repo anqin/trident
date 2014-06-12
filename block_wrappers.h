@@ -25,7 +25,7 @@ using google::protobuf::io::CodedOutputStream;
 #include <trident/compressed_stream.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // This class provides scaffolding for implementing compression streams based
 // on compression algorithms that do not support streaming operations but must
@@ -130,7 +130,7 @@ class LZ4OutputStream : public BlockCompressionOutputStream {
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(LZ4OutputStream);
 };
 
-} // namespace pbrpc
+
 } // namepsace trident
 
 #endif // _SOFA_PBRPC_BLOCK_WRAPPER_H_

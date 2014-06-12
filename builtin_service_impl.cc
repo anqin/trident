@@ -9,12 +9,12 @@
 #include <trident/rpc_server_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 namespace builtin {
 
 // Copy from RpcServerOptions to protobuf ServerOptions.
 static void CopyOptions(const RpcServerOptions& options,
-        ::trident::pbrpc::builtin::ServerOptions* options_pb)
+        ::trident::builtin::ServerOptions* options_pb)
 {
     options_pb->set_work_thread_num(options.work_thread_num);
     options_pb->set_keep_alive_time(options.keep_alive_time);
@@ -41,8 +41,8 @@ BuiltinServiceImpl::~BuiltinServiceImpl()
 }
 
 void BuiltinServiceImpl::Health(::google::protobuf::RpcController* /* controller */,
-        const ::trident::pbrpc::builtin::HealthRequest* /* request */,
-        ::trident::pbrpc::builtin::HealthResponse* response,
+        const ::trident::builtin::HealthRequest* /* request */,
+        ::trident::builtin::HealthResponse* response,
         ::google::protobuf::Closure* done)
 {
     RpcServerImplPtr server = _rpc_server.lock();
@@ -55,8 +55,8 @@ void BuiltinServiceImpl::Health(::google::protobuf::RpcController* /* controller
 }
 
 void BuiltinServiceImpl::ServerOptions(::google::protobuf::RpcController* controller,
-        const ::trident::pbrpc::builtin::ServerOptionsRequest* /* request */,
-        ::trident::pbrpc::builtin::ServerOptionsResponse* response,
+        const ::trident::builtin::ServerOptionsRequest* /* request */,
+        ::trident::builtin::ServerOptionsResponse* response,
         ::google::protobuf::Closure* done)
 {
     RpcServerImplPtr server = _rpc_server.lock();
@@ -70,8 +70,8 @@ void BuiltinServiceImpl::ServerOptions(::google::protobuf::RpcController* contro
 }
 
 void BuiltinServiceImpl::UpdateOptions(::google::protobuf::RpcController* controller,
-        const ::trident::pbrpc::builtin::UpdateOptionsRequest* request,
-        ::trident::pbrpc::builtin::UpdateOptionsResponse* response,
+        const ::trident::builtin::UpdateOptionsRequest* request,
+        ::trident::builtin::UpdateOptionsResponse* response,
         ::google::protobuf::Closure* done)
 {
     if (!request->has_options()) {
@@ -79,7 +79,7 @@ void BuiltinServiceImpl::UpdateOptions(::google::protobuf::RpcController* contro
         done->Run();
         return;
     }
-    const ::trident::pbrpc::builtin::ServerOptions& request_options = request->options();
+    const ::trident::builtin::ServerOptions& request_options = request->options();
     if (!request_options.has_keep_alive_time()
             && !request_options.has_max_pending_buffer_size()
             && !request_options.has_max_throughput_in()
@@ -119,8 +119,8 @@ void BuiltinServiceImpl::UpdateOptions(::google::protobuf::RpcController* contro
 }
 
 void BuiltinServiceImpl::ServerStatus(::google::protobuf::RpcController* controller,
-        const ::trident::pbrpc::builtin::ServerStatusRequest* /* request */,
-        ::trident::pbrpc::builtin::ServerStatusResponse* response,
+        const ::trident::builtin::ServerStatusRequest* /* request */,
+        ::trident::builtin::ServerStatusResponse* response,
         ::google::protobuf::Closure* done)
 {
     RpcServerImplPtr server = _rpc_server.lock();
@@ -143,8 +143,8 @@ void BuiltinServiceImpl::ServerStatus(::google::protobuf::RpcController* control
 }
 
 void BuiltinServiceImpl::ListService(::google::protobuf::RpcController* controller,
-        const ::trident::pbrpc::builtin::ListServiceRequest* /* request */,
-        ::trident::pbrpc::builtin::ListServiceResponse* response,
+        const ::trident::builtin::ListServiceRequest* /* request */,
+        ::trident::builtin::ListServiceResponse* response,
         ::google::protobuf::Closure* done)
 {
     if (_disable_list_service) {
@@ -171,8 +171,8 @@ void BuiltinServiceImpl::ListService(::google::protobuf::RpcController* controll
 }
 
 void BuiltinServiceImpl::Stat(::google::protobuf::RpcController* controller,
-        const ::trident::pbrpc::builtin::StatRequest* request,
-        ::trident::pbrpc::builtin::StatResponse* response,
+        const ::trident::builtin::StatRequest* request,
+        ::trident::builtin::StatResponse* response,
         ::google::protobuf::Closure* done)
 {
     ServicePoolPtr pool = _service_pool.lock();
@@ -204,7 +204,7 @@ void BuiltinServiceImpl::Stat(::google::protobuf::RpcController* controller,
 }
 
 } // namespace builtin
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

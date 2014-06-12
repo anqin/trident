@@ -13,7 +13,7 @@
 #include <trident/locks.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class MockTestHelperImpl : public MockTestHelper
 {
@@ -46,7 +46,7 @@ private:
     std::map<std::string, MockMethodHookFunction*>  _methods;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_MOCK_TEST_HELPER_IMPL_H_

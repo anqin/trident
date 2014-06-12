@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include <trident/tran_buf_pool.h>
 
-using namespace trident::pbrpc;
+using namespace trident;
 
 class TranBufPoolTest : public ::testing::Test {};
 

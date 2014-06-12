@@ -7,12 +7,12 @@
 #include <trident/common_internal.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 SOFA_PBRPC_DEFINE_RESOURCE_COUNTER(RpcByteStream);
 SOFA_PBRPC_DEFINE_RESOURCE_COUNTER(RpcListener);
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

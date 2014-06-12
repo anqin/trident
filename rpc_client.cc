@@ -8,7 +8,7 @@
 #include <trident/rpc_client_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 RpcClient::RpcClient(const RpcClientOptions& options)
     : _impl(new RpcClientImpl(options))
@@ -41,7 +41,7 @@ void RpcClient::Shutdown()
     _impl->Stop();
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

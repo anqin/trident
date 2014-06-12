@@ -8,7 +8,7 @@
 #define _SOFA_PBRPC_RPC_ERROR_CODE_H_
 
 namespace trident {
-namespace pbrpc {
+
 
 enum RpcErrorCode {
     RPC_SUCCESS = 0,
@@ -44,7 +44,7 @@ enum RpcErrorCode {
 // Convert rpc error code to human readable string.
 const char* RpcErrorCodeToString(int error_code);
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_ERROR_CODE_H_

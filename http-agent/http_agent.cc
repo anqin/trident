@@ -12,7 +12,7 @@
 #include <trident/rpc_controller_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 namespace http_agent {
 
 HttpAgent::HttpAgent(RpcClient* rpc_client)
@@ -41,7 +41,7 @@ bool HttpAgent::Init(const std::string& server_address)
         _rpc_channel = NULL;
         return false;
     }
-    _stub = new trident::pbrpc::builtin::BuiltinService_Stub(_rpc_channel);
+    _stub = new trident::builtin::BuiltinService_Stub(_rpc_channel);
     return UpdateServiceInfo();
 }
 
@@ -50,8 +50,8 @@ bool HttpAgent::UpdateServiceInfo()
     if (_rpc_channel == NULL) return false;
     RpcController cntl;
     cntl.SetTimeout(3000);
-    trident::pbrpc::builtin::ListServiceRequest request;
-    trident::pbrpc::builtin::ListServiceResponse response;
+    trident::builtin::ListServiceRequest request;
+    trident::builtin::ListServiceResponse response;
     _stub->ListService(&cntl, &request, &response, NULL);
     if (cntl.Failed()) {
         SLOG(ERROR, "UpdateServiceInfo(): call ListService failed: %s", cntl.ErrorText().c_str());
@@ -171,7 +171,7 @@ void HttpAgent::CallMethod(const std::string& method_full_name,
     SCHECK(response != NULL);
 
     RpcController* trident_controller = dynamic_cast<RpcController*>(controller);
-    SCHECK(trident_controller != NULL); // should pass trident::pbrpc::RpcController to CallMethod
+    SCHECK(trident_controller != NULL); // should pass trident::RpcController to CallMethod
     RpcControllerImplPtr cntl = trident_controller->impl();
 
     if (_rpc_channel == NULL) {
@@ -276,7 +276,7 @@ bool HttpAgent::ParseMethodFullName(const std::string& method_full_name,
 }
 
 } // namespace http_agent
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

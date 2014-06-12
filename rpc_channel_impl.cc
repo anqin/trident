@@ -9,7 +9,7 @@
 #include <trident/closure.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 RpcChannelImpl::RpcChannelImpl(const RpcClientImplPtr& rpc_client_impl,
                                const std::string& server_address,
@@ -75,7 +75,7 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
 
     // prepare controller
     RpcController* trident_controller = dynamic_cast<RpcController*>(controller);
-    SCHECK(trident_controller != NULL); // should pass trident::pbrpc::RpcController to CallMethod
+    SCHECK(trident_controller != NULL); // should pass trident::RpcController to CallMethod
     RpcControllerImplPtr cntl = trident_controller->impl();
     cntl->PushDoneCallback(boost::bind(&RpcChannelImpl::DoneCallback, shared_from_this(), done, _1));
     cntl->FillFromMethodDescriptor(method);
@@ -179,7 +179,7 @@ void RpcChannelImpl::MockDoneCallback(RpcControllerImplPtr cntl,
     cntl->Done(cntl->ErrorCode(), cntl->Reason());
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

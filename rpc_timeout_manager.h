@@ -20,9 +20,9 @@
 #include <trident/timer_worker.h>
 
 namespace trident {
-namespace pbrpc {
 
-class RpcTimeoutManager : public trident::pbrpc::enable_shared_from_this<RpcTimeoutManager>
+
+class RpcTimeoutManager : public trident::enable_shared_from_this<RpcTimeoutManager>
 {
 public:
     RpcTimeoutManager(IOService& io_service)
@@ -274,7 +274,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcTimeoutManager);
 }; // class RpcTimeoutManager
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_TIMEOUT_MANAGER_H_

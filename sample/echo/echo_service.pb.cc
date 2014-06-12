@@ -14,7 +14,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace trident {
-namespace pbrpc {
+
 namespace test {
 
 namespace {
@@ -588,8 +588,8 @@ const ::google::protobuf::ServiceDescriptor* EchoServer::GetDescriptor() {
 }
 
 void EchoServer::Echo(::google::protobuf::RpcController* controller,
-                         const ::trident::pbrpc::test::EchoRequest*,
-                         ::trident::pbrpc::test::EchoResponse*,
+                         const ::trident::test::EchoRequest*,
+                         ::trident::test::EchoResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Echo() not implemented.");
   done->Run();
@@ -604,8 +604,8 @@ void EchoServer::CallMethod(const ::google::protobuf::MethodDescriptor* method,
   switch(method->index()) {
     case 0:
       Echo(controller,
-             ::google::protobuf::down_cast<const ::trident::pbrpc::test::EchoRequest*>(request),
-             ::google::protobuf::down_cast< ::trident::pbrpc::test::EchoResponse*>(response),
+             ::google::protobuf::down_cast<const ::trident::test::EchoRequest*>(request),
+             ::google::protobuf::down_cast< ::trident::test::EchoResponse*>(response),
              done);
       break;
     default:
@@ -619,7 +619,7 @@ const ::google::protobuf::Message& EchoServer::GetRequestPrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::trident::pbrpc::test::EchoRequest::default_instance();
+      return ::trident::test::EchoRequest::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
@@ -631,7 +631,7 @@ const ::google::protobuf::Message& EchoServer::GetResponsePrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::trident::pbrpc::test::EchoResponse::default_instance();
+      return ::trident::test::EchoResponse::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
@@ -650,8 +650,8 @@ EchoServer_Stub::~EchoServer_Stub() {
 }
 
 void EchoServer_Stub::Echo(::google::protobuf::RpcController* controller,
-                              const ::trident::pbrpc::test::EchoRequest* request,
-                              ::trident::pbrpc::test::EchoResponse* response,
+                              const ::trident::test::EchoRequest* request,
+                              ::trident::test::EchoResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(0),
                        controller, request, response, done);
@@ -660,7 +660,7 @@ void EchoServer_Stub::Echo(::google::protobuf::RpcController* controller,
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace test
-}  // namespace pbrpc
+
 }  // namespace trident
 
 // @@protoc_insertion_point(global_scope)

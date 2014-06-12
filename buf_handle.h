@@ -8,7 +8,7 @@
 #define _SOFA_PBRPC_BUF_HANDLE_H_
 
 namespace trident {
-namespace pbrpc {
+
 
 struct BufHandle
 {
@@ -30,7 +30,7 @@ struct BufHandle
         , offset(_offset) {}
 }; // class BufHandle
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_BUF_HANDLE_H_

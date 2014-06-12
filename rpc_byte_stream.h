@@ -14,11 +14,11 @@
 #include <trident/rpc_endpoint.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 using boost::asio::ip::tcp;
 
-class RpcByteStream : public trident::pbrpc::enable_shared_from_this<RpcByteStream>
+class RpcByteStream : public trident::enable_shared_from_this<RpcByteStream>
 {
 public:
     RpcByteStream(IOService& io_service, const RpcEndpoint& endpoint)
@@ -307,7 +307,7 @@ private:
     volatile int _status;
 }; // class RpcByteStream
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_BYTE_STREAM_H_

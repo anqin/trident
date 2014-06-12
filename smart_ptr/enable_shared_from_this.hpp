@@ -19,7 +19,7 @@
 #include <trident/smart_ptr/shared_ptr.hpp>
 
 namespace trident {
-namespace pbrpc {
+
 
 template<class T> class enable_shared_from_this
 {
@@ -74,7 +74,7 @@ private:
     mutable weak_ptr<T> weak_this_;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_ENABLE_SHARED_FROM_THIS_

@@ -28,13 +28,13 @@ static void test_1_function(bool* called)
 
 TEST_F(ThreadGroupTest, test_1)
 {
-    trident::pbrpc::ThreadGroup* thread_group = new trident::pbrpc::ThreadGroup(4);
+    trident::ThreadGroup* thread_group = new trident::ThreadGroup(4);
 
     bool dispatch_called = false;
-    thread_group->dispatch(trident::pbrpc::NewClosure(&test_1_function, &dispatch_called));
+    thread_group->dispatch(trident::NewClosure(&test_1_function, &dispatch_called));
 
     bool post_called = false;
-    thread_group->post(trident::pbrpc::NewClosure(&test_1_function, &post_called));
+    thread_group->post(trident::NewClosure(&test_1_function, &post_called));
 
     delete thread_group;
 

@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 #include <trident/atomic.h>
 
-using namespace trident::pbrpc;
+using namespace trident;
 
 class AtomicTest: public ::testing::Test {};
 

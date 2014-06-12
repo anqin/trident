@@ -18,7 +18,7 @@
 #include <trident/smart_ptr/checked_delete.hpp>
 
 namespace trident {
-namespace pbrpc {
+
 
 //  scoped_ptr mimics a built-in pointer except that it guarantees deletion
 //  of the object pointed to, either on destruction of the scoped_ptr or via
@@ -49,7 +49,7 @@ public:
 
     ~scoped_ptr() // never throws
     {
-        trident::pbrpc::checked_delete( px );
+        trident::checked_delete( px );
     }
 
     void reset(T * p = 0) // never throws
@@ -95,7 +95,7 @@ template<class T> inline T * get_pointer(scoped_ptr<T> const & p)
     return p.get();
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_SCOPED_PTR_

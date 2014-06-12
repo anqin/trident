@@ -15,15 +15,15 @@
 #include <trident/pbrpc.h>
 #include "trident/sample/timeout_sample/sleep_service.pb.h"
 
-class SleepServerImpl : public trident::pbrpc::test::SleepServer
+class SleepServerImpl : public trident::test::SleepServer
 {
 public:
     SleepServerImpl() {}
     virtual ~SleepServerImpl() {}
 
     virtual void SleepWithServiceTimeout(google::protobuf::RpcController* controller,
-                                         const trident::pbrpc::test::SleepRequest* request,
-                                         trident::pbrpc::test::SleepResponse* response,
+                                         const trident::test::SleepRequest* request,
+                                         trident::test::SleepResponse* response,
                                          google::protobuf::Closure* done)
     {
         SLOG(NOTICE, "SleepWithServiceTimeout(): request sleep time: %d", request->sleep_time());
@@ -31,8 +31,8 @@ public:
     }
 
     virtual void SleepWithMethodTimeout(google::protobuf::RpcController* controller,
-                                        const trident::pbrpc::test::SleepRequest* request,
-                                        trident::pbrpc::test::SleepResponse* response,
+                                        const trident::test::SleepRequest* request,
+                                        trident::test::SleepResponse* response,
                                         google::protobuf::Closure* done)
     {
         SLOG(NOTICE, "SleepWithMethodTimeout(): request sleep time: %d", request->sleep_time());
@@ -42,8 +42,8 @@ public:
 
 private:
     void Sleep(google::protobuf::RpcController* controller,
-               const trident::pbrpc::test::SleepRequest* request,
-               trident::pbrpc::test::SleepResponse* response,
+               const trident::test::SleepRequest* request,
+               trident::test::SleepResponse* response,
                google::protobuf::Closure* done)
     {
         if (controller->IsCanceled())
@@ -68,8 +68,8 @@ int main(int /*argc*/, char** /*argv*/)
     SOFA_PBRPC_SET_LOG_LEVEL(NOTICE);
 
     // Define an rpc server.
-    trident::pbrpc::RpcServerOptions options;
-    trident::pbrpc::RpcServer rpc_server(options);
+    trident::RpcServerOptions options;
+    trident::RpcServer rpc_server(options);
 
     // Start rpc server.
     if (!rpc_server.Start("0.0.0.0:12321")) {
@@ -77,7 +77,7 @@ int main(int /*argc*/, char** /*argv*/)
         return EXIT_FAILURE;
     }
 
-    trident::pbrpc::test::SleepServer* sleep_service = new SleepServerImpl();
+    trident::test::SleepServer* sleep_service = new SleepServerImpl();
     if (!rpc_server.RegisterService(sleep_service)) {
         SLOG(ERROR, "export service failed");
         return EXIT_FAILURE;

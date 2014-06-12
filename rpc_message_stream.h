@@ -17,7 +17,7 @@
 #include <trident/flow_controller.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // The "SendCookie" type should has default constructor, and
 // should be copyable. 
@@ -779,7 +779,7 @@ private:
     volatile int _receive_token;
 }; // class RpcMessageStream
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_MESSAGE_STREAM_H_

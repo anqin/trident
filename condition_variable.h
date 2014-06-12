@@ -15,7 +15,7 @@
 #include <trident/mutex_lock.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class ConditionVariable
 {
@@ -76,7 +76,7 @@ private:
     pthread_cond_t _cond;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_CONDITION_VARIABLE_H_

@@ -1,4 +1,4 @@
-package trident.pbrpc.test;
+package trident.test;
 
 option cc_generic_services = true;
 

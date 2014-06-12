@@ -42,7 +42,7 @@
 #define _SOFA_PBRPC_LZ4_H_
 
 namespace trident {
-namespace pbrpc {
+
 
 //****************************
 // Simple Functions
@@ -120,7 +120,7 @@ LZ4_compress64kCtx() :
 
 */
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_LZ4_H_

@@ -18,18 +18,18 @@
 #include <exception>
 
 namespace trident {
-namespace pbrpc {
+
 
 class bad_weak_ptr: public std::exception
 {
 public:
     virtual char const * what() const throw()
     {
-        return "trident::pbrpc::bad_weak_ptr";
+        return "trident::bad_weak_ptr";
     }
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_BAD_WEAK_PTR_

@@ -14,7 +14,7 @@
 #include <trident/pbrpc.h>
 #include "echo_service.pb.h"
 
-class EchoServerImpl : public trident::pbrpc::test::EchoServer
+class EchoServerImpl : public trident::test::EchoServer
 {
 public:
     EchoServerImpl() {}
@@ -22,12 +22,12 @@ public:
 
 private:
     virtual void Echo(google::protobuf::RpcController* controller,
-                      const trident::pbrpc::test::EchoRequest* request,
-                      trident::pbrpc::test::EchoResponse* response,
+                      const trident::test::EchoRequest* request,
+                      trident::test::EchoResponse* response,
                       google::protobuf::Closure* done)
     {
         SLOG(NOTICE, "Echo(): request message from %s: %s",
-                static_cast<trident::pbrpc::RpcController*>(controller)->RemoteAddress().c_str(),
+                static_cast<trident::RpcController*>(controller)->RemoteAddress().c_str(),
                 request->message().c_str());
         response->set_message("echo message: " + request->message());
         done->Run();
@@ -51,10 +51,10 @@ int main()
     SOFA_PBRPC_SET_LOG_LEVEL(NOTICE);
 
     // Define an rpc server.
-    trident::pbrpc::RpcServerOptions options;
-    options.work_thread_init_func = trident::pbrpc::NewPermanentExtClosure(&thread_init_func);
-    options.work_thread_dest_func = trident::pbrpc::NewPermanentExtClosure(&thread_dest_func);
-    trident::pbrpc::RpcServer rpc_server(options);
+    trident::RpcServerOptions options;
+    options.work_thread_init_func = trident::NewPermanentExtClosure(&thread_init_func);
+    options.work_thread_dest_func = trident::NewPermanentExtClosure(&thread_dest_func);
+    trident::RpcServer rpc_server(options);
 
     // Start rpc server.
     if (!rpc_server.Start("0.0.0.0:12321")) {
@@ -63,7 +63,7 @@ int main()
     }
     
     // Register service.
-    trident::pbrpc::test::EchoServer* echo_service = new EchoServerImpl();
+    trident::test::EchoServer* echo_service = new EchoServerImpl();
     if (!rpc_server.RegisterService(echo_service)) {
         SLOG(ERROR, "export service failed");
         return EXIT_FAILURE;

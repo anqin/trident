@@ -7,7 +7,7 @@
 #include <trident/timeout_manager_impl.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 TimeoutManagerImpl::TimeoutManagerImpl()
     : _is_running(false)
@@ -155,7 +155,7 @@ void TimeoutManagerImpl::timer_run(const PTime& now)
     }
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

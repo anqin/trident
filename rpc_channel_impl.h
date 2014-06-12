@@ -14,9 +14,9 @@
 #include <trident/rpc_endpoint.h>
 
 namespace trident {
-namespace pbrpc {
 
-class RpcChannelImpl : public trident::pbrpc::enable_shared_from_this<RpcChannelImpl>
+
+class RpcChannelImpl : public trident::enable_shared_from_this<RpcChannelImpl>
 {
 public:
     RpcChannelImpl(const RpcClientImplPtr& rpc_client_impl,
@@ -55,7 +55,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcChannelImpl);
 }; // class RpcChannelImpl
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_CHANNEL_IMPL_H_

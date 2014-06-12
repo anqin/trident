@@ -14,7 +14,7 @@
 #endif
 
 namespace trident {
-namespace pbrpc {
+
 
 // Reference counted tran buf pool.
 // Thread safe.
@@ -50,7 +50,7 @@ public:
     // * The block pointed by "p" was allocated by this pool and is in use currently.
     inline static void add_ref(void * p)
     {
-        trident::pbrpc::atomic_inc(reinterpret_cast<RefCountType*>(p) - 1);
+        trident::atomic_inc(reinterpret_cast<RefCountType*>(p) - 1);
     }
 
     // Decrease the reference count of the block.  If the reference count equals
@@ -60,14 +60,14 @@ public:
     // * The block pointed by "p" was allocated by this pool and is in use currently.
     inline static void free(void * p)
     {
-        if (trident::pbrpc::atomic_dec_ret_old(reinterpret_cast<RefCountType*>(p) - 1) == 1)
+        if (trident::atomic_dec_ret_old(reinterpret_cast<RefCountType*>(p) - 1) == 1)
         {
             ::free(reinterpret_cast<RefCountType*>(p) - 1);
         }
     }
 }; // class TranBufPool
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_TRAN_BUF_POOL_H_

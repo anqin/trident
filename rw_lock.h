@@ -10,7 +10,7 @@
 #include <pthread.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class RWLock
 {
@@ -68,7 +68,7 @@ private:
     RWLock* _lock;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RW_LOCK_H_

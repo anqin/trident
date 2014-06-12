@@ -27,7 +27,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace trident {
-namespace pbrpc {
+
 namespace test {
 
 // Internal implementation detail -- do not call these.
@@ -226,8 +226,8 @@ class EchoServer : public ::google::protobuf::Service {
   static const ::google::protobuf::ServiceDescriptor* descriptor();
   
   virtual void Echo(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::test::EchoRequest* request,
-                       ::trident::pbrpc::test::EchoResponse* response,
+                       const ::trident::test::EchoRequest* request,
+                       ::trident::test::EchoResponse* response,
                        ::google::protobuf::Closure* done);
   
   // implements Service ----------------------------------------------
@@ -259,8 +259,8 @@ class EchoServer_Stub : public EchoServer {
   // implements EchoServer ------------------------------------------
   
   void Echo(::google::protobuf::RpcController* controller,
-                       const ::trident::pbrpc::test::EchoRequest* request,
-                       ::trident::pbrpc::test::EchoResponse* response,
+                       const ::trident::test::EchoRequest* request,
+                       ::trident::test::EchoResponse* response,
                        ::google::protobuf::Closure* done);
  private:
   ::google::protobuf::RpcChannel* channel_;
@@ -400,7 +400,7 @@ inline ::std::string* EchoResponse::release_message() {
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace test
-}  // namespace pbrpc
+
 }  // namespace trident
 
 #ifndef SWIG

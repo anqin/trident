@@ -24,7 +24,7 @@ protected:
  
 TEST_F(CommonTest, test_log)
 {
-    trident::pbrpc::internal::set_log_level(trident::pbrpc::LOG_LEVEL_NOTICE);
+    trident::internal::set_log_level(trident::LOG_LEVEL_NOTICE);
     int flag_notice = 0;
     SLOG(NOTICE, "notice message: %d: %s", ++flag_notice, "should be logged");
     ASSERT_EQ(1, flag_notice);

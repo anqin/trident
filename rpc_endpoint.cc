@@ -9,7 +9,7 @@
 #include <trident/rpc_endpoint.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 using boost::asio::ip::tcp;
 
@@ -64,7 +64,7 @@ bool ResolveAddress(IOService& io_service,
     return ResolveAddress(io_service, host, svc, endpoint);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

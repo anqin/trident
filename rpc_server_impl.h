@@ -20,9 +20,9 @@
 #include <trident/timer_worker.h>
 
 namespace trident {
-namespace pbrpc {
 
-class RpcServerImpl : public trident::pbrpc::enable_shared_from_this<RpcServerImpl>
+
+class RpcServerImpl : public trident::enable_shared_from_this<RpcServerImpl>
 {
 public:
     static const int MAINTAIN_INTERVAL_IN_MS = 100;
@@ -163,7 +163,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcServerImpl);
 }; // class RpcServerImpl
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_SERVER_IMPL_H_

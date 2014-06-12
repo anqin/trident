@@ -8,7 +8,7 @@
 #include <trident/tran_buf_pool.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 ReadBuffer::ReadBuffer()
     : _total_bytes(0)
@@ -262,7 +262,7 @@ bool WriteBuffer::Extend()
     return true;
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

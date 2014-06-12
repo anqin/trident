@@ -11,11 +11,11 @@
 #include <trident/ext_closure.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Defined in this file.
 class TimeoutManager;
-typedef trident::pbrpc::shared_ptr<TimeoutManager> TimeoutManagerPtr;
+typedef trident::shared_ptr<TimeoutManager> TimeoutManagerPtr;
 
 // Defined in other files.
 class TimeoutManagerImpl;
@@ -90,12 +90,12 @@ public:
     bool erase(Id id);
 
 private:
-    trident::pbrpc::shared_ptr<TimeoutManagerImpl> _imp;
+    trident::shared_ptr<TimeoutManagerImpl> _imp;
 
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(TimeoutManager);
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_TIMEOUT_MANAGER_H_

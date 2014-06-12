@@ -38,21 +38,21 @@
 #include <trident/common.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 typedef boost::asio::io_service IOService;
-typedef trident::pbrpc::shared_ptr<IOService> IOServicePtr;
+typedef trident::shared_ptr<IOService> IOServicePtr;
 
 typedef boost::asio::io_service::work IOServiceWork;
-typedef trident::pbrpc::shared_ptr<IOServiceWork> IOServiceWorkPtr;
+typedef trident::shared_ptr<IOServiceWork> IOServiceWorkPtr;
 
 typedef boost::asio::io_service::strand IOServiceStrand;
-typedef trident::pbrpc::shared_ptr<IOServiceStrand> IOServiceStrandPtr;
+typedef trident::shared_ptr<IOServiceStrand> IOServiceStrandPtr;
 
 typedef boost::asio::deadline_timer IOServiceTimer;
-typedef trident::pbrpc::shared_ptr<IOServiceTimer> IOServiceTimerPtr;
+typedef trident::shared_ptr<IOServiceTimer> IOServiceTimerPtr;
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_IO_SERVICE_H_

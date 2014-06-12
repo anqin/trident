@@ -17,7 +17,7 @@
 #include <trident/pbrpc.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class RpcControllerImpl;
 
@@ -56,7 +56,7 @@ public:
                     ::google::protobuf::Closure* done);
 
 private:
-    static void CallMethodDone(const trident::pbrpc::shared_ptr<RpcControllerImpl>& cntl,
+    static void CallMethodDone(const trident::shared_ptr<RpcControllerImpl>& cntl,
                                std::string* response,
                                ::google::protobuf::Message* request_message,
                                ::google::protobuf::Message* response_message,
@@ -68,7 +68,7 @@ private:
 private:
     RpcClient* _rpc_client;
     RpcChannel* _rpc_channel;
-    trident::pbrpc::builtin::BuiltinService_Stub* _stub;
+    trident::builtin::BuiltinService_Stub* _stub;
     std::string _server_address;
 
     RWLock _desc_lock;
@@ -79,7 +79,7 @@ private:
 };
 
 } // namespace http_agent
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBPRC_HTTP_AGENT_HTTP_AGENT_H_

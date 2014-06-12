@@ -16,7 +16,7 @@
 #define _SOFA_PBRPC_SMART_PTR_DETAIL_SP_CONVERTIBLE_
 
 namespace trident {
-namespace pbrpc {
+
 namespace detail {
 
 template< class Y, class T > struct sp_convertible
@@ -50,7 +50,7 @@ template< class Y, class T > struct sp_enable_if_convertible: public sp_enable_i
 };
 
 } // namespace detail
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SMART_PTR_DETAIL_SP_CONVERTIBLE_

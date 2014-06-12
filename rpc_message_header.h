@@ -10,7 +10,7 @@
 #include <trident/common_internal.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Magic string "SOFA" in little endian.
 #define SOFA_RPC_MAGIC 1095126867u
@@ -35,7 +35,7 @@ struct RpcMessageHeader {
     }
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_MESSAGE_HEADER_H_

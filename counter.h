@@ -10,7 +10,7 @@
 #include <trident/atomic.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class BasicCounter
 {
@@ -75,7 +75,7 @@ private:
     volatile uint64_t _counter;
 };
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_COUNTER_H_

@@ -20,7 +20,7 @@
 #include <trident/murmurhash.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 #define SERVICE_CACHE_SLOT_COUNT 1019
 #define STAT_SLOT_COUNT 602
@@ -109,7 +109,7 @@ public:
         }
     }
 
-    void LatestStats(int slot_count, trident::pbrpc::builtin::MethodStat* stat_out)
+    void LatestStats(int slot_count, trident::builtin::MethodStat* stat_out)
     {
         SCHECK(stat_out != NULL);
         stat_out->Clear();
@@ -200,13 +200,13 @@ public:
         _method_boards[method_id].LatestStats(slot_count, stat_out);
     }
 
-    void LatestStats(int method_id, int slot_count, trident::pbrpc::builtin::MethodStat* stat_out)
+    void LatestStats(int method_id, int slot_count, trident::builtin::MethodStat* stat_out)
     {
         SCHECK(method_id >=0 && method_id < _method_count);
         _method_boards[method_id].LatestStats(slot_count, stat_out);
     }
 
-    void LatestStats(int64 expect_period, trident::pbrpc::builtin::ServiceStat* stat_out)
+    void LatestStats(int64 expect_period, trident::builtin::ServiceStat* stat_out)
     {
         SCHECK(stat_out != NULL);
         stat_out->Clear();
@@ -218,7 +218,7 @@ public:
         stat_out->set_succeed_count(0);
         stat_out->set_failed_count(0);
         for (int i = 0; i < _method_count; ++i) {
-            trident::pbrpc::builtin::MethodStat* method_stat = stat_out->add_method_stats();
+            trident::builtin::MethodStat* method_stat = stat_out->add_method_stats();
             LatestStats(i, slot_count, method_stat);
             stat_out->set_succeed_count(
                     stat_out->succeed_count() + method_stat->succeed_count());
@@ -332,7 +332,7 @@ public:
         }
     }
 
-    void ListService(trident::pbrpc::builtin::ListServiceResponse* response)
+    void ListService(trident::builtin::ListServiceResponse* response)
     {
         SCHECK(response != NULL);
         response->Clear();
@@ -370,7 +370,7 @@ private:
         return murmurhash(name.c_str(), name.size()) % SERVICE_CACHE_SLOT_COUNT;
     }
 
-    void AddFileDescriptor(trident::pbrpc::builtin::ListServiceResponse* response,
+    void AddFileDescriptor(trident::builtin::ListServiceResponse* response,
             std::set<std::string>* added_file_set, const google::protobuf::FileDescriptor* fd)
     {
         for (int i = 0; i < fd->dependency_count(); ++i) {
@@ -396,7 +396,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(ServicePool);
 }; // class ServicePool
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_SERVICE_POOL_H_

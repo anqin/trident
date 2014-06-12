@@ -13,7 +13,7 @@
 #include <trident/compressed_stream.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 RpcClientImpl::RpcClientImpl(const RpcClientOptions& options)
     : _options(options)
@@ -300,7 +300,7 @@ void RpcClientImpl::CallMethod(const google::protobuf::Message* request,
     }
     else
     {
-        ::trident::pbrpc::scoped_ptr<AbstractCompressedOutputStream> os(
+        ::trident::scoped_ptr<AbstractCompressedOutputStream> os(
                 get_compressed_output_stream(&write_buffer, meta.compress_type()));
         serialize_request_return = request->SerializeToZeroCopyStream(os.get());
         os->Flush();
@@ -358,7 +358,7 @@ const ThreadGroupImplPtr& RpcClientImpl::GetCallbackThreadGroup() const
 bool RpcClientImpl::ResolveAddress(const std::string& address,
         RpcEndpoint* endpoint)
 {
-    return trident::pbrpc::ResolveAddress(_work_thread_group->io_service(), address, endpoint);
+    return trident::ResolveAddress(_work_thread_group->io_service(), address, endpoint);
 }
 
 RpcClientStreamPtr RpcClientImpl::FindOrCreateStream(
@@ -427,7 +427,7 @@ void RpcClientImpl::DoneCallback(google::protobuf::Message* response,
         }
         else
         {
-            ::trident::pbrpc::scoped_ptr<AbstractCompressedInputStream> is(
+            ::trident::scoped_ptr<AbstractCompressedInputStream> is(
                     get_compressed_input_stream(buffer.get(), compress_type));
             parse_response_return = response->ParseFromZeroCopyStream(is.get());
         }
@@ -565,7 +565,7 @@ uint64 RpcClientImpl::GenerateSequenceId()
     return static_cast<uint64>(++_next_request_id);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

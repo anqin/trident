@@ -1,6 +1,6 @@
 import "trident/rpc_option.proto";
 
-package trident.pbrpc.test;
+package trident.test;
 
 option cc_generic_services = true;
 
@@ -14,7 +14,7 @@ message EchoResponse {
 
 service EchoServer {
     rpc Echo(EchoRequest) returns(EchoResponse) {
-        option (trident.pbrpc.request_compress_type) = CompressTypeSnappy;
-        option (trident.pbrpc.response_compress_type) = CompressTypeSnappy;
+        option (trident.request_compress_type) = CompressTypeSnappy;
+        option (trident.response_compress_type) = CompressTypeSnappy;
     }
 }

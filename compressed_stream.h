@@ -21,7 +21,7 @@
 #define HAVE_SNAPPY 1
 
 namespace trident {
-namespace pbrpc {
+
 
 /// Base class for all compressed output streams with additional methods
 class AbstractCompressedOutputStream : public google::protobuf::io::ZeroCopyOutputStream {
@@ -59,7 +59,7 @@ AbstractCompressedOutputStream * get_compressed_output_stream(
 AbstractCompressedInputStream * get_compressed_input_stream(
         google::protobuf::io::ZeroCopyInputStream * istream, CompressType type);
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_COMPRESSION_COMPRESSED_STREAM_H_

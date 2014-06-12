@@ -19,9 +19,9 @@
 #include <trident/rpc_timeout_manager.h>
 
 namespace trident {
-namespace pbrpc {
 
-class RpcClientImpl: public trident::pbrpc::enable_shared_from_this<RpcClientImpl>
+
+class RpcClientImpl: public trident::enable_shared_from_this<RpcClientImpl>
 {
 public:
     static const int MAINTAIN_INTERVAL_IN_MS = 100;
@@ -123,7 +123,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcClientImpl);
 }; // class RpcClientImpl
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_RPC_CLIENT_IMPL_H_

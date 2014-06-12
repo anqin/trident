@@ -15,13 +15,13 @@
 #include <trident/buf_handle.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 // Defined in this file.
 class ReadBuffer;
-typedef trident::pbrpc::shared_ptr<ReadBuffer> ReadBufferPtr;
+typedef trident::shared_ptr<ReadBuffer> ReadBufferPtr;
 class WriteBuffer;
-typedef trident::pbrpc::shared_ptr<WriteBuffer> WriteBufferPtr;
+typedef trident::shared_ptr<WriteBuffer> WriteBufferPtr;
 
 typedef std::deque<BufHandle> BufHandleList;
 typedef std::deque<BufHandle>::iterator BufHandleListIterator;
@@ -116,7 +116,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(WriteBuffer);
 }; // class WriteBuffer
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_BUFFER_H_

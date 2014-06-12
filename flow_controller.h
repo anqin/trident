@@ -10,7 +10,7 @@
 #include <trident/common_internal.h>
 
 namespace trident {
-namespace pbrpc {
+
 
 class FlowController
 {
@@ -95,7 +95,7 @@ private:
     SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(FlowController);
 }; // class FlowController
 
-} // namespace pbrpc
+
 } // namespace trident
 
 #endif // _SOFA_PBRPC_FLOW_CONTROLLER_H_

@@ -26,7 +26,7 @@ using google::protobuf::io::CodedOutputStream;
 #endif
 
 namespace trident {
-namespace pbrpc {
+
 
 const size_t BLOCKSIZE = 64 * 1024;
 
@@ -223,7 +223,7 @@ uint32_t LZ4OutputStream::RawCompress(char* input_buffer, size_t input_size,
     return LZ4_compress(input_buffer, output_buffer, input_size);
 }
 
-} // namespace pbrpc
+
 } // namespace trident
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 */

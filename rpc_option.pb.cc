@@ -14,7 +14,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace trident {
-namespace pbrpc {
+
 
 namespace {
 
@@ -82,11 +82,11 @@ void protobuf_AddDesc_trident_2fpbrpc_2frpc_5foption_2eproto() {
   ::google::protobuf::internal::ExtensionSet::RegisterEnumExtension(
     &::google::protobuf::MethodOptions::default_instance(),
     20001, 14, false, false,
-    &trident::pbrpc::CompressType_IsValid);
+    &trident::CompressType_IsValid);
   ::google::protobuf::internal::ExtensionSet::RegisterEnumExtension(
     &::google::protobuf::MethodOptions::default_instance(),
     20002, 14, false, false,
-    &trident::pbrpc::CompressType_IsValid);
+    &trident::CompressType_IsValid);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_trident_2fpbrpc_2frpc_5foption_2eproto);
 }
 
@@ -121,15 +121,15 @@ bool CompressType_IsValid(int value) {
     ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int64 >, 3, false >
   method_timeout(kMethodTimeoutFieldNumber, GOOGLE_LONGLONG(0));
 ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
-    ::google::protobuf::internal::EnumTypeTraits< trident::pbrpc::CompressType, trident::pbrpc::CompressType_IsValid>, 14, false >
-  request_compress_type(kRequestCompressTypeFieldNumber, static_cast< trident::pbrpc::CompressType >(0));
+    ::google::protobuf::internal::EnumTypeTraits< trident::CompressType, trident::CompressType_IsValid>, 14, false >
+  request_compress_type(kRequestCompressTypeFieldNumber, static_cast< trident::CompressType >(0));
 ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
-    ::google::protobuf::internal::EnumTypeTraits< trident::pbrpc::CompressType, trident::pbrpc::CompressType_IsValid>, 14, false >
-  response_compress_type(kResponseCompressTypeFieldNumber, static_cast< trident::pbrpc::CompressType >(0));
+    ::google::protobuf::internal::EnumTypeTraits< trident::CompressType, trident::CompressType_IsValid>, 14, false >
+  response_compress_type(kResponseCompressTypeFieldNumber, static_cast< trident::CompressType >(0));
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace pbrpc
+
 }  // namespace trident
 
 // @@protoc_insertion_point(global_scope)
