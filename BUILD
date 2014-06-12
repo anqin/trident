@@ -59,5 +59,6 @@ cc_library(
         ':rpc_option_proto',
         ':builtin_service_proto',
         ':snappy'
-    ]
+    ],
+    incs = ['boost']
 )

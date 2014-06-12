@@ -1,6 +1,6 @@
 /***************************************************************************
  * 
- * Copyright (c) 2013 Baidu.com, Inc. All Rights Reserved
+ * Copyright (c) 2013 The Trident Authors. All Rights Reserved
  *
  * 
  * CreateTime: 2013-02-22
