@@ -60,5 +60,5 @@ cc_library(
         ':builtin_service_proto',
         ':snappy'
     ],
-    incs = ['boost']
+    incs = ['asio']
 )
