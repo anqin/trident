@@ -54,7 +54,7 @@ public:
             on_closed();
             if (_remote_endpoint != RpcEndpoint())
             {
-#if defined( LOG )
+#if 0
                 LOG(INFO) << "close(): connection closed: "
                           << RpcEndpointToString(_remote_endpoint)
                           << ": " << _error_message;
@@ -92,7 +92,7 @@ public:
         _local_endpoint = _socket.local_endpoint(ec);
         if (ec)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "set_socket_connected(): get local endpoint failed: "
                        << ec.message();
 #else
@@ -105,7 +105,7 @@ public:
         _remote_endpoint = _socket.remote_endpoint(ec);
         if (ec)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "set_socket_connected(): get remote endpoint failed: "
                        << ec.message();
 #else
@@ -118,7 +118,7 @@ public:
 
         if (!on_connected())
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "set_socket_connected(): call on_connected() failed";
 #else
             SLOG(ERROR, "set_socket_connected(): call on_connected() failed");
@@ -235,7 +235,7 @@ private:
         if (error)
         {
             // TODO retry connect?
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_connect(): connect error: "
                        << RpcEndpointToString(_remote_endpoint) << ": " << error.message();
 #else
@@ -252,7 +252,7 @@ private:
         _local_endpoint = _socket.local_endpoint(ec);
         if (ec)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_connect(): get local endpoint failed: "
                        << ec.message();
 #else
@@ -265,7 +265,7 @@ private:
 
         if (!on_connected())
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_connect(): call on_connected() failed";
 #else
             SLOG(ERROR, "on_connect(): call on_connected() failed");
@@ -274,7 +274,7 @@ private:
             return;
         }
 
-#if defined( LOG )
+#if 0
         LOG(INFO) << "on_connect(): connection established: "
                   << RpcEndpointToString(_remote_endpoint);
 #else

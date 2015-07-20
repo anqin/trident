@@ -55,7 +55,7 @@ public:
         _acceptor.cancel(ec);
         _acceptor.close(ec);
 
-#if defined( LOG )
+#if 0
         LOG(INFO) << "close(): listener closed: " << _endpoint_str;
 #else
         SLOG(INFO, "close(): listener closed: %s", _endpoint_str.c_str());
@@ -97,7 +97,7 @@ public:
         _acceptor.open(_endpoint.protocol(), ec);
         if (ec)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "start_listen(): open acceptor failed: "
                        << _endpoint_str << ": " << ec.message();
 #else
@@ -110,7 +110,7 @@ public:
         _acceptor.set_option(tcp::acceptor::reuse_address(true), ec);
         if (ec)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "start_listen(): set acceptor option failed: "
                        << _endpoint_str << ": " << ec.message();
 #else
@@ -123,7 +123,7 @@ public:
         _acceptor.bind(_endpoint, ec);
         if (ec)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "start_listen(): bind acceptor failed: "
                        << _endpoint_str << ": " << ec.message();
 #else
@@ -137,7 +137,7 @@ public:
         _acceptor.listen(LISTEN_MAX_CONNECTIONS, ec);
         if (ec)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "start_listen(): listen acceptor failed: "
                        << _endpoint_str << ": " << ec.message();
 #else
@@ -147,7 +147,7 @@ public:
             return false;
         }
 
-#if defined( LOG )
+#if 0
         LOG(INFO) << "start_listen(): listen succeed: " << _endpoint_str;
 #else
         SLOG(INFO, "start_listen(): listen succeed: %s", _endpoint_str.c_str());
@@ -178,7 +178,7 @@ private:
 
         if (ec)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_accept(): accept error at "
                        << _endpoint_str << ": " << ec.message();
 #else
@@ -202,7 +202,7 @@ private:
 
             stream->set_socket_connected();
 
-#if defined( LOG )
+#if 0
             LOG(INFO) << "on_accept(): accept connection at "
                       << _endpoint_str << ": " << RpcEndpointToString(stream->remote_endpoint());
 #else

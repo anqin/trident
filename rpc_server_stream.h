@@ -112,7 +112,7 @@ private:
         RpcMeta meta;
         if (!meta.ParseFromBoundedZeroCopyStream(message.get(), meta_size))
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
                        << ": parse rpc meta failed";
 #else
@@ -141,7 +141,7 @@ private:
             // TODO handle un-expected message type
             //
             // just ignore it
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
                        << " {" << meta.sequence_id() << "}:"
                        << " un-expected message type: " << meta.type();

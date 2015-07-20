@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// 
+//
 
 #ifndef _TRIDENT_COMMON_H_
 #define _TRIDENT_COMMON_H_
@@ -73,7 +73,7 @@ void log_handler(LogLevel level, const char* filename, int line, const char *fmt
     !(condition) ? (void)0 : ::trident::internal::log_handler( \
             ::trident::LOG_LEVEL_##level, __FILE__, __LINE__, fmt, ##arg)
 
-#if defined( LOG )
+#if 0
 #define SCHECK(expression) CHECK(expression)
 #define SCHECK_EQ(a, b) CHECK_EQ(a, b)
 #define SCHECK_NE(a, b) CHECK_NE(a, b)

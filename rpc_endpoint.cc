@@ -34,7 +34,7 @@ bool ResolveAddress(IOService& io_service,
     }
     else
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "ResolveAddress(): resolve address ["
                    << host << ":" << svc << "] failed: " << ec.message();
 #else
@@ -52,7 +52,7 @@ bool ResolveAddress(IOService& io_service,
     std::string::size_type pos = address.find(':');
     if (pos == std::string::npos)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "ResolveAddress(): invalid address: " << address;
 #else
         SLOG(ERROR, "ResolveAddress(): invalid address: %s", address.c_str());

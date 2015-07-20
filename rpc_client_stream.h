@@ -38,7 +38,7 @@ public:
 
         if (is_closed())
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "call_method(): " << RpcEndpointToString(_remote_endpoint)
                        << ": stream already closed: " << _error_message;
 #else
@@ -127,7 +127,7 @@ private:
         RpcMeta meta;
         if (!meta.ParseFromBoundedZeroCopyStream(message.get(), meta_size))
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
                        << ": parse rpc meta failed, ignore";
 #else
@@ -142,7 +142,7 @@ private:
             // TODO handle un-expected message type
             //
             // just ignore it
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
                        << " {" << meta.sequence_id() << "}"
                        << ": un-expected message type " << meta.type() << ", ignore";
@@ -172,7 +172,7 @@ private:
             // TODO handle un-expected sequence id
             //
             // just ignore it
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
                        << " {" << meta.sequence_id() << "}"
                        << ": sequence id not found, ignore";
@@ -185,7 +185,7 @@ private:
 
         if (!meta.has_failed())
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
                        << " {" << meta.sequence_id() << "}"
                        << ": bad rpc meta: \"failed\" field not set";
@@ -199,7 +199,7 @@ private:
         {
             if (!meta.has_error_code())
             {
-#if defined( LOG )
+#if 0
                 LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
                            << " {" << meta.sequence_id() << "}"
                            << ": bad rpc meta: \"error_code\" field not set";
@@ -211,7 +211,7 @@ private:
             }
             else if (!meta.has_reason())
             {
-#if defined( LOG )
+#if 0
                 LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
                            << " {" << meta.sequence_id() << "}"
                            << ": bad rpc meta: \"reason\" field not set";

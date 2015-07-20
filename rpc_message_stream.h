@@ -224,7 +224,7 @@ private:
         {
             if (error != boost::asio::error::eof)
             {
-#if defined( LOG )
+#if 0
                 LOG(ERROR) <<  "on_read_some(): " << RpcEndpointToString(_remote_endpoint)
                            << ": read error: " << error.message();
 #else
@@ -284,7 +284,7 @@ private:
 
         if (error)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "on_write_some(): " << RpcEndpointToString(_remote_endpoint)
                        << ": write error: " << error.message();
 #else
@@ -626,7 +626,7 @@ private:
             // check header magic str
             if (!_receiving_header.CheckMagicString())
             {
-#if defined( LOG )
+#if 0
                 LOG(ERROR) << "identify_message_header(): " << RpcEndpointToString(_remote_endpoint)
                            << ": check magic string failed: " << _receiving_header.magic_str_value;
 #else
@@ -637,7 +637,7 @@ private:
             }
             if (_receiving_header.meta_size + _receiving_header.data_size != _receiving_header.message_size)
             {
-#if defined( LOG )
+#if 0
                 LOG(ERROR) << "identify_message_header(): " << RpcEndpointToString(_remote_endpoint)
                            << ": check size in header failed"
                            << ": meta_size=" << _receiving_header.meta_size
@@ -689,7 +689,7 @@ private:
         _tran_buf = reinterpret_cast<char*>(TranBufPool::malloc());
         if(_tran_buf == NULL)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "reset_tran_buf(): " << RpcEndpointToString(_remote_endpoint)
                        << ": malloc buffer failed: out of memory";
 #else

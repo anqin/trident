@@ -23,7 +23,7 @@ public:
         , _line(line)
         , _func(func)
     {
-#if defined( LOG )
+#if 0
         LOG(INFO) << _file << ": " << _line << ": >" << _func << "()";
 #else
         SLOG(TRACE, "%s: %u: >%s()", _file, _line, _func);
@@ -32,7 +32,7 @@ public:
 
     ~FuncTracer()
     {
-#if defined( LOG )
+#if 0
         LOG(INFO) << _file << ": " << _line << ": <" << _func << "()";
 #else
         SLOG(TRACE, "%s: %u: <%s()", _file, _line, _func);

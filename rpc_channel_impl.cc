@@ -22,7 +22,7 @@ RpcChannelImpl::RpcChannelImpl(const RpcClientImplPtr& rpc_client_impl,
 {
     if (g_enable_mock && _server_address.find(TRIDENT_MOCK_CHANNEL_ADDRESS_PREFIX) == 0)
     {
-#if defined( LOG )
+#if 0
         LOG(INFO) << "RpcChannelImpl(): use mock channel";
 #else
         SLOG(INFO, "RpcChannelImpl(): use mock channel");
@@ -33,7 +33,7 @@ RpcChannelImpl::RpcChannelImpl(const RpcClientImplPtr& rpc_client_impl,
 
     if (_client_impl->ResolveAddress(_server_address, &_remote_endpoint))
     {
-#if defined( LOG )
+#if 0
         LOG(INFO) << "RpcChannelImpl(): resolve address succeed: " << _server_address
                   << " [" << RpcEndpointToString(_remote_endpoint) << "]";
 #else
@@ -44,7 +44,7 @@ RpcChannelImpl::RpcChannelImpl(const RpcClientImplPtr& rpc_client_impl,
     }
     else
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "RpcChannelImpl(): resolve address failed: " << _server_address;
 #else
         SLOG(ERROR, "RpcChannelImpl(): resolve address failed: %s",
@@ -93,7 +93,7 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
         if (mock_closure)
         {
             // mock method registered
-#if defined( LOG )
+#if 0
             LOG(INFO) << "CallMethod(): mock method ["
                       << method->full_name() << "] called";
 #else
@@ -107,7 +107,7 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
         else
         {
             // mock method not registered, but it is in mock channel
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "CallMethod(): mock method ["
                        << method->full_name() << "] not registered"
                        << ", but used in mock channel";
@@ -125,7 +125,7 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
     if (!_resolve_address_succeed)
     {
         // TODO resolve address failed, retry resolve?
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "CallMethod(): resolve address failed: " << _server_address;
 #else
         SLOG(ERROR, "CallMethod(): resolve address failed: %s", _server_address.c_str());

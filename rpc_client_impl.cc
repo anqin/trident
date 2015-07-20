@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// 
+//
 
 #include <algorithm>
 #include <deque>
@@ -36,7 +36,7 @@ RpcClientImpl::RpcClientImpl(const RpcClientOptions& options)
         -1 : std::max(1, _options.keep_alive_time) * _ticks_per_second;
     _print_connection_interval_ticks = _ticks_per_second * 60;
 
-#if defined( LOG )
+#if 0
     LOG(INFO) << "RpcClientImpl(): quota_in="
               << (_slice_quota_in == -1 ? -1 : _slice_quota_in * _slice_count / (1024L * 1024L))
               << "MB/s, quota_out="
@@ -84,7 +84,7 @@ void RpcClientImpl::Start()
     _work_thread_group->start();
 
     _timer_worker.reset(new TimerWorker(_maintain_thread_group->io_service()));
-    _timer_worker->set_time_duration(time_duration_milliseconds(MAINTAIN_INTERVAL_IN_MS)); 
+    _timer_worker->set_time_duration(time_duration_milliseconds(MAINTAIN_INTERVAL_IN_MS));
     _timer_worker->set_work_routine(boost::bind(
                 &RpcClientImpl::TimerMaintain, shared_from_this(), _1));
     _timer_worker->start();
@@ -94,7 +94,7 @@ void RpcClientImpl::Start()
 
     _is_running = true;
 
-#if defined( LOG )
+#if 0
     LOG(INFO) << "Start(): rpc client started";
 #else
     SLOG(INFO, "Start(): rpc client started");
@@ -123,7 +123,7 @@ void RpcClientImpl::Stop()
     _maintain_thread_group.reset();
     _flow_controller.reset();
 
-#if defined( LOG )
+#if 0
     LOG(INFO) << "Stop(): rpc client stopped";
 #else
     SLOG(INFO, "Stop(): rpc client stopped");
@@ -165,7 +165,7 @@ void RpcClientImpl::ResetOptions(const RpcClientOptions& options)
         }
     }
 
-#if defined( LOG )
+#if 0
     LOG(INFO) << "ResetOptions(): quota_in="
               << (_slice_quota_in == -1 ? -1 : _slice_quota_in * _slice_count / (1024L * 1024L))
               << "MB/s(old "
@@ -216,7 +216,7 @@ void RpcClientImpl::CallMethod(const google::protobuf::Message* request,
 {
     if (!_is_running)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "CallMethod(): client not in running, ignore";
 #else
         SLOG(ERROR, "CallMethod(): client not in running, ignore");
@@ -229,7 +229,7 @@ void RpcClientImpl::CallMethod(const google::protobuf::Message* request,
     RpcClientStreamPtr stream = FindOrCreateStream(cntl->RemoteEndpoint());
     if (!stream)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "CallMethod(): create socket stream failed: "
                    << RpcEndpointToString(cntl->RemoteEndpoint());
 #else
@@ -244,7 +244,7 @@ void RpcClientImpl::CallMethod(const google::protobuf::Message* request,
     // check the pending buffer full
     if (stream->pending_buffer_size() > stream->max_pending_buffer_size())
     {
-#if defined( LOG )
+#if 0
 #else
         SLOG(DEBUG, "CallMethod(): pending buffer full: %s",
                 RpcEndpointToString(cntl->RemoteEndpoint()).c_str());
@@ -270,7 +270,7 @@ void RpcClientImpl::CallMethod(const google::protobuf::Message* request,
     int64 header_pos = write_buffer.Reserve(header_size);
     if (header_pos < 0)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "CallMethod(): " << RpcEndpointToString(cntl->RemoteEndpoint())
                    << ": reserve rpc message header failed";
 #else
@@ -282,7 +282,7 @@ void RpcClientImpl::CallMethod(const google::protobuf::Message* request,
     }
     if (!meta.SerializeToZeroCopyStream(&write_buffer))
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "CallMethod(): " << RpcEndpointToString(cntl->RemoteEndpoint())
                    << ": serialize rpc meta failed";
 #else
@@ -307,7 +307,7 @@ void RpcClientImpl::CallMethod(const google::protobuf::Message* request,
     }
     if (!serialize_request_return)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "CallMethod(): " << RpcEndpointToString(cntl->RemoteEndpoint())
                    << ": serialize request message failed";
 #else
@@ -334,7 +334,7 @@ void RpcClientImpl::CallMethod(const google::protobuf::Message* request,
     {
         if (!_timeout_manager->add(cntl))
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "CallMethod(): " << RpcEndpointToString(cntl->RemoteEndpoint())
                        << ": add to timeout manager failed: timeout=" << timeout << "ms";
 #else
@@ -433,7 +433,7 @@ void RpcClientImpl::DoneCallback(google::protobuf::Message* response,
         }
         if (!parse_response_return)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) << "DoneCallback(): " << RpcEndpointToString(cntl->RemoteEndpoint())
                        << ": parse response message pb failed";
 #else
@@ -543,7 +543,7 @@ void RpcClientImpl::TimerMaintain(const PTime& now)
     if (now_ticks - _last_print_connection_ticks >= _print_connection_interval_ticks)
     {
         _last_print_connection_ticks = now_ticks;
-#if defined( LOG )
+#if 0
         LOG(INFO) << "TimerMaintain(): countof(RpcListener)="
                    << TRIDENT_GET_RESOURCE_COUNTER(RpcListener)
                    << ", countof(RpcByteStream)=" << TRIDENT_GET_RESOURCE_COUNTER(RpcByteStream)

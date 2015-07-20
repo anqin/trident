@@ -108,7 +108,7 @@ void BuiltinServiceImpl::UpdateOptions(::google::protobuf::RpcController* contro
     if (request_options.has_max_throughput_out()) {
         options.max_throughput_out = request_options.max_throughput_out();
     }
-#if defined( LOG )
+#if 0
     LOG(INFO) << "UpdateOptions(): update by builtin service";
 #else
     SLOG(INFO, "UpdateOptions(): update by builtin service");

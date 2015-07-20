@@ -44,7 +44,7 @@ RpcServerImpl::RpcServerImpl(const RpcServerOptions& options,
     _switch_stat_slot_interval_ticks = _ticks_per_second * STAT_SLOT_SECONDS;
     _print_connection_interval_ticks = _ticks_per_second * 60;
 
-#if defined( LOG )
+#if 0
     LOG(INFO) << "RpcServerImpl(): quota_in="
               << (_slice_quota_in == -1 ? -1 : _slice_quota_in * _slice_count / (1024L * 1024L))
               << "MB/s, quota_out="
@@ -85,7 +85,7 @@ bool RpcServerImpl::Start(const std::string& server_address)
                 1, "trident_pbrpc_server_maintain_thread_group"));
     if (!_maintain_thread_group->start())
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "Start(): start maintain thread group failed";
 #else
         SLOG(ERROR, "Start(): start maintain thread group failed");
@@ -100,7 +100,7 @@ bool RpcServerImpl::Start(const std::string& server_address)
     _work_thread_group->set_dest_func(_options.work_thread_dest_func);
     if (!_work_thread_group->start())
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "Start(): start work thread group failed";
 #else
         SLOG(ERROR, "Start(): start work thread group failed");
@@ -114,7 +114,7 @@ bool RpcServerImpl::Start(const std::string& server_address)
     _server_address = server_address;
     if (!ResolveAddress(_work_thread_group->io_service(), _server_address, &_listen_endpoint))
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "Start(): resolve server address failed: " << _server_address;
 #else
         SLOG(ERROR, "Start(): resolve server address failed: %s", _server_address.c_str());
@@ -134,7 +134,7 @@ bool RpcServerImpl::Start(const std::string& server_address)
                 &RpcServerImpl::OnAcceptFailed, shared_from_this(), _1, _2));
     if (!_listener->start_listen())
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "Start(): listen failed: " << _server_address;
 #else
         SLOG(ERROR, "Start(): listen failed: %s", _server_address.c_str());
@@ -145,7 +145,7 @@ bool RpcServerImpl::Start(const std::string& server_address)
         _flow_controller.reset();
         return false;
     }
-#if defined( LOG )
+#if 0
     LOG(INFO) << "Start(): listen succeed: " << _server_address
               << " [" << RpcEndpointToString(_listen_endpoint) << "]";
 #else
@@ -165,7 +165,7 @@ bool RpcServerImpl::Start(const std::string& server_address)
     }
 
     _is_running = true;
-#if defined( LOG )
+#if 0
     LOG(INFO) << "Start(): rpc server started";
 #else
     SLOG(INFO, "Start(): rpc server started");
@@ -193,7 +193,7 @@ void RpcServerImpl::Stop()
     _maintain_thread_group.reset();
     _flow_controller.reset();
 
-#if defined( LOG )
+#if 0
     LOG(INFO) << "Stop(): rpc server stopped";
 #else
     SLOG(INFO, "Stop(): rpc server stopped");
@@ -245,7 +245,7 @@ void RpcServerImpl::ResetOptions(const RpcServerOptions& options)
         _flow_controller->reset_write_quota(_slice_quota_out == -1, _slice_quota_out);
     }
 
-#if defined( LOG )
+#if 0
     LOG(INFO) << "ResetOptions(): quota_in="
               << (_slice_quota_in == -1 ? -1 : _slice_quota_in * _slice_count / (1024L * 1024L))
               << "MB/s(old "
@@ -325,7 +325,7 @@ bool RpcServerImpl::RestartListen()
     ScopedLocker<MutexLock> _(_start_stop_lock);
     if (!_is_running)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "RestartListen(): server not in running";
 #else
         SLOG(ERROR, "RestartListen(): server not in running");
@@ -346,7 +346,7 @@ bool RpcServerImpl::RestartListen()
                 &RpcServerImpl::OnAcceptFailed, shared_from_this(), _1, _2));
     if (!_listener->start_listen())
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "RestartListen(): listen failed: " << _server_address;
 #else
         SLOG(ERROR, "RestartListen(): listen failed: %s", _server_address.c_str());
@@ -354,7 +354,7 @@ bool RpcServerImpl::RestartListen()
         return false;
     }
 
-#if defined( LOG )
+#if 0
     LOG(INFO) << "RestartListen(): restart listener succeed";
 #else
     SLOG(INFO, "RestartListen(): restart listener succeed");
@@ -407,7 +407,7 @@ void RpcServerImpl::OnReceived(
 {
     if (!_is_running)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
                    << ": {" << meta.sequence_id() << "}: server not in running, ignore";
 #else
@@ -419,7 +419,7 @@ void RpcServerImpl::OnReceived(
 
     if (!meta.has_method())
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
                    << ": {" << meta.sequence_id() << "}: \"method\" field not set in meta";
 #else
@@ -436,7 +436,7 @@ void RpcServerImpl::OnReceived(
     std::string method_name;
     if (!ParseMethodFullName(method_full_name, &service_name, &method_name))
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
                    << ": {" << meta.sequence_id() << "}"
                    << ": invalid method full name: " << method_full_name;
@@ -453,7 +453,7 @@ void RpcServerImpl::OnReceived(
     ServiceBoard* service_board = _service_pool->FindService(service_name);
     if (service_board == NULL)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
                    << ": {" << meta.sequence_id() << "}"
                    << ": service \"" << service_name << "\" not found"
@@ -474,7 +474,7 @@ void RpcServerImpl::OnReceived(
         service->GetDescriptor()->FindMethodByName(method_name);
     if (method == NULL)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
                    << ": {" << meta.sequence_id() << "}"
                    << ": method \"" << method_name << "\" not found"
@@ -506,7 +506,7 @@ void RpcServerImpl::OnReceived(
     }
     if (!parse_request_return)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
                    << ": {" << meta.sequence_id() << "}: parse request message failed";
 #else
@@ -554,7 +554,7 @@ void RpcServerImpl::OnCallMethodDone(
     const RpcControllerImplPtr& cntl = controller->impl();
     if (cntl->Failed())
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "OnCallMethodDone(): call method \"" << cntl->MethodId()
                    << "\" failed: " << RpcErrorCodeToString(cntl->ErrorCode())
                    << ": " << cntl->Reason();
@@ -570,7 +570,7 @@ void RpcServerImpl::OnCallMethodDone(
     }
     else
     {
-#if defined( LOG )
+#if 0
 #else
         SLOG(DEBUG, "OnCallMethodDone(): call method \"%s\" succeed",
                 cntl->MethodId().c_str());
@@ -594,7 +594,7 @@ void RpcServerImpl::SendFailedResponse(
     RpcServerStreamPtr real_stream = stream.lock();
     if (!real_stream)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "SendFailedResponse(): {" << sequence_id << "}: stream already closed";
 #else
         SLOG(ERROR, "SendFailedResponse(): {%lu}: stream already closed", sequence_id);
@@ -615,7 +615,7 @@ void RpcServerImpl::SendFailedResponse(
     int64 header_pos = write_buffer.Reserve(header_size);
     if (header_pos < 0)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "SendFailedResponse(): {" << sequence_id << "}"
                    << ": reserve rpc message header failed";
 #else
@@ -625,7 +625,7 @@ void RpcServerImpl::SendFailedResponse(
     }
     if (!meta.SerializeToZeroCopyStream(&write_buffer))
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "SendFailedResponse(): {" << sequence_id << "}"
                    << ": serialize rpc meta failed";
 #else
@@ -655,7 +655,7 @@ void RpcServerImpl::SendSucceedResponse(
     RpcServerStreamPtr real_stream = stream.lock();
     if (!real_stream)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "SendSucceedResponse(): {" << sequence_id << "}"
                    << ": stream already closed";
 #else
@@ -676,7 +676,7 @@ void RpcServerImpl::SendSucceedResponse(
     int64 header_pos = write_buffer.Reserve(header_size);
     if (header_pos < 0)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "SendSucceedResponse(): {" << sequence_id << "}"
                    << ": reserve rpc message header failed";
 #else
@@ -686,7 +686,7 @@ void RpcServerImpl::SendSucceedResponse(
     }
     if (!meta.SerializeToZeroCopyStream(&write_buffer))
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "SendSucceedResponse(): {" << sequence_id << "}"
                    << ": serialize rpc meta failed";
 #else
@@ -711,7 +711,7 @@ void RpcServerImpl::SendSucceedResponse(
     }
     if (!serialize_response_return)
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "SendSucceedResponse(): {" << sequence_id << "}"
                    << ": serialize response message failed";
 #else
@@ -740,7 +740,7 @@ void RpcServerImpl::OnSendResponseDone(
 {
     if (error_code == RPC_SUCCESS)
     {
-#if defined( LOG )
+#if 0
 #else
         SLOG(DEBUG, "OnSendResponseDone(): %s {%lu}: send succeed",
                 RpcEndpointToString(remote_endpoint).c_str(), sequence_id);
@@ -748,7 +748,7 @@ void RpcServerImpl::OnSendResponseDone(
     }
     else
     {
-#if defined( LOG )
+#if 0
         LOG(ERROR) << "OnSendResponseDone(): " << RpcEndpointToString(remote_endpoint)
                    << " {" << sequence_id << "}"
                    << ": send failed: " << RpcErrorCodeToString(error_code);
@@ -890,7 +890,7 @@ void RpcServerImpl::TimerMaintain(const PTime& now)
     if (now_ticks - _last_print_connection_ticks >= _print_connection_interval_ticks)
     {
         _last_print_connection_ticks = now_ticks;
-#if defined( LOG )
+#if 0
         LOG(INFO) << "TimerMaintain(): countof(RpcListener)="
                   << TRIDENT_GET_RESOURCE_COUNTER(RpcListener)
                   << ", countof(RpcByteStream)=" << TRIDENT_GET_RESOURCE_COUNTER(RpcByteStream)

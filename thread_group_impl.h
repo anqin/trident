@@ -97,7 +97,7 @@ public:
         if (_is_running) return true;
         _is_running = true;
 
-#if defined( LOG )
+#if 0
         LOG(INFO) <<  "start(): starting thread group [" << _name << "], thread_num=" << _thread_num;
 #else
         SLOG(INFO, "start(): starting thread group [%s], thread_num=%d", _name.c_str(), _thread_num);
@@ -114,7 +114,7 @@ public:
             int ret = pthread_create(&_threads[i], NULL, &ThreadGroupImpl::thread_run, &_thread_params[i]);
             if (ret != 0)
             {
-#if defined( LOG )
+#if 0
                 LOG(ERROR) <<  "start(): create thread[" << i << "] failed: error=%d" << ret;
 #else
                 SLOG(ERROR, "start(): create thread[%d] failed: error=%d", i, ret);
@@ -152,7 +152,7 @@ public:
         }
         if (init_fail)
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) <<  "start(): start thread group [" << _name << "] failed";
 #else
             SLOG(ERROR, "start(): start thread group [%s] failed", _name.c_str());
@@ -160,7 +160,7 @@ public:
             stop();
             return false;
         }
-#if defined( LOG )
+#if 0
         LOG(INFO) <<  "start(): thread group [" << _name << "] started, thread_num=" << _thread_num;
 #else
         SLOG(INFO, "start(): thread group [%s] started, thread_num=%d", _name.c_str(), _thread_num);
@@ -181,7 +181,7 @@ public:
             int ret = pthread_join(_threads[i], NULL);
             if (ret != 0)
             {
-#if defined( LOG )
+#if 0
                 LOG(ERROR) <<  "stop(): join thread[" << i << "] failed: error=%d" << ret;
 #else
                 SLOG(ERROR, "stop(): join thread[%d] failed: error=%d", i, ret);
@@ -194,7 +194,7 @@ public:
         delete []_threads;
         _threads = NULL;
 
-#if defined( LOG )
+#if 0
         LOG(INFO) <<  "stop(): thread group [" << _name << "] stopped";
 #else
         SLOG(INFO, "stop(): thread group [%s] stopped", _name.c_str());
@@ -248,7 +248,7 @@ private:
         // init
         if (thread_param->init_func && !thread_param->init_func->Run())
         {
-#if defined( LOG )
+#if 0
             LOG(ERROR) <<  "thread_run(): init thread [" << thread_param->id << "] failed";
 #else
             SLOG(ERROR, "thread_run(): init thread [%d] failed", thread_param->id);
