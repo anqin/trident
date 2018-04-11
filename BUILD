@@ -60,5 +60,6 @@ cc_library(
         ':builtin_service_proto',
         ':snappy'
     ],
-    incs = ['asio']
+    incs = ['asio'],
+     warning='no'
 )
