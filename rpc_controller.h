@@ -1,8 +1,6 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #ifndef _TRIDENT_RPC_CONTROLLER_H_
 #define _TRIDENT_RPC_CONTROLLER_H_
@@ -14,7 +12,6 @@
 
 namespace trident {
 
-
 class RpcControllerImpl;
 
 class RpcController : public google::protobuf::RpcController
@@ -25,11 +22,11 @@ public:
 
     // -------- used by both client and server side ---------
     // These calls can be made from both client side and server side.
- 
+
     // Get the local address in format of "ip:port".
     //
     // For client:
-    // This method can only be called after the call has finished.  If 
+    // This method can only be called after the call has finished.  If
     // IsRequestSent() is true, returns the local address used for sending
     // the message; else, the return value is undefined.
     //
@@ -49,7 +46,7 @@ public:
     // -------- used only by client side ---------
     // These calls should be made from the client side only.  Their results are
     // undefined on the server side (may crash).
-    
+
     // Resets the RpcController to its initial state so that it may be reused
     // in a new call. Must not be called while it is in use.
     virtual void Reset();
@@ -109,7 +106,7 @@ public:
     //
     // This method can only be called after the call has finished.
     bool IsRequestSent() const;
-    
+
     // If IsRequestSent() is true, returns sent bytes, including the rpc header.
     //
     // This method can only be called after the call has finished.
@@ -127,6 +124,21 @@ public:
     // -------- used only by server side ---------
     // These calls should be made from the server side only.  Their results
     // are undefined on the client side (may crash).
+
+    // If the request is in http protocal, returns true;
+    // otherwise returns false.
+    bool IsHttp() const;
+
+    // If IsHttp() is true, returns PATH field in the http request.
+    // For example, the path of "http://www./s?k=123" is "/s".
+    const std::string& HttpPath() const;
+
+    // If IsHttp() is true, returns query parameters in the http request.
+    // For example, the params of "http://www./s?k=123" are {"k":"123"}.
+    const std::map<std::string, std::string>& HttpQueryParams() const;
+
+    // If IsHttp() is true, returns headers in the http request.
+    const std::map<std::string, std::string>& HttpHeaders() const;
 
     // Causes Failed() to return true on the client side.  "reason" will be
     // incorporated into the message returned by ErrorText().  If you find
@@ -161,9 +173,7 @@ private:
     TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(RpcController);
 }; // class RpcController
 
-
 } // namespace trident
 
 #endif // _TRIDENT_RPC_CONTROLLER_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

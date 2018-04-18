@@ -1,29 +1,27 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 // This file is modified from `protobuf-zerocopy-compression':
-//   https://github.com/JohannesEbke/protobuf-zerocopy-compression
-//
+// https://github.com/JohannesEbke/protobuf-zerocopy-compression
+
 // Copyright (c) 2013, Johannes Ebke and Peter Waller. All rights reserved.
 // Author: peter.waller@gmail.com (Peter Waller)
 // Author: johannes@ebke.org (Johannes Ebke)
 
-#include <google/protobuf/stubs/common.h>
+#include <trident/block_wrappers.h>
 
 #include <google/protobuf/io/coded_stream.h>
-using google::protobuf::io::CodedInputStream;
-using google::protobuf::io::CodedOutputStream;
+#include <google/protobuf/stubs/common.h>
 
 #include <trident/common.h>
-#include <trident/block_wrappers.h>
 #include <trident/lz4.h>
-
 #if HAVE_SNAPPY
 #include <trident/snappy/snappy.h>
 #endif
+
+using google::protobuf::io::CodedInputStream;
+using google::protobuf::io::CodedOutputStream;
 
 namespace trident {
 
@@ -226,4 +224,3 @@ uint32_t LZ4OutputStream::RawCompress(char* input_buffer, size_t input_size,
 
 } // namespace trident
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

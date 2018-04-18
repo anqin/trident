@@ -1,21 +1,18 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #include <trident/buffer.h>
 #include <trident/tran_buf_pool.h>
 
 namespace trident {
 
-
 ReadBuffer::ReadBuffer()
-    : _total_bytes(0)
-    , _cur_it(_buf_list.begin())
-    , _cur_pos(0)
-    , _last_bytes(0)
-    , _read_bytes(0)
+    : _total_bytes(0),
+      _cur_it(_buf_list.begin()),
+      _cur_pos(0),
+      _last_bytes(0),
+      _read_bytes(0)
 {}
 
 ReadBuffer::~ReadBuffer()
@@ -45,6 +42,23 @@ int64 ReadBuffer::TotalCount() const
 int ReadBuffer::BlockCount() const
 {
     return _buf_list.size();
+}
+
+int ReadBuffer::LastBytes() const
+{
+    return _last_bytes;
+}
+
+std::string ReadBuffer::ToString() const
+{
+    std::string str;
+    str.reserve(_total_bytes);
+    for (std::deque<BufHandle>::const_iterator it = _buf_list.begin();
+            it != _buf_list.end(); ++it)
+    {
+        str.append(it->data + it->offset, it->size);
+    }
+    return str;
 }
 
 bool ReadBuffer::Next(const void** data, int* size)
@@ -133,6 +147,11 @@ int WriteBuffer::BlockCount() const
     return _buf_list.size();
 }
 
+int WriteBuffer::LastBytes()  const
+{
+    return _last_bytes;
+}
+
 void WriteBuffer::SwapOut(ReadBuffer* is)
 {
     while (!_buf_list.empty())
@@ -210,6 +229,7 @@ void WriteBuffer::SetData(int64 pos, const char* data, int size)
         {
             memcpy(cur_it->data + cur_offset, data, cur_size);
             size -= cur_size;
+            data += cur_size;
             ++cur_it;
             cur_offset = 0;
         }
@@ -262,7 +282,23 @@ bool WriteBuffer::Extend()
     return true;
 }
 
+bool WriteBuffer::Append(const std::string& data)
+{
+    return Append(data.c_str(), data.size());
+}
+
+bool WriteBuffer::Append(const char* data, int size)
+{
+    SCHECK_GE(size, 0);
+    if (size == 0) return true;
+    int64 head = Reserve(size);
+    if (head < 0)
+    {
+        return false;
+    }
+    SetData(head, data, size);
+    return true;
+}
 
 } // namespace trident
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

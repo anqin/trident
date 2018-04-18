@@ -1,8 +1,6 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #ifndef _TRIDENT_SERVICE_POOL_H_
 #define _TRIDENT_SERVICE_POOL_H_
@@ -18,9 +16,9 @@
 #include <trident/builtin_service.pb.h>
 #include <trident/counter.h>
 #include <trident/murmurhash.h>
+#include <trident/ptime.h>
 
 namespace trident {
-
 
 #define SERVICE_CACHE_SLOT_COUNT 1019
 #define STAT_SLOT_COUNT 602
@@ -37,15 +35,27 @@ struct StatSlot
     int64 failed_max_process_time;
 };
 
+class RpcServerImpl;
+class ServiceBoard;
 class MethodBoard
 {
 public:
-    MethodBoard() : _desc(NULL), _slot_index(0)
+    MethodBoard() : _service_board(NULL), _desc(NULL), _slot_index(0)
     {
         memset(_stat_slots, 0, sizeof(_stat_slots));
     }
 
     ~MethodBoard() {}
+
+    void SetServiceBoard(ServiceBoard* service_board)
+    {
+        _service_board = service_board;
+    }
+
+    ServiceBoard* GetServiceBoard()
+    {
+        return _service_board;
+    }
 
     void SetDescriptor(const google::protobuf::MethodDescriptor* desc)
     {
@@ -127,6 +137,7 @@ public:
     }
 
 private:
+    ServiceBoard* _service_board;
     const google::protobuf::MethodDescriptor* _desc;
     StatSlot _stat_slots[STAT_SLOT_COUNT];
     volatile int _slot_index;
@@ -142,6 +153,7 @@ public:
         _method_count = _svc_desc->method_count();
         _method_boards = new MethodBoard[_method_count];
         for (int i = 0; i < _method_count; ++i) {
+            _method_boards[i].SetServiceBoard(this);
             _method_boards[i].SetDescriptor(_svc_desc->method(i));
         }
     }
@@ -162,6 +174,11 @@ public:
     const std::string& ServiceName()
     {
         return _svc_desc->full_name();
+    }
+
+    const google::protobuf::ServiceDescriptor* Descriptor()
+    {
+        return _svc_desc;
     }
 
     google::protobuf::Service* Service()
@@ -251,7 +268,7 @@ private:
 class ServicePool
 {
 public:
-    ServicePool() : _head(NULL), _count(0)
+    ServicePool(RpcServerImpl* rpc_server) : _rpc_server(rpc_server), _head(NULL), _count(0)
     {
         memset(_cache, 0, sizeof(_cache));
     }
@@ -262,6 +279,11 @@ public:
                 it != _service_map.end(); ++it) {
             delete it->second;
         }
+    }
+
+    RpcServerImpl* RpcServer()
+    {
+        return _rpc_server;
     }
 
     bool RegisterService(google::protobuf::Service* service, bool take_ownership = true)
@@ -385,6 +407,8 @@ private:
     }
 
 private:
+    RpcServerImpl* _rpc_server;
+
     typedef std::map<std::string, ServiceBoard*> ServiceMap;
     ServiceMap _service_map;
     FastLock _service_map_lock;

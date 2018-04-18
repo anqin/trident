@@ -1,8 +1,6 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #ifndef _TRIDENT_RPC_CONTROLLER_IMPL_H_
 #define _TRIDENT_RPC_CONTROLLER_IMPL_H_
@@ -11,8 +9,8 @@
 #include <list>
 #include <google/protobuf/descriptor.h>
 
-#include <trident/common_internal.h>
 #include <trident/buffer.h>
+#include <trident/common_internal.h>
 #include <trident/rpc_controller.h>
 #include <trident/rpc_endpoint.h>
 #include <trident/rpc_error_code.h>
@@ -31,14 +29,18 @@ public:
 
 public:
     RpcControllerImpl()
-        : _sequence_id(0)
-        , _error_code(RPC_SUCCESS)
-        , _is_done(NOT_DONE)
-        , _is_request_sent(false)
-        , _sent_bytes(0)
-        , _is_start_cancel(false)
-        , _is_sync(false)
-        , _timeout_id(0)
+        : _sequence_id(0),
+          _error_code(RPC_SUCCESS),
+          _is_done(NOT_DONE),
+          _is_request_sent(false),
+          _sent_bytes(0),
+          _is_start_cancel(false),
+          _is_sync(false),
+          _timeout_id(0),
+          _is_http(false),
+          _http_path(NULL),
+          _http_query_params(NULL),
+          _http_headers(NULL)
     {}
 
     virtual ~RpcControllerImpl() {}
@@ -356,6 +358,69 @@ public:
         return _request_received_time;
     }
 
+    void SetStartProcessTime(const PTime& time)
+    {
+        _start_process_time = time;
+    }
+
+    const PTime& StartProcessTime()
+    {
+        return _start_process_time;
+    }
+
+    void SetFinishProcessTime(const PTime& time)
+    {
+        _finish_process_time = time;
+    }
+
+    const PTime& FinishProcessTime()
+    {
+        return _finish_process_time;
+    }
+
+    void SetHttp()
+    {
+        _is_http = true;
+    }
+
+    bool IsHttp() const
+    {
+        return _is_http;
+    }
+
+    void SetHttpPath(const std::string* path)
+    {
+        _http_path = path;
+    }
+
+    const std::string& HttpPath() const
+    {
+        SCHECK(_is_http);
+        return *_http_path;
+    }
+
+    void SetHttpQueryParams(const std::map<std::string, std::string>* params)
+    {
+        _http_query_params = params;
+    }
+
+    const std::map<std::string, std::string>& HttpQueryParams() const
+    {
+        SCHECK(_is_http);
+        return *_http_query_params;
+    }
+
+    void SetHttpHeaders(const std::map<std::string, std::string>* headers)
+    {
+        _http_headers = headers;
+    }
+
+    const std::map<std::string, std::string>& HttpHeaders() const
+    {
+        SCHECK(_is_http);
+        return *_http_headers;
+    }
+
 private:
     uint64 _sequence_id;
     std::string _method_id;
@@ -396,13 +461,17 @@ private:
     // used only in server side
     RpcServerStreamWPtr _server_stream;
     PTime _request_received_time;
+    PTime _start_process_time;
+    PTime _finish_process_time;
+    bool _is_http;
+    const std::string* _http_path;
+    const std::map<std::string, std::string>* _http_query_params;
+    const std::map<std::string, std::string>* _http_headers;
 
     TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(RpcControllerImpl);
 }; // class RpcControllerImpl
-
 
 } // namespace trident
 
 #endif // _TRIDENT_RPC_CONTROLLER_IMPL_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

@@ -2,20 +2,19 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// 
 
 #ifndef _TRIDENT_BUFFER_H_
 #define _TRIDENT_BUFFER_H_
 
 #include <deque>
+#include <string>
 
 #include <google/protobuf/io/zero_copy_stream.h>
 
-#include <trident/common.h>
 #include <trident/buf_handle.h>
+#include <trident/common.h>
 
 namespace trident {
-
 
 // Defined in this file.
 class ReadBuffer;
@@ -38,13 +37,22 @@ public:
     // Preconditions:
     // * No method Next(), Backup() or Skip() have been called before.
     // * The size of "buf_handle" should be greater than 0.
+    // * For the first one, size of "buf_handle" should be greater than 0.
+    // * For the second one, "read_buffer" should not be NULL.
     void Append(const BufHandle& buf_handle);
+    void Append(const ReadBuffer* read_buffer);
 
     // Get the total byte count of the buffer.
     int64 TotalCount() const;
 
     // Get the block count occupied by the buffer.
     int BlockCount() const;
+
+    // Get last read bytes;
+    int LastBytes() const;
+
+    // Trans buffer to string.
+    std::string ToString() const;
 
     // implements ZeroCopyInputStream ----------------------------------
     bool Next(const void** data, int* size);
@@ -102,6 +110,13 @@ public:
     bool Next(void** data, int* size);
     void BackUp(int count);
     int64 ByteCount() const;
+    int LastBytes() const;
+
+    // Append string to the buffer
+    // If succeed, return true
+    // If failed, return false
+    bool Append(const std::string& data);
+    bool Append(const char* data, int size);
 
 private:
     // Add a new block to the end of the buffer.
@@ -116,9 +131,7 @@ private:
     TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(WriteBuffer);
 }; // class WriteBuffer
 
-
 } // namespace trident
 
 #endif // _TRIDENT_BUFFER_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

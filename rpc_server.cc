@@ -1,17 +1,15 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
+
+#include <trident/rpc_server.h>
 
 #include <signal.h>
 #include <unistd.h>
 
-#include <trident/rpc_server.h>
 #include <trident/rpc_server_impl.h>
 
 namespace trident {
-
 
 RpcServer::RpcServer(const RpcServerOptions& options, EventHandler* handler)
     : _impl(new RpcServerImpl(options, handler))
@@ -78,7 +76,15 @@ bool RpcServer::IsListening()
     return _impl->IsListening();
 }
 
+bool RpcServer::RegisterWebServlet(const std::string& path, Servlet servlet, bool take_ownership)
+{
+    return _impl->RegisterWebServlet(path, servlet, take_ownership);
+}
+
+Servlet RpcServer::UnregisterWebServlet(const std::string& path)
+{
+    return _impl->UnregisterWebServlet(path);
+}
 
 } // namespace trident
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

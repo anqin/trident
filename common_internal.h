@@ -1,8 +1,6 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #ifndef _TRIDENT_COMMON_INTERNAL_H_
 #define _TRIDENT_COMMON_INTERNAL_H_
@@ -10,8 +8,8 @@
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 
-#include <trident/common.h>
 #include <trident/atomic.h>
+#include <trident/common.h>
 #include <trident/counter.h>
 #include <trident/func_tracer.h>
 #include <trident/io_service.h>
@@ -19,7 +17,6 @@
 #include <trident/ptime.h>
 
 namespace trident {
-
 
 class RpcControllerImpl;
 typedef trident::shared_ptr<RpcControllerImpl> RpcControllerImplPtr;
@@ -65,6 +62,9 @@ typedef trident::shared_ptr<FlowController> FlowControllerPtr;
 class WaitEvent;
 typedef trident::shared_ptr<WaitEvent> WaitEventPtr;
 
+class WebService;
+typedef trident::shared_ptr<WebService> WebServicePtr;
+
 #define TRIDENT_DECLARE_RESOURCE_COUNTER(name_) \
     extern trident::AtomicCounter g_trident_counter_##name_
 #define TRIDENT_DEFINE_RESOURCE_COUNTER(name_) \
@@ -79,9 +79,7 @@ typedef trident::shared_ptr<WaitEvent> WaitEventPtr;
 TRIDENT_DECLARE_RESOURCE_COUNTER(RpcByteStream);
 TRIDENT_DECLARE_RESOURCE_COUNTER(RpcListener);
 
-
 } // namespace trident
 
 #endif // _TRIDENT_COMMON_INTERNAL_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

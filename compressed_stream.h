@@ -1,12 +1,10 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 // This file is modified from `protobuf-zerocopy-compression':
 //   https://github.com/JohannesEbke/protobuf-zerocopy-compression
-//
+
 // Copyright (c) 2013, Johannes Ebke and Peter Waller. All rights reserved.
 // Author: peter.waller@gmail.com (Peter Waller)
 // Author: johannes@ebke.org (Johannes Ebke)
@@ -21,7 +19,6 @@
 #define HAVE_SNAPPY 1
 
 namespace trident {
-
 
 /// Base class for all compressed output streams with additional methods
 class AbstractCompressedOutputStream : public google::protobuf::io::ZeroCopyOutputStream {
@@ -59,9 +56,7 @@ AbstractCompressedOutputStream * get_compressed_output_stream(
 AbstractCompressedInputStream * get_compressed_input_stream(
         google::protobuf::io::ZeroCopyInputStream * istream, CompressType type);
 
-
 } // namespace trident
 
 #endif // _TRIDENT_COMPRESSION_COMPRESSED_STREAM_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */
