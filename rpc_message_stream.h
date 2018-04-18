@@ -1,26 +1,23 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #ifndef _TRIDENT_RPC_MESSAGE_STREAM_H_
 #define _TRIDENT_RPC_MESSAGE_STREAM_H_
 
 #include <deque>
 
-#include <trident/rpc_byte_stream.h>
 #include <trident/buffer.h>
+#include <trident/flow_controller.h>
+#include <trident/rpc_byte_stream.h>
 #include <trident/rpc_error_code.h>
 #include <trident/rpc_message_header.h>
 #include <trident/tran_buf_pool.h>
-#include <trident/flow_controller.h>
 
 namespace trident {
 
-
 // The "SendCookie" type should has default constructor, and
-// should be copyable. 
+// should be copyable.
 template <typename SendCookie>
 class RpcMessageStream : public RpcByteStream
 {
@@ -76,7 +73,7 @@ public:
     // be called to check if the message still need to be sent.
     //
     // If send succeed, callback "on_sent" will be called;
-    // else, callback "on_send_failed" will be called. 
+    // else, callback "on_send_failed" will be called.
     //
     // @param message  the message to send, including header, meta and data.
     // @param cookie  a cookie affiliated to the message, which can carry some
@@ -243,7 +240,7 @@ private:
         _total_received_size += bytes_transferred;
 
         std::deque<ReceivedItem> received_messages;
-        if (!split_and_process_message(_receiving_data, 
+        if (!split_and_process_message(_receiving_data,
                     static_cast<int>(bytes_transferred), &received_messages))
         {
             close("broken stream");
@@ -340,7 +337,7 @@ private:
         {
             // only sent part of the data
             SCHECK_LT(static_cast<int>(bytes_transferred), _sending_size);
-            
+
             // start sending the remaining data
             _sending_data += bytes_transferred;
             _sending_size -= bytes_transferred;
@@ -373,7 +370,7 @@ private:
     {
         TRIDENT_FUNCTION_TRACE;
 
-        _swapped_calls.push_back(PendingItem(message, cookie));
+        _swapped_calls.push_front(PendingItem(message, cookie));
         ++_swapped_message_count;
         _swapped_data_size += message->TotalCount();
         _swapped_buffer_size += message->BlockCount() * TranBufPool::block_size();
@@ -418,6 +415,9 @@ private:
         }
 
         // no message found
+        SCHECK_EQ(0, _swapped_message_count);
+        SCHECK_EQ(0, _swapped_data_size);
+        SCHECK_EQ(0, _swapped_buffer_size);
         return false;
     }
 
@@ -450,7 +450,7 @@ private:
         }
 
         bool started = false;
-        if (is_connected() 
+        if (is_connected()
                 && atomic_comp_swap(&_receive_token, TOKEN_LOCK, TOKEN_FREE) == TOKEN_FREE)
         {
             SCHECK(_receiving_data != NULL);
@@ -492,7 +492,7 @@ private:
         }
 
         bool started = false;
-        while (is_connected() 
+        while (is_connected()
                 && atomic_comp_swap(&_send_token, TOKEN_LOCK, TOKEN_FREE) == TOKEN_FREE)
         {
             if (get_from_pending_queue(&_sending_message, &_sending_cookie))
@@ -557,9 +557,9 @@ private:
                 if (identify_result > 0)
                 {
                     _receiving_header_identified = true;
-                    if (consumed == size)
+                    if (consumed == size && _receiving_header.message_size > 0)
                     {
-                        // all the data is consumed by header
+                        // all the data is consumed by header, and message data is not null
                         return true;
                     }
                     else
@@ -589,8 +589,10 @@ private:
             }
 
             int64 consume_size = message_size - _received_message_size;
-            _receiving_message->Append(BufHandle(_tran_buf, consume_size, data - _tran_buf));
-            received_messages->push_back(ReceivedItem(_receiving_message, 
+            if (consume_size > 0) {
+                _receiving_message->Append(BufHandle(_tran_buf, consume_size, data - _tran_buf));
+            }
+            received_messages->push_back(ReceivedItem(_receiving_message,
                         _receiving_header.meta_size, _receiving_header.data_size));
             reset_receiving_env();
             data += consume_size;
@@ -779,9 +781,7 @@ private:
     volatile int _receive_token;
 }; // class RpcMessageStream
 
-
 } // namespace trident
 
 #endif // _TRIDENT_RPC_MESSAGE_STREAM_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

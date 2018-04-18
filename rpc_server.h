@@ -1,8 +1,6 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #ifndef _TRIDENT_RPC_SERVER_H_
 #define _TRIDENT_RPC_SERVER_H_
@@ -15,9 +13,10 @@
 
 namespace trident {
 
-
 // Defined in other files.
 class RpcServerImpl;
+class HTTPRequest;
+class HTTPResponse;
 
 struct RpcServerOptions {
     int work_thread_num; // thread count for network handing and service processing, default 8.
@@ -38,7 +37,7 @@ struct RpcServerOptions {
     int max_throughput_out;      // max network out throughput for all connections.
                                  // in MB/s, should >= -1, -1 means no limit, default -1.
 
-    bool disable_builtin_services; // If disable builtin services, including health service, list 
+    bool disable_builtin_services; // If disable builtin services, including health service, list
                                    // service, status service, and so on.  Default false.
     bool disable_list_service;     // If disable the list service, which would public your service
                                    // protobuf descriptor.  Default false.
@@ -68,6 +67,7 @@ struct RpcServerOptions {
     {}
 };
 
+typedef ExtClosure<bool(const HTTPRequest&, HTTPResponse&)>* Servlet;
 class RpcServer
 {
 public:
@@ -129,7 +129,7 @@ public:
     //
     // Current only these options can be reset (others will be ignored):
     // * max_pending_buffer_size : will take effective immediately.
-    // * max_throughput_in : will take effective from the next time slice (0.1s). 
+    // * max_throughput_in : will take effective from the next time slice (0.1s).
     // * max_throughput_out : will take effective from the next time slice (0.1s).
     // * keep_alive_time: will take effective immediately.
     //
@@ -162,6 +162,19 @@ public:
     // Return true if the server is listening on some address.
     bool IsListening();
 
+    // Register a path and its dealing function
+    // Return true if operation success
+    // Return false if path already exist
+    // Example: see sofa-pbrpc/sample/echo
+    // NOTE: path will be formatted
+    bool RegisterWebServlet(const std::string& path, Servlet servlet, bool take_ownership = true);
+
+    // Delete a path and its related function from rpc server
+    // Return Servlet if deleting success
+    // Return NULL if path not exist
+    // NOTE: path will be formatted
+    Servlet UnregisterWebServlet(const std::string& path);
+
 public:
     const trident::shared_ptr<RpcServerImpl>& impl() const
     {
@@ -174,9 +187,7 @@ private:
     TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(RpcServer);
 }; // class RpcServer
 
-
 } // namespace trident
 
 #endif // _TRIDENT_RPC_SERVER_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

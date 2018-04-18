@@ -1,8 +1,6 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #ifndef _TRIDENT_RPC_SERVER_IMPL_H_
 #define _TRIDENT_RPC_SERVER_IMPL_H_
@@ -11,16 +9,15 @@
 
 #include <trident/common_internal.h>
 #include <trident/rpc_controller.h>
+#include <trident/rpc_endpoint.h>
 #include <trident/rpc_server.h>
 #include <trident/rpc_server_stream.h>
-#include <trident/rpc_endpoint.h>
 #include <trident/rpc_listener.h>
 #include <trident/service_pool.h>
 #include <trident/thread_group_impl.h>
 #include <trident/timer_worker.h>
 
 namespace trident {
-
 
 class RpcServerImpl : public trident::enable_shared_from_this<RpcServerImpl>
 {
@@ -36,6 +33,8 @@ public:
     bool Start(const std::string& server_address);
 
     void Stop();
+
+    PTime GetStartTime();
 
     RpcServerOptions GetOptions();
 
@@ -56,55 +55,26 @@ public:
     // listening.  Return false if the server is not started, or fail to restart listening.
     bool RestartListen();
 
+    WebServicePtr GetWebService();
+
+    bool RegisterWebServlet(const std::string& path, Servlet servlet, bool take_ownership);
+
+    Servlet UnregisterWebServlet(const std::string& path);
+
 private:
     void OnCreated(const RpcServerStreamPtr& stream);
 
     void OnAccepted(const RpcServerStreamPtr& stream);
 
-    void OnAcceptFailed(
-            RpcErrorCode error_code,
-            const std::string& error_text);
+    void OnAcceptFailed(RpcErrorCode error_code, const std::string& error_text);
 
-    void OnReceived(
-            const RpcEndpoint& local_endpoint,
-            const RpcEndpoint& remote_endpoint,
-            const RpcMeta& meta,
-            const RpcServerStreamWPtr& stream,
-            const ReadBufferPtr& buffer,
-            int64 data_size);
-
-    static void OnCallMethodDone(
-            RpcController* controller,
-            google::protobuf::Message* request,
-            google::protobuf::Message* response,
-            MethodBoard* method_board,
-            PTime start_time);
-
-    static void SendFailedResponse(
-            const RpcServerStreamWPtr& stream,
-            uint64 sequence_id,
-            int32 error_code,
-            const std::string& reason);
-
-    static void SendSucceedResponse(
-            const RpcServerStreamWPtr& stream,
-            uint64 sequence_id,
-            CompressType compress_type,
-            google::protobuf::Message* response);
-
-    static void OnSendResponseDone(
-            const RpcEndpoint& remote_endpoint,
-            uint64 sequence_id,
-            RpcErrorCode error_code);
+    void OnReceived(const RpcServerStreamWPtr& stream, const RpcRequestPtr& request);
 
     void StopStreams();
 
     void ClearStreams();
 
     void TimerMaintain(const PTime& now);
-
-    static bool ParseMethodFullName(const std::string& method_full_name,
-            std::string* service_full_name, std::string* method_name);
 
 private:
     struct FlowControlItem
@@ -126,7 +96,7 @@ private:
     volatile bool _is_running;
     MutexLock _start_stop_lock;
 
-    PTime _epoch_time;
+    PTime _start_time;
     int64 _ticks_per_second;
     int64 _last_maintain_ticks;
     int64 _last_restart_listen_ticks;
@@ -160,12 +130,12 @@ private:
     FastLock _stream_list_lock;
     volatile int _live_stream_count;
 
+    WebServicePtr _web_service;
+
     TRIDENT_DISALLOW_EVIL_CONSTRUCTORS(RpcServerImpl);
 }; // class RpcServerImpl
-
 
 } // namespace trident
 
 #endif // _TRIDENT_RPC_SERVER_IMPL_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

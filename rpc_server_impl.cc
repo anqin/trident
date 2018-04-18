@@ -1,27 +1,26 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
 
 #include <trident/rpc_server_impl.h>
-#include <trident/rpc_controller_impl.h>
-#include <trident/tran_buf_pool.h>
-#include <trident/flow_controller.h>
+
 #include <trident/builtin_service_impl.h>
 #include <trident/closure.h>
-#include <trident/ptime.h>
 #include <trident/compressed_stream.h>
+#include <trident/flow_controller.h>
+#include <trident/ptime.h>
+#include <trident/rpc_controller_impl.h>
+#include <trident/tran_buf_pool.h>
+#include <trident/web_service.h>
 
 namespace trident {
-
 
 RpcServerImpl::RpcServerImpl(const RpcServerOptions& options,
         RpcServer::EventHandler* handler)
     : _options(options)
     , _event_handler(handler)
     , _is_running(false)
-    , _epoch_time(ptime_now())
+    , _start_time(ptime_now())
     , _ticks_per_second(time_duration_seconds(1).ticks())
     , _last_maintain_ticks(0)
     , _last_restart_listen_ticks(0)
@@ -29,7 +28,10 @@ RpcServerImpl::RpcServerImpl(const RpcServerOptions& options,
     , _last_print_connection_ticks(0)
     , _live_stream_count(0)
 {
-    _service_pool.reset(new ServicePool());
+    _service_pool.reset(new ServicePool(this));
+
+    _web_service.reset(new WebService(_service_pool));
+    _web_service->Init();
 
     _slice_count = std::max(1, 1000 / MAINTAIN_INTERVAL_IN_MS);
     _slice_quota_in = _options.max_throughput_in == -1 ?
@@ -68,6 +70,7 @@ RpcServerImpl::~RpcServerImpl()
 {
     TRIDENT_FUNCTION_TRACE;
     Stop();
+    _web_service.reset();
     _service_pool.reset();
     if (_event_handler) delete _event_handler;
 }
@@ -200,6 +203,11 @@ void RpcServerImpl::Stop()
 #endif
 }
 
+PTime RpcServerImpl::GetStartTime()
+{
+    return _start_time;
+}
+
 RpcServerOptions RpcServerImpl::GetOptions()
 {
     return _options;
@@ -221,7 +229,7 @@ void RpcServerImpl::ResetOptions(const RpcServerOptions& options)
         -1 : std::max(0L, _options.max_throughput_in * 1024L * 1024L) / _slice_count;
     _slice_quota_out = _options.max_throughput_out == -1 ?
         -1 : std::max(0L, _options.max_throughput_out * 1024L * 1024L) / _slice_count;
-    _max_pending_buffer_size = 
+    _max_pending_buffer_size =
         std::max(0L, _options.max_pending_buffer_size * 1024L * 1024L);
     _keep_alive_ticks = _options.keep_alive_time == -1 ?
         -1 : std::max(1, _options.keep_alive_time) * _ticks_per_second;
@@ -366,8 +374,7 @@ void RpcServerImpl::OnCreated(const RpcServerStreamPtr& stream)
 {
     stream->set_flow_controller(_flow_controller);
     stream->set_received_request_callback(
-            boost::bind(&RpcServerImpl::OnReceived,
-                shared_from_this(), _1, _2, _3, _4, _5, _6));
+            boost::bind(&RpcServerImpl::OnReceived, shared_from_this(), _1, _2));
 }
 
 void RpcServerImpl::OnAccepted(const RpcServerStreamPtr& stream)
@@ -379,7 +386,7 @@ void RpcServerImpl::OnAccepted(const RpcServerStreamPtr& stream)
     }
 
     stream->set_max_pending_buffer_size(_max_pending_buffer_size);
-    stream->reset_ticks((ptime_now() - _epoch_time).ticks());
+    stream->reset_ticks((ptime_now() - _start_time).ticks());
 
     ScopedLocker<FastLock> _(_stream_list_lock);
     _stream_list.push_back(stream);
@@ -397,367 +404,21 @@ void RpcServerImpl::OnAcceptFailed(RpcErrorCode error_code, const std::string& e
     }
 }
 
-void RpcServerImpl::OnReceived(
-        const RpcEndpoint& local_endpoint,
-        const RpcEndpoint& remote_endpoint,
-        const RpcMeta& meta,
-        const RpcServerStreamWPtr& stream,
-        const ReadBufferPtr& buffer,
-        int64 /* data_size */)
+void RpcServerImpl::OnReceived(const RpcServerStreamWPtr& stream, const RpcRequestPtr& request)
 {
     if (!_is_running)
     {
 #if 0
-        LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
-                   << ": {" << meta.sequence_id() << "}: server not in running, ignore";
+        LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(request->RemoteEndpoint())
+                   << ": server not in running, ignore";
 #else
-        SLOG(ERROR, "OnReceived(): %s: {%lu}: server not in running, ignore",
-                RpcEndpointToString(remote_endpoint).c_str(), meta.sequence_id());
+        SLOG(ERROR, "OnReceived(): %s: server not in running, ignore",
+                RpcEndpointToString(request->RemoteEndpoint()).c_str());
 #endif
         return;
     }
 
-    if (!meta.has_method())
-    {
-#if 0
-        LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
-                   << ": {" << meta.sequence_id() << "}: \"method\" field not set in meta";
-#else
-        SLOG(ERROR, "OnReceived(): %s: {%lu}: \"method\" field not set in meta",
-                RpcEndpointToString(remote_endpoint).c_str(), meta.sequence_id());
-#endif
-        SendFailedResponse(stream, meta.sequence_id(),
-                RPC_ERROR_NOT_SPECIFY_METHOD_NAME, "rpc meta: \"method\" field not set");
-        return;
-    }
-
-    const std::string& method_full_name = meta.method();
-    std::string service_name;
-    std::string method_name;
-    if (!ParseMethodFullName(method_full_name, &service_name, &method_name))
-    {
-#if 0
-        LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
-                   << ": {" << meta.sequence_id() << "}"
-                   << ": invalid method full name: " << method_full_name;
-#else
-        SLOG(ERROR, "OnReceived(): %s: {%lu}: invalid method full name: %s",
-                RpcEndpointToString(remote_endpoint).c_str(), meta.sequence_id(),
-                method_full_name.c_str());
-#endif
-        SendFailedResponse(stream, meta.sequence_id(),
-                RPC_ERROR_PARSE_METHOD_NAME, "method full name: " + method_full_name);
-        return;
-    }
-
-    ServiceBoard* service_board = _service_pool->FindService(service_name);
-    if (service_board == NULL)
-    {
-#if 0
-        LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
-                   << ": {" << meta.sequence_id() << "}"
-                   << ": service \"" << service_name << "\" not found"
-                   << ", method full name is \"" << method_full_name << "\"";
-#else
-        SLOG(ERROR, "OnReceived(): %s: {%lu}: "
-                "service \"%s\" not found, method full name is \"%s\"",
-                RpcEndpointToString(remote_endpoint).c_str(), meta.sequence_id(),
-                service_name.c_str(), method_full_name.c_str());
-#endif
-        SendFailedResponse(stream, meta.sequence_id(),
-                RPC_ERROR_FOUND_SERVICE, "method full name: " + method_full_name);
-        return;
-    }
-
-    google::protobuf::Service* service = service_board->Service();
-    const google::protobuf::MethodDescriptor* method =
-        service->GetDescriptor()->FindMethodByName(method_name);
-    if (method == NULL)
-    {
-#if 0
-        LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
-                   << ": {" << meta.sequence_id() << "}"
-                   << ": method \"" << method_name << "\" not found"
-                   << ", method full name is \"" << method_full_name << "\"";
-#else
-        SLOG(ERROR, "OnReceived(): %s: {%lu}: "
-                "method \"%s\" not found, method full name is \"%s\"",
-                RpcEndpointToString(remote_endpoint).c_str(), meta.sequence_id(),
-                method_name.c_str(), method_full_name.c_str());
-#endif
-        SendFailedResponse(stream, meta.sequence_id(),
-                RPC_ERROR_FOUND_METHOD, "method full name: " + method_full_name);
-        return;
-    }
-
-    google::protobuf::Message* request = service->GetRequestPrototype(method).New();
-    SCHECK(request != NULL);
-    CompressType compress_type = meta.has_compress_type() ? meta.compress_type(): CompressTypeNone;
-    bool parse_request_return = false;
-    if (compress_type == CompressTypeNone)
-    {
-        parse_request_return = request->ParseFromZeroCopyStream(buffer.get());
-    }
-    else
-    {
-        ::trident::scoped_ptr<AbstractCompressedInputStream> is(
-                get_compressed_input_stream(buffer.get(), compress_type));
-        parse_request_return = request->ParseFromZeroCopyStream(is.get());
-    }
-    if (!parse_request_return)
-    {
-#if 0
-        LOG(ERROR) << "OnReceived(): " << RpcEndpointToString(remote_endpoint)
-                   << ": {" << meta.sequence_id() << "}: parse request message failed";
-#else
-        SLOG(ERROR, "OnReceived(): %s: {%lu}: parse request message failed",
-                RpcEndpointToString(remote_endpoint).c_str(), meta.sequence_id());
-#endif
-        SendFailedResponse(stream, meta.sequence_id(),
-                RPC_ERROR_PARSE_REQUEST_MESSAGE, "method full name: " + method_full_name);
-        delete request;
-        return;
-    }
-
-    google::protobuf::Message* response = service->GetResponsePrototype(method).New();
-    SCHECK(response != NULL);
-
-    RpcController* controller = new RpcController();
-    SCHECK(controller != NULL);
-    const RpcControllerImplPtr& cntl = controller->impl();
-    cntl->SetSequenceId(meta.sequence_id());
-    cntl->SetMethodId(method_full_name);
-    cntl->SetLocalEndpoint(local_endpoint);
-    cntl->SetRemoteEndpoint(remote_endpoint);
-    cntl->SetRpcServerStream(stream);
-    cntl->SetRequestReceivedTime(ptime_now());
-    cntl->SetResponseCompressType(meta.has_expected_response_compress_type() ?
-            meta.expected_response_compress_type() : CompressTypeNone);
-
-    MethodBoard* method_board = service_board->Method(method->index());
-    method_board->ReportProcessBegin();
-
-    google::protobuf::Closure* done = NewClosure(
-            &RpcServerImpl::OnCallMethodDone, controller, request, response,
-            method_board, ptime_now());
-    service->CallMethod(method, controller, request, response, done);
-}
-
-void RpcServerImpl::OnCallMethodDone(
-        RpcController* controller,
-        google::protobuf::Message* request,
-        google::protobuf::Message* response,
-        MethodBoard* method_board,
-        PTime start_time)
-{
-    int64 process_time_us = (ptime_now() - start_time).total_microseconds();
-    const RpcControllerImplPtr& cntl = controller->impl();
-    if (cntl->Failed())
-    {
-#if 0
-        LOG(ERROR) << "OnCallMethodDone(): call method \"" << cntl->MethodId()
-                   << "\" failed: " << RpcErrorCodeToString(cntl->ErrorCode())
-                   << ": " << cntl->Reason();
-#else
-        SLOG(ERROR, "OnCallMethodDone(): call method \"%s\" failed: %s: %s",
-                cntl->MethodId().c_str(),
-                RpcErrorCodeToString(cntl->ErrorCode()),
-                cntl->Reason().c_str());
-#endif
-        method_board->ReportProcessEnd(false, process_time_us);
-        SendFailedResponse(cntl->RpcServerStream(), cntl->SequenceId(),
-                cntl->ErrorCode(), cntl->Reason());
-    }
-    else
-    {
-#if 0
-#else
-        SLOG(DEBUG, "OnCallMethodDone(): call method \"%s\" succeed",
-                cntl->MethodId().c_str());
-#endif
-        method_board->ReportProcessEnd(true, process_time_us);
-        SendSucceedResponse(cntl->RpcServerStream(), cntl->SequenceId(),
-                cntl->ResponseCompressType(), response);
-    }
-
-    delete request;
-    delete response;
-    delete controller;
-}
-
-void RpcServerImpl::SendFailedResponse(
-        const RpcServerStreamWPtr& stream,
-        uint64 sequence_id,
-        int32 error_code,
-        const std::string& reason)
-{
-    RpcServerStreamPtr real_stream = stream.lock();
-    if (!real_stream)
-    {
-#if 0
-        LOG(ERROR) << "SendFailedResponse(): {" << sequence_id << "}: stream already closed";
-#else
-        SLOG(ERROR, "SendFailedResponse(): {%lu}: stream already closed", sequence_id);
-#endif
-        return;
-    }
-
-    RpcMeta meta;
-    meta.set_type(RpcMeta::RESPONSE);
-    meta.set_sequence_id(sequence_id);
-    meta.set_failed(true);
-    meta.set_error_code(error_code);
-    meta.set_reason(reason);
-
-    RpcMessageHeader header;
-    int header_size = static_cast<int>(sizeof(header));
-    WriteBuffer write_buffer;
-    int64 header_pos = write_buffer.Reserve(header_size);
-    if (header_pos < 0)
-    {
-#if 0
-        LOG(ERROR) << "SendFailedResponse(): {" << sequence_id << "}"
-                   << ": reserve rpc message header failed";
-#else
-        SLOG(ERROR, "SendFailedResponse(): {%lu}: reserve rpc message header failed", sequence_id);
-#endif
-        return;
-    }
-    if (!meta.SerializeToZeroCopyStream(&write_buffer))
-    {
-#if 0
-        LOG(ERROR) << "SendFailedResponse(): {" << sequence_id << "}"
-                   << ": serialize rpc meta failed";
-#else
-        SLOG(ERROR, "SendFailedResponse(): {%lu}: serialize rpc meta failed", sequence_id);
-#endif
-        return;
-    }
-    header.meta_size = static_cast<int>(write_buffer.ByteCount() - header_pos - header_size);
-    header.data_size = 0;
-    header.message_size = header.meta_size + header.data_size;
-    write_buffer.SetData(header_pos, reinterpret_cast<const char*>(&header), header_size);
-
-    ReadBufferPtr read_buffer(new ReadBuffer());
-    write_buffer.SwapOut(read_buffer.get());
-
-    real_stream->send_response(read_buffer,
-            boost::bind(&RpcServerImpl::OnSendResponseDone,
-                real_stream->remote_endpoint(), sequence_id, _1));
-}
-
-void RpcServerImpl::SendSucceedResponse(
-        const RpcServerStreamWPtr& stream,
-        uint64 sequence_id,
-        CompressType compress_type,
-        google::protobuf::Message* response)
-{
-    RpcServerStreamPtr real_stream = stream.lock();
-    if (!real_stream)
-    {
-#if 0
-        LOG(ERROR) << "SendSucceedResponse(): {" << sequence_id << "}"
-                   << ": stream already closed";
-#else
-        SLOG(ERROR, "SendSucceedResponse(): {%lu}: stream already closed", sequence_id);
-#endif
-        return;
-    }
-
-    RpcMeta meta;
-    meta.set_type(RpcMeta::RESPONSE);
-    meta.set_sequence_id(sequence_id);
-    meta.set_failed(false);
-    meta.set_compress_type(compress_type);
-
-    RpcMessageHeader header;
-    int header_size = static_cast<int>(sizeof(header));
-    WriteBuffer write_buffer;
-    int64 header_pos = write_buffer.Reserve(header_size);
-    if (header_pos < 0)
-    {
-#if 0
-        LOG(ERROR) << "SendSucceedResponse(): {" << sequence_id << "}"
-                   << ": reserve rpc message header failed";
-#else
-        SLOG(ERROR, "SendSucceedResponse(): {%lu}: reserve rpc message header failed", sequence_id);
-#endif
-        return;
-    }
-    if (!meta.SerializeToZeroCopyStream(&write_buffer))
-    {
-#if 0
-        LOG(ERROR) << "SendSucceedResponse(): {" << sequence_id << "}"
-                   << ": serialize rpc meta failed";
-#else
-        SLOG(ERROR, "SendSucceedResponse(): {%lu}: serialize rpc meta failed", sequence_id);
-#endif
-        SendFailedResponse(stream, sequence_id,
-                RPC_ERROR_SERIALIZE_RESPONSE, "serialize rpc meta failed");
-        return;
-    }
-    header.meta_size = static_cast<int>(write_buffer.ByteCount() - header_pos - header_size);
-    bool serialize_response_return = false;
-    if (compress_type == CompressTypeNone)
-    {
-        serialize_response_return = response->SerializeToZeroCopyStream(&write_buffer);
-    }
-    else
-    {
-        ::trident::scoped_ptr<AbstractCompressedOutputStream> os(
-                get_compressed_output_stream(&write_buffer, compress_type));
-        serialize_response_return = response->SerializeToZeroCopyStream(os.get());
-        os->Flush();
-    }
-    if (!serialize_response_return)
-    {
-#if 0
-        LOG(ERROR) << "SendSucceedResponse(): {" << sequence_id << "}"
-                   << ": serialize response message failed";
-#else
-        SLOG(ERROR, "SendSucceedResponse(): {%lu}: serialize response message failed", sequence_id);
-#endif
-        SendFailedResponse(stream, sequence_id,
-                RPC_ERROR_SERIALIZE_RESPONSE, "serialize response message failed");
-        return;
-    }
-    header.data_size = write_buffer.ByteCount() - header_pos - header_size - header.meta_size;
-    header.message_size = header.meta_size + header.data_size;
-    write_buffer.SetData(header_pos, reinterpret_cast<const char*>(&header), header_size);
-
-    ReadBufferPtr read_buffer(new ReadBuffer());
-    write_buffer.SwapOut(read_buffer.get());
-
-    real_stream->send_response(read_buffer,
-            boost::bind(&RpcServerImpl::OnSendResponseDone,
-                real_stream->remote_endpoint(), sequence_id, _1));
-}
-
-void RpcServerImpl::OnSendResponseDone(
-        const RpcEndpoint& remote_endpoint,
-        uint64 sequence_id,
-        RpcErrorCode error_code)
-{
-    if (error_code == RPC_SUCCESS)
-    {
-#if 0
-#else
-        SLOG(DEBUG, "OnSendResponseDone(): %s {%lu}: send succeed",
-                RpcEndpointToString(remote_endpoint).c_str(), sequence_id);
-#endif
-    }
-    else
-    {
-#if 0
-        LOG(ERROR) << "OnSendResponseDone(): " << RpcEndpointToString(remote_endpoint)
-                   << " {" << sequence_id << "}"
-                   << ": send failed: " << RpcErrorCodeToString(error_code);
-#else
-        SLOG(ERROR, "OnSendResponseDone(): %s {%lu}: send failed: %s",
-                RpcEndpointToString(remote_endpoint).c_str(), sequence_id,
-                RpcErrorCodeToString(error_code));
-#endif
-    }
+    request->ProcessRequest(stream, _service_pool);
 }
 
 void RpcServerImpl::StopStreams()
@@ -780,7 +441,7 @@ void RpcServerImpl::TimerMaintain(const PTime& now)
 {
     TRIDENT_FUNCTION_TRACE;
 
-    int64 now_ticks = (now - _epoch_time).ticks();
+    int64 now_ticks = (now - _start_time).ticks();
 
     // check listener, if closed, then try to restart it every interval.
     if (_listener->is_closed()
@@ -907,17 +568,28 @@ void RpcServerImpl::TimerMaintain(const PTime& now)
     _last_maintain_ticks = now_ticks;
 }
 
-bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
-        std::string* service_full_name, std::string* method_name)
+WebServicePtr RpcServerImpl::GetWebService()
 {
-    std::string::size_type pos = method_full_name.rfind('.');
-    if (pos == std::string::npos) return false;
-    *service_full_name = method_full_name.substr(0, pos);
-    *method_name = method_full_name.substr(pos + 1);
-    return true;
+    return _web_service;
 }
 
+bool RpcServerImpl::RegisterWebServlet(const std::string& path, Servlet servlet, bool take_ownership)
+{
+    if (!_web_service)
+    {
+        return false;
+    }
+    return _web_service->RegisterServlet(path, servlet, take_ownership);
+}
+
+Servlet RpcServerImpl::UnregisterWebServlet(const std::string& path)
+{
+    if (!_web_service)
+    {
+        return NULL;
+    }
+    return _web_service->UnregisterServlet(path);
+}
 
 } // namespace trident
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

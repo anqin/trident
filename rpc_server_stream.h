@@ -1,41 +1,37 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-//
-// 
+// Author: qinzuoyan01 (Qin Zuoyan)
 
 #ifndef _TRIDENT_RPC_SERVER_STREAM_H_
 #define _TRIDENT_RPC_SERVER_STREAM_H_
 
-#include <trident/rpc_message_stream.h>
 #include <trident/rpc_error_code.h>
 #include <trident/rpc_meta.pb.h>
+#include <trident/rpc_server_message_stream.h>
 
 namespace trident {
 
-
 // Callback function when received request message.
 typedef boost::function<void(
-        const RpcEndpoint& /* local_endpoint */,
-        const RpcEndpoint& /* remote_endpoint */,
-        const RpcMeta& /* meta */,
         const RpcServerStreamWPtr& /* stream */,
-        const ReadBufferPtr& /* buffer */,
-        int64 /*data_size*/)> ReceivedRequestCallback;
+        const RpcRequestPtr& /* request */)> ReceivedRequestCallback;
 
 /// Callback function when send response message done.
 //  * if "status" == RPC_SUCCESS, means send response succeed;
 //  * else, means send failed.
-typedef boost::function<void(RpcErrorCode /* status */)> SendResponseCallback;
+typedef boost::function<void(
+        RpcErrorCode /* status */)> SendResponseCallback;
 
-class RpcServerStream : public RpcMessageStream<SendResponseCallback>
+class RpcServerStream : public RpcServerMessageStream<SendResponseCallback>
 {
 public:
     RpcServerStream(IOService& io_service)
-        : RpcMessageStream<SendResponseCallback>(ROLE_TYPE_SERVER, io_service, RpcEndpoint())
+        : RpcServerMessageStream<SendResponseCallback>(
+                ROLE_TYPE_SERVER, io_service, RpcEndpoint())
     {}
 
-    virtual ~RpcServerStream() 
+    virtual ~RpcServerStream()
     {
         TRIDENT_FUNCTION_TRACE;
         close("stream destructed");
@@ -58,7 +54,7 @@ public:
     // If send done, on mater succeed or failed, SendResponseCallback will be called.
     // @param message  the response message to send, including the header.  not null.
     // @param callback  the callback function when send succeed or failed.  NULL means no callback.
-    void send_response(const ReadBufferPtr& message, 
+    void send_response(const ReadBufferPtr& message,
             const SendResponseCallback& callback)
     {
         TRIDENT_FUNCTION_TRACE;
@@ -103,54 +99,15 @@ private:
     }
 
     virtual void on_received(
-            const ReadBufferPtr& message,
-            int meta_size,
-            int64 data_size)
+            const RpcRequestPtr& request)
     {
         TRIDENT_FUNCTION_TRACE;
 
-        RpcMeta meta;
-        if (!meta.ParseFromBoundedZeroCopyStream(message.get(), meta_size))
+        if (_received_request_callback)
         {
-#if 0
-            LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
-                       << ": parse rpc meta failed";
-#else
-            SLOG(ERROR, "on_received(): %s: parse rpc meta failed",
-                    RpcEndpointToString(_remote_endpoint).c_str());
-#endif
-            return;
-        }
-
-        if (meta.type() == RpcMeta::REQUEST)
-        {
-            if (_received_request_callback)
-            {
-                _received_request_callback(
-                        _local_endpoint,
-                        _remote_endpoint,
-                        meta,
-                        RpcServerStreamWPtr(
-                            trident::dynamic_pointer_cast<RpcServerStream>(shared_from_this())),
-                        message,
-                        data_size);
-            }
-        }
-        else
-        {
-            // TODO handle un-expected message type
-            //
-            // just ignore it
-#if 0
-            LOG(ERROR) << "on_received(): " << RpcEndpointToString(_remote_endpoint)
-                       << " {" << meta.sequence_id() << "}:"
-                       << " un-expected message type: " << meta.type();
-#else
-            SLOG(ERROR, "on_received(): %s {%lu}: un-expected message type: %d",
-                    RpcEndpointToString(_remote_endpoint).c_str(),
-                    meta.sequence_id(), meta.type());
-#endif
-            return;
+            _received_request_callback(
+                    trident::dynamic_pointer_cast<RpcServerStream>(shared_from_this()),
+                    request);
         }
     }
 
@@ -158,9 +115,7 @@ private:
     ReceivedRequestCallback _received_request_callback;
 }; // class RpcServerStream
 
-
 } // namespace trident
 
 #endif // _TRIDENT_RPC_SERVER_STREAM_H_
 
-/* vim: set ts=4 sw=4 sts=4 tw=100 */

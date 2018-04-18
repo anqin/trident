@@ -25,3 +25,12 @@ cc_binary(
         '//trident:trident'
     ]
 )
+
+cc_binary(
+    name = 'echo_client_async',
+    srcs = 'client_async.cc',
+    deps = [
+        ':echo_service_proto',
+        '//trident:trident'
+    ]
+)
