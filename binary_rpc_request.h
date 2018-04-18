@@ -1,7 +1,7 @@
 // Copyright (c) 2014 The Trident Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// Author: qinzuoyan01 (Qin Zuoyan)
+// Author: Zuoyan Qin (qinzuoyan@gmail.com)
 
 #ifndef _TRIDENT_BINARY_RPC_REQUEST_H_
 #define _TRIDENT_BINARY_RPC_REQUEST_H_

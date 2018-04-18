@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-// Author: qinzuoyan01 (Qin Zuoyan)
+// Author: Zuoyan Qin (qinzuoyan@gmail.com)
 
 #include <trident/ext_closure.h>
 #include <trident/smart_ptr/smart_ptr.hpp>
